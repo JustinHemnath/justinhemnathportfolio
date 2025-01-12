@@ -1,7 +1,5 @@
 const Welcome = () => {
-  return (
-    <div>Welcome</div>
-  )
-}
+  return <div className="">Welcome</div>;
+};
 
-export default Welcome
+export default Welcome;
