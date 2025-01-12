@@ -9,7 +9,6 @@ const Sidebar = ({ sidebarWidth }: any) => {
       section.split(""),
     ),
   );
-  const [modifiedWidth, setModifiedWidth] = useState(0);
 
   return (
     <motion.div
@@ -25,6 +24,7 @@ const Sidebar = ({ sidebarWidth }: any) => {
       <div className="flex h-full w-full flex-col items-stretch justify-between py-24">
         {sectionStringsArr.map((sectionArr: string[]) => (
           <motion.div
+            key={sectionArr.join("")}
             className="flex cursor-pointer flex-col items-center gap-3 text-xl font-semibold"
             whileHover={{
               scale: 1.3,
@@ -34,9 +34,11 @@ const Sidebar = ({ sidebarWidth }: any) => {
               type: "spring",
             }}
           >
-            {sectionArr.map((letter: string) => (
+            {sectionArr.map((letter: string, index: number) => (
               // <div className="h-2 -rotate-90 uppercase">{letter}</div>
-              <div className="h-2 uppercase">{letter}</div>
+              <div className="h-2 uppercase" key={`${letter}${index}`}>
+                {letter}
+              </div>
             ))}
           </motion.div>
         ))}

@@ -1,8 +1,7 @@
-const Projects = ({ sidebarWidth }: any) => {
-  return (
-    <div className="py-6 pl-4" style={{ marginLeft: sidebarWidth }}>
-      Projects
-    </div>
-  );
+import PageWrapper from "../PageWrapper";
+
+const Projects = ({ sidebarWidth }: { sidebarWidth: number }) => {
+  return <PageWrapper {...{ sidebarWidth }}>Test</PageWrapper>;
 };
+
 export default Projects;

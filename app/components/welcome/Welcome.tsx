@@ -1,3 +1,4 @@
+import About from "../About/About";
 import Projects from "../Projects/Projects";
 import Sidebar from "../Sidebar/Sidebar";
 
@@ -7,6 +8,7 @@ const Welcome = () => {
   return (
     <div className="p-2 text-xl">
       <Sidebar {...{ sidebarWidth }} />
+      <About {...{ sidebarWidth }} />
       <Projects {...{ sidebarWidth }} />
     </div>
   );
