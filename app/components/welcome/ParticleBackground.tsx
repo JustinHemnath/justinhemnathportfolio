@@ -67,7 +67,7 @@ const ParticleBackground = ({ children }: { children: ReactNode }) => {
                 },
                 number: {
                   density: { enable: true, height: 800, width: 800 },
-                  value: 80,
+                  value: 40,
                 },
                 opacity: {
                   value: 0.5,
