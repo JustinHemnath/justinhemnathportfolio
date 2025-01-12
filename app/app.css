@@ -1,3 +1,6 @@
+/* @import url("https://fonts.googleapis.com/css2?family=Rubik+Iso&display=swap"); */
+@import url("https://fonts.googleapis.com/css2?family=Bungee&display=swap");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -5,6 +8,8 @@
 html,
 body {
   @apply bg-white dark:bg-gray-950;
+
+  font-family: "Bungee", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 
   @media (prefers-color-scheme: dark) {
     color-scheme: dark;
