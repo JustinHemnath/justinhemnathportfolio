@@ -5,6 +5,10 @@
 @tailwind components;
 @tailwind utilities;
 
+html {
+  scroll-snap-type: y mandatory;
+}
+
 html,
 body {
   @apply bg-white dark:bg-gray-950;

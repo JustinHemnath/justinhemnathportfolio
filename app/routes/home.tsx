@@ -11,7 +11,7 @@ export function meta({}: Route.MetaArgs) {
 
 export default function Home() {
   return (
-    <div className="h-screen overflow-auto bg-slate-900">
+    <div className="bg-slate-900">
       <ParticleBackground>
         <Welcome />
       </ParticleBackground>

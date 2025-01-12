@@ -8,7 +8,13 @@ const PageWrapper = ({
   sidebarWidth: number;
 }) => {
   return (
-    <div className="h-screen py-6 pl-4" style={{ marginLeft: sidebarWidth }}>
+    <div
+      className="h-screen py-6 pl-4"
+      style={{
+        marginLeft: sidebarWidth,
+        scrollSnapAlign: "center",
+      }}
+    >
       {children}
     </div>
   );

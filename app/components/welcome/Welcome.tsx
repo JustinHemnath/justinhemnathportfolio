@@ -9,7 +9,7 @@ const Welcome = () => {
     <div>
       <Sidebar {...{ sidebarWidth }} />
       <About {...{ sidebarWidth }} />
-      {/* <Projects {...{ sidebarWidth }} /> */}
+      <Projects {...{ sidebarWidth }} />
     </div>
   );
 };
