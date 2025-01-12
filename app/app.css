@@ -9,9 +9,45 @@ html,
 body {
   @apply bg-white dark:bg-gray-950;
 
-  font-family: "Bungee", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  /* font-family: "Bungee", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif; */
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 
   @media (prefers-color-scheme: dark) {
     color-scheme: dark;
   }
+}
+
+.feederString::after {
+  content: "";
+  /* content: "T"; */
+  /* visibility: hidden; */
+  height: 3rem;
+  width: 5px;
+  background-color: white;
+  /* animation-iteration-count: infinite; */
+  /* animation-name: cursorBlink; */
+  /* animation-duration: 1; */
+  animation: cursorBlink 1s linear infinite;
+}
+
+@keyframes cursorBlink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+.funkyText {
+  background: linear-gradient(
+    90deg,
+    rgba(63, 94, 251, 1) 0%,
+    rgba(252, 70, 107, 1) 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  line-height: 1.5;
 }

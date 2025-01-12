@@ -8,10 +8,7 @@ const PageWrapper = ({
   sidebarWidth: number;
 }) => {
   return (
-    <div
-      className="h-full bg-blue-500 py-6 pl-4"
-      style={{ marginLeft: sidebarWidth }}
-    >
+    <div className="h-screen py-6 pl-4" style={{ marginLeft: sidebarWidth }}>
       {children}
     </div>
   );

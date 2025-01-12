@@ -1,38 +1,50 @@
 import { useEffect, useState } from "react";
-import AnimatedCursor from "./AnimatedCursor";
 
-const MainTitle = () => {
-  const mainTitle = "I'm Hemnath Balasubramanian";
-  const [feederString, setFeederString] = useState("");
+const MainTitle = ({
+  text,
+  shouldAnimate,
+}: {
+  text: string;
+  shouldAnimate: boolean;
+}) => {
+  const [feederString, setFeederString] = useState(shouldAnimate ? "" : text);
 
   useEffect(() => {
-    if (mainTitle.length === feederString.length) {
+    if (!shouldAnimate) {
       return;
     } else {
-      const letterAdderTimeout = setTimeout(() => {
-        setFeederString((feederString: string) => {
-          if (feederString.length === 0) {
-            return mainTitle[0];
-          } else {
-            const index = feederString.length;
-            const letterToAdd = mainTitle[index];
+      if (text.length === feederString.length) {
+        return;
+      } else {
+        const letterAdderTimeout = setTimeout(() => {
+          setFeederString((feederString: string) => {
+            if (feederString.length === 0) {
+              return text[0];
+            } else {
+              const index = feederString.length;
+              const letterToAdd = text[index];
 
-            return feederString + letterToAdd;
-          }
-        });
-      }, 100);
+              return feederString + letterToAdd;
+            }
+          });
+        }, 100);
 
-      return () => clearTimeout(letterAdderTimeout);
+        return () => clearTimeout(letterAdderTimeout);
+      }
     }
 
     //   }, []);
   }, [feederString]);
 
   return (
-    <div className="flex gap-1 text-5xl">
-      <p className="feederString flex w-[30%] flex-wrap items-start justify-start">
-        <span>{feederString}</span>
-        <AnimatedCursor />
+    <div className="flex w-[50%] gap-1 py-10">
+      <p
+        className={
+          "funkyText text-wrap " +
+          (shouldAnimate ? " text-[4rem]" : " text-[2.5rem]")
+        }
+      >
+        {feederString}
       </p>
     </div>
   );

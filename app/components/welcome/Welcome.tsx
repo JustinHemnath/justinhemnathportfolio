@@ -6,10 +6,10 @@ const Welcome = () => {
   const sidebarWidth = 40;
 
   return (
-    <div className="p-2 text-xl">
+    <div>
       <Sidebar {...{ sidebarWidth }} />
       <About {...{ sidebarWidth }} />
-      <Projects {...{ sidebarWidth }} />
+      {/* <Projects {...{ sidebarWidth }} /> */}
     </div>
   );
 };
