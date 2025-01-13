@@ -2,8 +2,8 @@ import { useEffect, useRef } from "react";
 import { useInView } from "motion/react";
 import { SECTIONS } from "~/constants/main.constants";
 
-const Projects = ({ setPageInView }: { setPageInView: any }) => {
-  const sectionName = SECTIONS.PROJECTS;
+const Contact = ({ setPageInView }: { setPageInView: any }) => {
+  const sectionName = SECTIONS.CONTACT;
 
   const ref = useRef(null);
   const isInView = useInView(ref);
@@ -14,9 +14,9 @@ const Projects = ({ setPageInView }: { setPageInView: any }) => {
 
   return (
     <div ref={ref} id={sectionName}>
-      Projects
+      Contact
     </div>
   );
 };
 
-export default Projects;
+export default Contact;
