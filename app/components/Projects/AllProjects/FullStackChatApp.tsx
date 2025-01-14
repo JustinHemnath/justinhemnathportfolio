@@ -1,4 +1,4 @@
-const FullStackChatApp = () => {
+const FullStackChatApp = ({ setIndexSectionActive }: any) => {
   return <div>FullStackChatApp</div>;
 };
 

@@ -1,19 +1,32 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import { useInView } from "motion/react";
-import { ProjectNames, PROJECTS, SECTIONS } from "~/constants/main.constants";
+import { PROJECTS, SECTIONS } from "~/constants/main.constants";
 import { motion } from "framer-motion";
+import ProjectsSection from "./ProjectsSection";
+import FullStackChatApp from "./AllProjects/FullStackChatApp";
+
+type TActiveProject = {
+  name: PROJECTS;
+  component: ReactNode;
+};
 
 const Projects = ({ setPageInView }: { setPageInView: any }) => {
   const sectionName = SECTIONS.PROJECTS;
-  const [activeProject, setActiveProject] = useState<PROJECTS | undefined>(
-    undefined,
-  );
+  const [activeProject, setActiveProject] = useState<
+    TActiveProject | undefined
+  >(undefined);
   const ref = useRef(null);
   const isInView = useInView(ref);
+  const [indexPageActive, setIndexSectionActive] = useState(true);
 
-  useEffect(() => {
-    if (isInView) setPageInView(sectionName);
-  }, [isInView]);
+  const ProjectNames = [
+    {
+      id: 1,
+      name: PROJECTS.CHAT_APP,
+      activeProjectName: PROJECTS.CHAT_APP,
+      component: <FullStackChatApp {...{ setIndexSectionActive }} />,
+    },
+  ];
 
   const listVariants = {
     hidden: { opacity: 0 },
@@ -31,44 +44,59 @@ const Projects = ({ setPageInView }: { setPageInView: any }) => {
     visible: { opacity: 1, y: 0 },
   };
 
+  useEffect(() => {
+    if (isInView) setPageInView(sectionName);
+  }, [isInView]);
+
   return (
     <div ref={ref} id={sectionName} className="h-full p-2">
-      <div className="h-full rounded-3xl bg-black p-2">
+      <div className="h-full rounded-3xl bg-black p-4">
         {/* Projects index section */}
-        <div className="">
-          <motion.p
-            animate={{
-              opacity: isInView ? 1 : 0,
-              y: isInView ? 0 : 100,
-            }}
-            transition={{
-              duration: 0.5,
-              bounce: 1,
-            }}
-            className="funkyText p-2 text-3xl font-bold italic"
-          >
-            PROJECTS
-          </motion.p>
 
-          <motion.ol
-            variants={listVariants}
-            initial="hidden"
-            animate="visible"
-            key={`${sectionName}${isInView}`}
-            className="funkyText mt-10"
-          >
-            {ProjectNames.map((item) => (
-              <motion.li
-                key={item.id}
-                variants={itemVariants}
-                onClick={() => setActiveProject(item.activeProjectName)}
-                className="cursor-pointer text-2xl font-extrabold"
-              >
-                {item.id}. {item.name}
-              </motion.li>
-            ))}
-          </motion.ol>
-        </div>
+        {indexPageActive ? (
+          <div className="">
+            <motion.p
+              animate={{
+                opacity: isInView ? 1 : 0,
+                y: isInView ? 0 : 100,
+              }}
+              transition={{
+                duration: 0.5,
+                bounce: 1,
+              }}
+              className="funkyText p-2 text-3xl font-bold italic"
+            >
+              PROJECTS
+            </motion.p>
+
+            <motion.ol
+              variants={listVariants}
+              initial="hidden"
+              animate="visible"
+              key={`${sectionName}${isInView}`}
+              className="funkyText mt-10"
+            >
+              {ProjectNames.map((item) => (
+                <motion.li
+                  key={item.id}
+                  variants={itemVariants}
+                  onClick={() => {
+                    setActiveProject({
+                      name: item.activeProjectName,
+                      component: item.component,
+                    });
+                    setIndexSectionActive(false);
+                  }}
+                  className="cursor-pointer text-2xl font-extrabold"
+                >
+                  {item.id}. {item.name}
+                </motion.li>
+              ))}
+            </motion.ol>
+          </div>
+        ) : (
+          <ProjectsSection {...{ activeProject }} />
+        )}
       </div>
     </div>
   );
