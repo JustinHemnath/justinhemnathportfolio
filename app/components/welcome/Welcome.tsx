@@ -16,11 +16,19 @@ const Welcome = () => {
 
       {/* main pages  */}
       {[
-        <About {...{ setPageInView }} />,
-        <Projects {...{ setPageInView }} />,
-        <Contact {...{ setPageInView }} />,
-      ].map((element: ReactNode) => (
-        <PageWrapper {...{ sidebarWidth }}>{element}</PageWrapper>
+        { name: SECTIONS.ABOUT, component: <About {...{ setPageInView }} /> },
+        {
+          name: SECTIONS.PROJECTS,
+          component: <Projects {...{ setPageInView }} />,
+        },
+        {
+          name: SECTIONS.CONTACT,
+          component: <Contact {...{ setPageInView }} />,
+        },
+      ].map((elementObj: any) => (
+        <PageWrapper {...{ sidebarWidth }} key={elementObj.name}>
+          {elementObj.component}
+        </PageWrapper>
       ))}
     </div>
   );

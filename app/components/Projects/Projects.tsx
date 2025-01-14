@@ -4,6 +4,7 @@ import { PROJECTS, SECTIONS } from "~/constants/main.constants";
 import { motion } from "framer-motion";
 import ProjectsSection from "./ProjectsSection";
 import FullStackChatApp from "./AllProjects/FullStackChatApp";
+import { firebaseConfig } from "~/firebase.config";
 
 type TActiveProject = {
   name: PROJECTS;
@@ -11,6 +12,8 @@ type TActiveProject = {
 };
 
 const Projects = ({ setPageInView }: { setPageInView: any }) => {
+  console.log({ env: firebaseConfig });
+
   const sectionName = SECTIONS.PROJECTS;
   const [activeProject, setActiveProject] = useState<
     TActiveProject | undefined
