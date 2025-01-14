@@ -12,8 +12,6 @@ type TActiveProject = {
 };
 
 const Projects = ({ setPageInView }: { setPageInView: any }) => {
-  console.log({ env: firebaseConfig });
-
   const sectionName = SECTIONS.PROJECTS;
   const [activeProject, setActiveProject] = useState<
     TActiveProject | undefined
