@@ -1,9 +1,9 @@
-import FullStackChatApp from "./AllProjects/FullStackChatApp";
+import ChatApp from "./AllProjects/ChatApp/index.chatapp.project";
 
 const ProjectsSection = ({ activeProject }: any) => {
   return (
     <div className="h-full">
-      <FullStackChatApp />
+      <ChatApp />
     </div>
   );
 };

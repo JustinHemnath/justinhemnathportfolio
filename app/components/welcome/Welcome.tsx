@@ -13,7 +13,6 @@ const Welcome = () => {
   const sidebarWidth = 40;
   const [pageInView, setPageInView] = useState(SECTIONS.ABOUT);
   const app = initializeApp(firebaseConfig);
-  console.log({ app });
 
   return (
     <div>

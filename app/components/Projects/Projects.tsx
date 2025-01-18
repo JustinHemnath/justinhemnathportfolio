@@ -3,7 +3,7 @@ import { useInView } from "motion/react";
 import { PROJECTS, SECTIONS } from "~/constants/main.constants";
 import { motion } from "framer-motion";
 import ProjectsSection from "./ProjectsSection";
-import FullStackChatApp from "./AllProjects/FullStackChatApp";
+import FullStackChatApp from "./AllProjects/ChatApp/index.chatapp.project";
 import { firebaseConfig } from "~/firebase.config";
 
 type TActiveProject = {
@@ -18,7 +18,7 @@ const Projects = ({ setPageInView }: { setPageInView: any }) => {
   >(undefined);
   const ref = useRef(null);
   const isInView = useInView(ref);
-  const [indexPageActive, setIndexSectionActive] = useState(true);
+  const [indexPageActive, setIndexSectionActive] = useState(false);
 
   const ProjectNames = [
     {
@@ -51,7 +51,7 @@ const Projects = ({ setPageInView }: { setPageInView: any }) => {
 
   return (
     <div ref={ref} id={sectionName} className="h-full p-2">
-      <div className="h-full rounded-3xl bg-black p-4">
+      <div className="h-full rounded-3xl bg-black p-2">
         {/* Projects index section */}
 
         {indexPageActive ? (

@@ -40,7 +40,7 @@ const MainTitle = ({
     <div className="flex w-[50%] gap-1 py-10">
       <p
         className={
-          "funkyText text-wrap " +
+          "funkyText text-wrap font-bold " +
           (shouldAnimate ? " text-[4rem]" : " text-[2.5rem]")
         }
       >
