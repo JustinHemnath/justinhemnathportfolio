@@ -1,7 +1,19 @@
 import { create } from "zustand";
 
-const useChatAppStore = create((set) => ({
+export const USER_ACCESS_TOKEN_KEY = "chatAppAccessToken";
+
+export type TUserDetails = {
+  userName: string;
+  email: string;
+  createdAt: number;
+};
+
+type TChatApp = {
+  userDetails: TUserDetails | undefined;
+  setUserDetails: (payload: TUserDetails) => void;
+};
+
+export const useChatAppStore = create<TChatApp>((set) => ({
   userDetails: undefined,
-  //   increasePopulation: () => set((state) => ({ bears: state.bears + 1 })),
-  //   removeAllBears: () => set({ bears: 0 }),
+  setUserDetails: (payload: any) => set({ userDetails: payload }),
 }));
