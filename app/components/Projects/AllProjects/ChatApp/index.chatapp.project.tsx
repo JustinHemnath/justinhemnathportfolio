@@ -4,40 +4,66 @@ import { FaLongArrowAltLeft } from "react-icons/fa";
 import { motion } from "framer-motion";
 import { useState } from "react";
 import ChatApp from "./ChatApp";
+import { getLocalStorageItem, setLocalStorageItem } from "~/utils/signin.utils";
+import {
+  useChatAppStore,
+  USER_ACCESS_TOKEN_KEY,
+  type TUserDetails,
+} from "~/stores/chatapp.store";
+import { firebaseConfig } from "~/firebase.config";
 
 const FullStackChatApp = ({ setIndexSectionActive }: any) => {
   const provider = new GoogleAuthProvider();
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const { userDetails, setUserDetails } = useChatAppStore((state) => state);
+  const [isLoggedIn, setIsLoggedIn] = useState(userDetails ? true : false);
+
+  console.log({ userDetails });
 
   async function googleSignIn() {
     const auth = getAuth();
-    signInWithPopup(auth, provider)
-      .then((result) => {
-        // This gives you a Google Access Token. You can use it to access the Google API.
-        const credential = GoogleAuthProvider.credentialFromResult(result);
-        const token = credential?.accessToken;
-        // The signed-in user info.
-        const user = result.user;
-        console.log({ token, user });
 
-        // IdP data available using getAdditionalUserInfo(result)
-        // ...
-      })
-      .catch((error) => {
-        // Handle Errors here.
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        // The email of the user's account used.
-        const email = error.customData.email;
-        // The AuthCredential type that was used.
-        const credential = GoogleAuthProvider.credentialFromError(error);
-        // ...
+    try {
+      const result = await signInWithPopup(auth, provider);
+
+      // This gives you a Google Access Token. You can use it to access the Google API.
+      const credential = GoogleAuthProvider.credentialFromResult(result);
+      const token = credential?.accessToken;
+      // The signed-in user info.
+      const user: any = result.user;
+      console.log({ token, user });
+
+      const userPayload: TUserDetails = {
+        userName: user.displayName,
+        email: user.email,
+        createdAt: user.metadata.createdAt,
+      };
+      setUserDetails(userPayload);
+      setLocalStorageItem({
+        key: USER_ACCESS_TOKEN_KEY,
+        value: JSON.stringify(userPayload),
       });
+      setIsLoggedIn(true);
+    } catch (error: any) {
+      // Handle Errors here.
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      // The email of the user's account used.
+      const email = error.customData.email;
+      // The AuthCredential type that was used.
+      const credential = GoogleAuthProvider.credentialFromError(error);
+      // ...
+    }
   }
+
+  // useEffect(() => {}, [])
 
   return (
     <div className="relative flex h-full items-center justify-center">
-      {!isLoggedIn ? <SignInPage {...{ googleSignIn }} /> : <ChatApp />}
+      {!isLoggedIn ? (
+        <SignInPage {...{ googleSignIn }} />
+      ) : (
+        <ChatApp {...{ setIsLoggedIn }} />
+      )}
     </div>
   );
 };

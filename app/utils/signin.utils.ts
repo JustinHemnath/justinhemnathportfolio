@@ -1,5 +1,3 @@
-import jwt from "jsonwebtoken"
-
 export function setLocalStorageItem({
   key,
   value,
@@ -7,9 +5,13 @@ export function setLocalStorageItem({
   key: string;
   value: string;
 }) {
-  localStorage.setItem(key, value);
+  if (typeof window !== "undefined") {
+    localStorage.setItem(key, value);
+  }
 }
 
 export function getLocalStorageItem({ key }: { key: string }) {
-  return localStorage.getItem(key);
+  if (typeof window !== "undefined") {
+    return localStorage.getItem(key);
+  }
 }
