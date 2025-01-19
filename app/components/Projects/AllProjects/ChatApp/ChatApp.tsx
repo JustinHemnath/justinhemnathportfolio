@@ -1,4 +1,5 @@
 import AllChatsSidebar from "./AllChatsSidebar";
+import ConversationThread from "./ConversationThread";
 
 const ChatApp = () => {
   return (
@@ -9,8 +10,9 @@ const ChatApp = () => {
       </div>
 
       {/* chat section */}
-      <div className="flex flex-[95%]">
+      <div className="flex h-full flex-[95%]">
         <AllChatsSidebar />
+        <ConversationThread />
       </div>
     </div>
   );
