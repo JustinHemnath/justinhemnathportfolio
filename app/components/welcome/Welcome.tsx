@@ -11,16 +11,16 @@ import Contact from "../Contact/Contact";
 
 const Welcome = () => {
   const sidebarWidth = 40;
-  const [pageInView, setPageInView] = useState(SECTIONS.ABOUT);
+  const [pageInView, setPageInView] = useState(SECTIONS.PROJECTS);
   const app = initializeApp(firebaseConfig);
 
   return (
     <div>
-      <Sidebar {...{ sidebarWidth, pageInView, setPageInView }} />
+      {/* <Sidebar {...{ sidebarWidth, pageInView, setPageInView }} /> */}
 
       {/* main pages  */}
       {[
-        { name: SECTIONS.ABOUT, component: <About {...{ setPageInView }} /> },
+        // { name: SECTIONS.ABOUT, component: <About {...{ setPageInView }} /> },
         {
           name: SECTIONS.PROJECTS,
           component: <Projects {...{ setPageInView }} />,

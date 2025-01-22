@@ -56,7 +56,7 @@ const Projects = ({ setPageInView }: { setPageInView: any }) => {
 
         {indexPageActive ? (
           <div className="">
-            <motion.p
+            {/* <motion.p
               animate={{
                 opacity: isInView ? 1 : 0,
                 y: isInView ? 0 : 100,
@@ -68,7 +68,7 @@ const Projects = ({ setPageInView }: { setPageInView: any }) => {
               className="funkyText p-2 text-3xl font-bold italic"
             >
               PROJECTS
-            </motion.p>
+            </motion.p> */}
 
             <motion.ol
               variants={listVariants}
