@@ -1,10 +1,4 @@
-export function setLocalStorageItem({
-  key,
-  value,
-}: {
-  key: string;
-  value: string;
-}) {
+export function setLocalStorageItem({ key, value }: { key: string; value: string }) {
   if (typeof window !== "undefined") {
     localStorage.setItem(key, value);
   }

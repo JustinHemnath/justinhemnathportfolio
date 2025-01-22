@@ -1,9 +1,10 @@
-import { useChatAppStore, USER_ACCESS_TOKEN_KEY } from "~/stores/chatapp.store";
+import { useChatAppStore, USER_ACCESS_TOKEN_KEY, type TUserDetails } from "~/stores/chatapp.store";
 import AllChatsSidebar from "./AllChatsSidebar";
 import ConversationThread from "./ConversationThread";
 import { SlLogout } from "react-icons/sl";
 import { Spinner } from "@heroui/react";
 import { useEffect } from "react";
+import { validateAndFetchUserMessages } from "~/services/chatapp.project.services";
 
 const ChatApp = ({ setIsLoggedIn }: any) => {
   const {
@@ -22,6 +23,12 @@ const ChatApp = ({ setIsLoggedIn }: any) => {
     setUserDetails(null);
     setIsLoggedIn(false);
   }
+
+  useEffect(() => {
+    console.log("TRIGGERED");
+
+    validateAndFetchUserMessages({ userDetails, setIsValidationLoading, setIsValidationSuccess });
+  }, [userDetails]);
 
   return (
     <div className="flex h-full w-full flex-col overflow-hidden rounded-xl">
