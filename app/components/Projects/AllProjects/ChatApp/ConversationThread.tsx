@@ -23,6 +23,7 @@ const ConversationThread = ({
               style={{
                 alignSelf: userDetails.email === message.sender ? "flex-end" : "flex-start",
               }}
+              key={message.id}
             >
               <div className="flex justify-between gap-10">
                 <div className="text-xl font-bold">{message.sender_name}</div>
