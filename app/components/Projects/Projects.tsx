@@ -13,12 +13,10 @@ type TActiveProject = {
 
 const Projects = ({ setPageInView }: { setPageInView: any }) => {
   const sectionName = SECTIONS.PROJECTS;
-  const [activeProject, setActiveProject] = useState<
-    TActiveProject | undefined
-  >(undefined);
+  const [activeProject, setActiveProject] = useState<TActiveProject | undefined>(undefined);
   const ref = useRef(null);
   const isInView = useInView(ref);
-  const [indexPageActive, setIndexSectionActive] = useState(false);
+  const [indexPageActive, setIndexSectionActive] = useState(true);
 
   const ProjectNames = [
     {
@@ -56,7 +54,7 @@ const Projects = ({ setPageInView }: { setPageInView: any }) => {
 
         {indexPageActive ? (
           <div className="">
-            {/* <motion.p
+            <motion.p
               animate={{
                 opacity: isInView ? 1 : 0,
                 y: isInView ? 0 : 100,
@@ -68,7 +66,7 @@ const Projects = ({ setPageInView }: { setPageInView: any }) => {
               className="funkyText p-2 text-3xl font-bold italic"
             >
               PROJECTS
-            </motion.p> */}
+            </motion.p>
 
             <motion.ol
               variants={listVariants}
@@ -96,7 +94,7 @@ const Projects = ({ setPageInView }: { setPageInView: any }) => {
             </motion.ol>
           </div>
         ) : (
-          <ProjectsSection {...{ activeProject }} />
+          <ProjectsSection {...{ activeProject, setIndexSectionActive }} />
         )}
       </div>
     </div>

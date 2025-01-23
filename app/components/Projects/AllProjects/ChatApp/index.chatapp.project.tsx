@@ -6,7 +6,6 @@ import { useEffect, useState } from "react";
 import ChatApp from "./ChatApp";
 import { getLocalStorageItem, setLocalStorageItem } from "~/utils/signin.utils";
 import { useChatAppStore, USER_ACCESS_TOKEN_KEY, type TUserDetails } from "~/stores/chatapp.store";
-import { firebaseConfig } from "~/firebase.config";
 
 const FullStackChatApp = ({ setIndexSectionActive }: any) => {
   const provider = new GoogleAuthProvider();
@@ -63,18 +62,25 @@ const FullStackChatApp = ({ setIndexSectionActive }: any) => {
 
   return (
     <div className="relative flex h-full items-center justify-center">
-      {!isLoggedIn ? <SignInPage {...{ googleSignIn }} /> : <ChatApp {...{ setIsLoggedIn }} />}
+      {!isLoggedIn ? (
+        <SignInPage {...{ googleSignIn, setIndexSectionActive }} />
+      ) : (
+        <ChatApp {...{ setIsLoggedIn, setIndexSectionActive }} />
+      )}
     </div>
   );
 };
 
 export default FullStackChatApp;
 
-const SignInPage = ({ googleSignIn }: any) => {
+const SignInPage = ({ googleSignIn, setIndexSectionActive }: any) => {
   return (
     <div className="">
       {/* back button */}
-      <div className="absolute left-0 top-0 flex cursor-pointer items-center gap-4 rounded-lg bg-white p-2 text-black">
+      <div
+        className="absolute left-0 top-0 flex cursor-pointer items-center gap-4 rounded-lg bg-white p-2 text-black"
+        onClick={() => setIndexSectionActive(true)}
+      >
         <FaLongArrowAltLeft className="text-2xl" />
         <p className="text-xl font-bold">Back</p>
       </div>

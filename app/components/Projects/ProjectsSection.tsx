@@ -1,10 +1,4 @@
-import ChatApp from "./AllProjects/ChatApp/index.chatapp.project";
-
-const ProjectsSection = ({ activeProject }: any) => {
-  return (
-    <div className="h-full">
-      <ChatApp />
-    </div>
-  );
+const ProjectsSection = ({ activeProject, setIndexSectionActive }: any) => {
+  return <div className="h-full">{activeProject.component}</div>;
 };
 export default ProjectsSection;
