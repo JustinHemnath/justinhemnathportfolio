@@ -1,14 +1,18 @@
 import axios from "axios";
-import type { TUserDetails } from "~/stores/chatapp.store";
+import type { TAllUsers, TUserDetails } from "~/stores/chatapp.store";
 
 export async function validateAndFetchUserMessages({
   userDetails,
   setIsValidationLoading,
   setIsValidationSuccess,
+  setAllUsers,
+  setMessages,
 }: {
   userDetails: TUserDetails | null;
   setIsValidationLoading: (value: boolean) => void;
   setIsValidationSuccess: (value: boolean) => void;
+  setAllUsers: (payload: TAllUsers) => void;
+  setMessages: (payload: any[]) => void;
 }) {
   setIsValidationLoading(true);
 
@@ -29,6 +33,12 @@ export async function validateAndFetchUserMessages({
       });
 
       console.log({ response });
+
+      if (response.data.action === "validated") {
+        setMessages(response.data.metaData.messages);
+      }
+
+      setAllUsers(response.data.metaData.users);
       setIsValidationSuccess(true);
     } catch (err: any) {
       console.log("Failed to get messages");

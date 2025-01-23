@@ -8,7 +8,7 @@ import { validateAndFetchUserMessages } from "~/services/chatapp.project.service
 import { FaLongArrowAltLeft } from "react-icons/fa";
 
 const ChatApp = ({ setIsLoggedIn, setIndexSectionActive }: any) => {
-  const { userDetails, setUserDetails, isValidationLoading, isValidationSuccess, setIsValidationLoading, setIsValidationSuccess } =
+  const { userDetails, setUserDetails, isValidationLoading, isValidationSuccess, setIsValidationLoading, setIsValidationSuccess, setAllUsers, setMessages } =
     useChatAppStore((state) => state);
 
   function handleLogout() {
@@ -21,7 +21,7 @@ const ChatApp = ({ setIsLoggedIn, setIndexSectionActive }: any) => {
 
   useEffect(() => {
     if (userDetails) {
-      validateAndFetchUserMessages({ userDetails, setIsValidationLoading, setIsValidationSuccess });
+      validateAndFetchUserMessages({ userDetails, setIsValidationLoading, setIsValidationSuccess, setAllUsers, setMessages });
     }
   }, [userDetails]);
 

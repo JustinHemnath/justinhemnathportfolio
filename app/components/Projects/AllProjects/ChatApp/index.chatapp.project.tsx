@@ -9,7 +9,8 @@ import { useChatAppStore, USER_ACCESS_TOKEN_KEY, type TUserDetails } from "~/sto
 
 const FullStackChatApp = ({ setIndexSectionActive }: any) => {
   const provider = new GoogleAuthProvider();
-  const { userDetails, setUserDetails } = useChatAppStore((state) => state);
+  const userDetails = useChatAppStore((state) => state.userDetails);
+  const setUserDetails = useChatAppStore((state) => state.setUserDetails);
   const [isLoggedIn, setIsLoggedIn] = useState(userDetails ? true : false);
 
   async function googleSignIn() {
