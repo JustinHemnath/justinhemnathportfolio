@@ -25,8 +25,8 @@ type TChatApp = {
   setIsValidationLoading: (payload: boolean) => void;
   isValidationSuccess: boolean;
   setIsValidationSuccess: (payload: boolean) => void;
-  messages: any[];
-  setMessages: (payload: any[]) => void;
+  conversations: any[];
+  setConversations: (payload: any[]) => void;
 };
 
 export const useChatAppStore = create<TChatApp>((set) => ({
@@ -44,7 +44,7 @@ export const useChatAppStore = create<TChatApp>((set) => ({
   isValidationSuccess: false,
   setIsValidationSuccess: (payload: boolean) => set({ isValidationSuccess: payload }),
 
-  // messages
-  messages: [],
-  setMessages: (payload: any[]) => set({ messages: payload }),
+  // conversations
+  conversations: [],
+  setConversations: (payload: any[]) => set({ conversations: payload }),
 }));

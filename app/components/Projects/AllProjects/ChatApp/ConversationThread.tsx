@@ -1,24 +1,43 @@
+import type { TUserDetails } from "~/stores/chatapp.store";
 import { threadMSGS } from "./test";
 
-const ConversationThread = () => {
+const ConversationThread = ({
+  userDetails,
+  conversations,
+  activeConversationIndex,
+}: {
+  userDetails: TUserDetails;
+  conversations: any[];
+  activeConversationIndex: any;
+}) => {
   const user = "Hemnath";
+
+  console.log({ conversations });
 
   return (
     <div className="flex h-full w-full flex-col gap-2 overflow-auto p-2 pb-10">
-      {threadMSGS.map((msgItem: any) => (
-        <div
-          className="funkyBg min-w-[7rem] max-w-[50%] rounded-xl p-2"
-          style={{
-            alignSelf: user === msgItem.sender ? "flex-end" : "flex-start",
-          }}
-        >
-          <div className="flex justify-between gap-10">
-            <div className="text-xl font-bold">{msgItem.sender}</div>
-            <div className="">{msgItem.sentAt}</div>
-          </div>
-          <div className="text-lg">{msgItem.msg}</div>
-        </div>
-      ))}
+      {userDetails ? (
+        conversations[activeConversationIndex].messages.map((message: any) => {
+          // const key = userDetails.email === message.sender ? "sender" : "receiver";
+          const date = new Date(message.sent_at);
+          return (
+            <div
+              className="funkyBg min-w-[7rem] max-w-[50%] rounded-xl p-2"
+              style={{
+                alignSelf: userDetails.email === message.sender ? "flex-end" : "flex-start",
+              }}
+            >
+              <div className="flex justify-between gap-10">
+                <div className="text-xl font-bold">{message.sender_name}</div>
+                <div className="">{date.toLocaleTimeString("en-IN")}</div>
+              </div>
+              <div className="text-lg">{message.message}</div>
+            </div>
+          );
+        })
+      ) : (
+        <div>No convo</div>
+      )}
     </div>
   );
 };

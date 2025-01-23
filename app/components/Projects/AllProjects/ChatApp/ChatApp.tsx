@@ -3,13 +3,25 @@ import AllChatsSidebar from "./AllChatsSidebar";
 import ConversationThread from "./ConversationThread";
 import { SlLogout } from "react-icons/sl";
 import { Spinner } from "@heroui/react";
-import { useEffect } from "react";
-import { validateAndFetchUserMessages } from "~/services/chatapp.project.services";
+import { useEffect, useState } from "react";
+import { validateAndFetchUserConversations } from "~/services/chatapp.project.services";
 import { FaLongArrowAltLeft } from "react-icons/fa";
 
 const ChatApp = ({ setIsLoggedIn, setIndexSectionActive }: any) => {
-  const { userDetails, setUserDetails, isValidationLoading, isValidationSuccess, setIsValidationLoading, setIsValidationSuccess, setAllUsers, setMessages } =
-    useChatAppStore((state) => state);
+  const {
+    userDetails,
+    setUserDetails,
+    isValidationLoading,
+    isValidationSuccess,
+    setIsValidationLoading,
+    setIsValidationSuccess,
+    allUsers,
+    setAllUsers,
+    conversations,
+    setConversations,
+  } = useChatAppStore((state) => state);
+
+  const [activeConversationIndex, setActiveConversationIndex] = useState(0);
 
   function handleLogout() {
     if (typeof window !== "undefined") {
@@ -19,9 +31,11 @@ const ChatApp = ({ setIsLoggedIn, setIndexSectionActive }: any) => {
     setIsLoggedIn(false);
   }
 
+  console.log({ conversations });
+
   useEffect(() => {
     if (userDetails) {
-      validateAndFetchUserMessages({ userDetails, setIsValidationLoading, setIsValidationSuccess, setAllUsers, setMessages });
+      validateAndFetchUserConversations({ userDetails, setIsValidationLoading, setIsValidationSuccess, setAllUsers, setConversations });
     }
   }, [userDetails]);
 
@@ -45,8 +59,8 @@ const ChatApp = ({ setIsLoggedIn, setIndexSectionActive }: any) => {
 
           {/* chat section */}
           <div className="flex h-full flex-[95%]">
-            <AllChatsSidebar />
-            <ConversationThread />
+            <AllChatsSidebar {...{ conversations, setActiveConversationIndex }} />
+            <ConversationThread {...{ userDetails, conversations, activeConversationIndex }} />
           </div>
         </div>
       ) : (
