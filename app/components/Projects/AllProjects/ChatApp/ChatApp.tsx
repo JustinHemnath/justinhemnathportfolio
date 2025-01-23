@@ -7,14 +7,8 @@ import { useEffect } from "react";
 import { validateAndFetchUserMessages } from "~/services/chatapp.project.services";
 
 const ChatApp = ({ setIsLoggedIn }: any) => {
-  const {
-    userDetails,
-    setUserDetails,
-    isValidationLoading,
-    isValidationSuccess,
-    setIsValidationLoading,
-    setIsValidationSuccess,
-  } = useChatAppStore((state) => state);
+  const { userDetails, setUserDetails, isValidationLoading, isValidationSuccess, setIsValidationLoading, setIsValidationSuccess } =
+    useChatAppStore((state) => state);
 
   function handleLogout() {
     if (typeof window !== "undefined") {
@@ -25,9 +19,9 @@ const ChatApp = ({ setIsLoggedIn }: any) => {
   }
 
   useEffect(() => {
-    console.log("TRIGGERED");
-
-    validateAndFetchUserMessages({ userDetails, setIsValidationLoading, setIsValidationSuccess });
+    if (userDetails) {
+      validateAndFetchUserMessages({ userDetails, setIsValidationLoading, setIsValidationSuccess });
+    }
   }, [userDetails]);
 
   return (

@@ -2,22 +2,16 @@ import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { GrGoogle } from "react-icons/gr";
 import { FaLongArrowAltLeft } from "react-icons/fa";
 import { motion } from "framer-motion";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ChatApp from "./ChatApp";
 import { getLocalStorageItem, setLocalStorageItem } from "~/utils/signin.utils";
-import {
-  useChatAppStore,
-  USER_ACCESS_TOKEN_KEY,
-  type TUserDetails,
-} from "~/stores/chatapp.store";
+import { useChatAppStore, USER_ACCESS_TOKEN_KEY, type TUserDetails } from "~/stores/chatapp.store";
 import { firebaseConfig } from "~/firebase.config";
 
 const FullStackChatApp = ({ setIndexSectionActive }: any) => {
   const provider = new GoogleAuthProvider();
   const { userDetails, setUserDetails } = useChatAppStore((state) => state);
   const [isLoggedIn, setIsLoggedIn] = useState(userDetails ? true : false);
-
-  console.log({ userDetails });
 
   async function googleSignIn() {
     const auth = getAuth();
@@ -30,8 +24,6 @@ const FullStackChatApp = ({ setIndexSectionActive }: any) => {
       const token = credential?.accessToken;
       // The signed-in user info.
       const user: any = result.user;
-      console.log({ token, user });
-
       const userPayload: TUserDetails = {
         userName: user.displayName,
         email: user.email,
@@ -55,15 +47,23 @@ const FullStackChatApp = ({ setIndexSectionActive }: any) => {
     }
   }
 
-  // useEffect(() => {}, [])
+  useEffect(() => {
+    if (!userDetails) {
+      let user: any = getLocalStorageItem({ key: USER_ACCESS_TOKEN_KEY });
+      if (user) {
+        setIsLoggedIn(true);
+        user = JSON.parse(user);
+      } else {
+        setIsLoggedIn(false);
+      }
+
+      setUserDetails(user);
+    }
+  }, [userDetails]);
 
   return (
     <div className="relative flex h-full items-center justify-center">
-      {!isLoggedIn ? (
-        <SignInPage {...{ googleSignIn }} />
-      ) : (
-        <ChatApp {...{ setIsLoggedIn }} />
-      )}
+      {!isLoggedIn ? <SignInPage {...{ googleSignIn }} /> : <ChatApp {...{ setIsLoggedIn }} />}
     </div>
   );
 };
@@ -88,10 +88,7 @@ const SignInPage = ({ googleSignIn }: any) => {
             scale: 1.3,
           }}
         >
-          <GrGoogle
-            className="cursor-pointer text-[5rem] text-white transition-all duration-300"
-            onClick={googleSignIn}
-          />
+          <GrGoogle className="cursor-pointer text-[5rem] text-white transition-all duration-300" onClick={googleSignIn} />
         </motion.div>
       </div>
     </div>

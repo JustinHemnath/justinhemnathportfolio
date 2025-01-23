@@ -18,14 +18,8 @@ type TChatApp = {
   setIsValidationSuccess: (payload: boolean) => void;
 };
 
-const initialUserDetails = () => {
-  const user: any = getLocalStorageItem({ key: USER_ACCESS_TOKEN_KEY });
-  if (user) return user;
-  else return null;
-};
-
 export const useChatAppStore = create<TChatApp>((set) => ({
-  userDetails: initialUserDetails(),
+  userDetails: null,
   setUserDetails: (payload: any) => set({ userDetails: payload }),
   isValidationLoading: false,
   setIsValidationLoading: (payload: boolean) => set({ isValidationLoading: payload }),
