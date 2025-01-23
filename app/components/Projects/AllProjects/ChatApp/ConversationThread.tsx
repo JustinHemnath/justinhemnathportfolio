@@ -6,19 +6,16 @@ const ConversationThread = ({
   conversations,
   activeConversationIndex,
 }: {
-  userDetails: TUserDetails;
+  userDetails: TUserDetails | null;
   conversations: any[];
   activeConversationIndex: any;
 }) => {
-  const user = "Hemnath";
-
   console.log({ conversations });
 
   return (
     <div className="flex h-full w-full flex-col gap-2 overflow-auto p-2 pb-10">
       {userDetails ? (
         conversations[activeConversationIndex].messages.map((message: any) => {
-          // const key = userDetails.email === message.sender ? "sender" : "receiver";
           const date = new Date(message.sent_at);
           return (
             <div
