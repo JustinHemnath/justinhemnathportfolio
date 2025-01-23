@@ -36,6 +36,8 @@ export async function validateAndFetchUserConversations({
 
       if (response.data.action === "validated") {
         setConversations(response.data.metaData.messages);
+      } else if (response.data.action === "registered") {
+        setConversations([]);
       }
 
       setAllUsers(response.data.metaData.users);
