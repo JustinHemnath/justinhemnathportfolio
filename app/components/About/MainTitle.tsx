@@ -1,16 +1,10 @@
 import { useEffect, useState } from "react";
 
-const MainTitle = ({
-  text,
-  shouldAnimate,
-}: {
-  text: string;
-  shouldAnimate: boolean;
-}) => {
+const MainTitle = ({ text, shouldAnimate, isInView }: { text: string; shouldAnimate: boolean; isInView: boolean }) => {
   const [feederString, setFeederString] = useState(shouldAnimate ? "" : text);
 
   useEffect(() => {
-    if (!shouldAnimate) {
+    if (!shouldAnimate || !isInView) {
       return;
     } else {
       if (text.length === feederString.length) {
@@ -34,18 +28,11 @@ const MainTitle = ({
     }
 
     //   }, []);
-  }, [feederString]);
+  }, [feederString, isInView]);
 
   return (
     <div className="flex w-[50%] gap-1 py-10">
-      <p
-        className={
-          "funkyText text-wrap font-bold " +
-          (shouldAnimate ? " text-[4rem]" : " text-[2.5rem]")
-        }
-      >
-        {feederString}
-      </p>
+      <p className={"funkyText text-wrap font-bold " + (shouldAnimate ? " text-[4rem]" : " text-[2.5rem]")}>{feederString}</p>
     </div>
   );
 };

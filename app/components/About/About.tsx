@@ -4,8 +4,7 @@ import MainTitle from "./MainTitle";
 import { SECTIONS } from "~/constants/main.constants";
 
 const About = ({ setPageInView }: { setPageInView: any }) => {
-  const mainTitle =
-    "I'm Hemnath Balasubramanian. A full stack developer from Chennai, Tamilnadu.";
+  const mainTitle = "I'm Hemnath Balasubramanian. A full stack developer from Chennai, Tamilnadu.";
   const bottomTitle =
     "A full stack developer with 2.5 years of experience with ReactJs on the frontend and Python and NodeJs on the backend.";
   const sectionName = SECTIONS.ABOUT;
@@ -18,13 +17,9 @@ const About = ({ setPageInView }: { setPageInView: any }) => {
   }, [isInView]);
 
   return (
-    <div
-      className="flex h-full flex-col items-start justify-end"
-      ref={ref}
-      id={sectionName}
-    >
-      <MainTitle text={mainTitle} shouldAnimate={true} />
-      <MainTitle text={bottomTitle} shouldAnimate={false} />
+    <div className="flex h-full flex-col items-start justify-end" ref={ref} id={sectionName}>
+      <MainTitle text={mainTitle} shouldAnimate={true} {...{ isInView }} />
+      <MainTitle text={bottomTitle} shouldAnimate={false} {...{ isInView }} />
     </div>
   );
 };

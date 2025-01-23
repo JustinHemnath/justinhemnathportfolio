@@ -11,9 +11,9 @@ export default function Home() {
   return (
     <div className="bg-slate-900">
       <HeroUIProvider>
-        {/* <ParticleBackground> */}
-        <Welcome />
-        {/* </ParticleBackground> */}
+        <ParticleBackground>
+          <Welcome />
+        </ParticleBackground>
       </HeroUIProvider>
     </div>
   );

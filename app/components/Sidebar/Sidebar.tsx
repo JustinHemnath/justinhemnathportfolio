@@ -6,15 +6,13 @@ const Sidebar = ({ sidebarWidth, pageInView, setPageInView }: any) => {
   const [sectionStringsArr] = useState(
     Object.values(SECTIONS).map((section: string) =>
       // section.split("").reverse(),
-      section.split(""),
-    ),
+      section.split("")
+    )
   );
 
   function onSidebarClick(sectionName: SECTIONS) {
     setPageInView(sectionName);
-    document
-      .getElementById(sectionName)
-      ?.scrollIntoView({ behavior: "smooth" });
+    document.getElementById(sectionName)?.scrollIntoView({ behavior: "smooth" });
   }
 
   return (
@@ -28,7 +26,7 @@ const Sidebar = ({ sidebarWidth, pageInView, setPageInView }: any) => {
         width: sidebarWidth,
       }}
     >
-      <div className="flex h-full w-full flex-col items-stretch justify-between py-24">
+      <div className="flex h-full w-full flex-col items-stretch justify-between py-24 text-white">
         {sectionStringsArr.map((sectionArr: string[]) => {
           const sectionName = sectionArr.join("") as SECTIONS;
 
