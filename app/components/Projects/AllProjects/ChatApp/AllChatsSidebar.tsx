@@ -7,7 +7,7 @@ const AllChatsSidebar = ({ conversations, setActiveConversationIndex }: any) => 
     setActiveConversationIndex(index);
   }
   return (
-    <div className="w-[25%] overflow-auto bg-neutral-900 text-white">
+    <div className="w-[25%] overflow-auto bg-neutral-900 text-white h-full">
       {conversations.map((convo: any, index: number) => {
         const date = new Date(convo.lastMessage.sent_at);
 

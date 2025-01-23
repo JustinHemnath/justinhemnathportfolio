@@ -47,7 +47,7 @@ const ChatApp = ({ setIsLoggedIn, setIndexSectionActive }: any) => {
           <Spinner size="lg" color="default" label="Loading..." />
         </div>
       ) : isValidationSuccess ? (
-        <div>
+        <div className="h-full">
           {/* header */}
           <div className="funkyBg flex flex-[5%] items-center justify-between px-4 py-2">
             <div className="flex gap-3 items-center cursor-pointer" onClick={() => setIndexSectionActive(true)}>
