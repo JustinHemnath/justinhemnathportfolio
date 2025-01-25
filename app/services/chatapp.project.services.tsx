@@ -32,7 +32,7 @@ export async function validateAndFetchUserConversations({
         },
       });
 
-      console.log({ response });
+      // console.log({ response });
 
       if (response.data.action === "validated") {
         setConversations(response.data.metaData.messages);

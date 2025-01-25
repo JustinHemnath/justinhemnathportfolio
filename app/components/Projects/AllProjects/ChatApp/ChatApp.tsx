@@ -1,26 +1,25 @@
-import { useChatAppStore, USER_ACCESS_TOKEN_KEY, type TUserDetails } from "~/stores/chatapp.store";
+import { USER_ACCESS_TOKEN_KEY, useSocketStore } from "~/stores/chatapp.store";
 import AllChatsSidebar from "./AllChatsSidebar";
 import ConversationThread from "./ConversationThread";
 import { SlLogout } from "react-icons/sl";
 import { Spinner } from "@heroui/react";
 import { useEffect, useState } from "react";
-import { validateAndFetchUserConversations } from "~/services/chatapp.project.services";
 import { FaLongArrowAltLeft } from "react-icons/fa";
 import NewUserSelect from "./NewUserSelect";
+import SendMessage from "./SendMessage";
+import { CHAT_APP_EVENTS } from "~/constants/main.constants";
 
-const ChatApp = ({ setIsLoggedIn, setIndexSectionActive }: any) => {
-  const {
-    userDetails,
-    setUserDetails,
-    isValidationLoading,
-    isValidationSuccess,
-    setIsValidationLoading,
-    setIsValidationSuccess,
-    allUsers,
-    setAllUsers,
-    conversations,
-    setConversations,
-  } = useChatAppStore((state) => state);
+const ChatApp = ({
+  setIsLoggedIn,
+  setIndexSectionActive,
+  userDetails,
+  setUserDetails,
+  isValidationLoading,
+  isValidationSuccess,
+  allUsers,
+  conversations,
+}: any) => {
+  const socket = useSocketStore((state: any) => state.socket);
 
   const [activeConversationIndex, setActiveConversationIndex] = useState(0);
 
@@ -32,13 +31,23 @@ const ChatApp = ({ setIsLoggedIn, setIndexSectionActive }: any) => {
     setIsLoggedIn(false);
   }
 
-  console.log({ conversations });
+  // console.log({ conversations });
 
   useEffect(() => {
-    if (userDetails) {
-      validateAndFetchUserConversations({ userDetails, setIsValidationLoading, setIsValidationSuccess, setAllUsers, setConversations });
-    }
-  }, [userDetails]);
+    socket.on("connect", () => {
+      console.log(`Socket connected: ${socket.connected}`);
+
+      socket.on(CHAT_APP_EVENTS.MESSAGE_LISTENER, (message: any) => {
+        console.log({ received: message });
+      });
+    });
+
+    socket.on("disconnect", () => {
+      console.log(`Socket disconnected: ${socket.connected}`);
+    });
+  }, []);
+
+  console.log({ conversations, activeConversationIndex });
 
   return (
     <div className="flex h-full w-full flex-col overflow-hidden rounded-xl">
@@ -66,7 +75,11 @@ const ChatApp = ({ setIsLoggedIn, setIndexSectionActive }: any) => {
           {/* chat section */}
           <div className="flex h-full flex-[95%]">
             <AllChatsSidebar {...{ conversations, setActiveConversationIndex }} />
-            <ConversationThread {...{ userDetails, conversations, activeConversationIndex }} />
+
+            <div className="h-full w-full flex flex-col pb-6">
+              <ConversationThread {...{ userDetails, conversations, activeConversationIndex }} />
+              <SendMessage {...{ socket, userDetails, conversations, activeConversationIndex }} />
+            </div>
           </div>
         </div>
       ) : (

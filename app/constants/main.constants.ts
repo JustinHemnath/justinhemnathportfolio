@@ -7,3 +7,7 @@ export enum SECTIONS {
 export enum PROJECTS {
   CHAT_APP = "Chat App",
 }
+
+export const CHAT_APP_EVENTS = {
+  MESSAGE_LISTENER: "messageListener",
+};

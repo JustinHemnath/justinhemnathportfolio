@@ -1,5 +1,6 @@
 import { create } from "zustand";
 import { getLocalStorageItem } from "~/utils/signin.utils";
+import { io } from "socket.io-client";
 
 export const USER_ACCESS_TOKEN_KEY = "chatAppAccessToken";
 
@@ -47,4 +48,13 @@ export const useChatAppStore = create<TChatApp>((set) => ({
   // conversations
   conversations: [],
   setConversations: (payload: any[]) => set({ conversations: payload }),
+}));
+
+export const useSocketStore = create((set) => ({
+  socket: io(import.meta.env.VITE_ENDPOINT),
+  // socket: io(`ws://${import.meta.env.VITE_ENDPOINT}`, {
+  //   extraHeaders: {
+  //     "Access-Control-Allow-Origin": "*",
+  //   },
+  // }),
 }));

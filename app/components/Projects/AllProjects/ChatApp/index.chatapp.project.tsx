@@ -6,11 +6,23 @@ import { useEffect, useState } from "react";
 import ChatApp from "./ChatApp";
 import { getLocalStorageItem, setLocalStorageItem } from "~/utils/signin.utils";
 import { useChatAppStore, USER_ACCESS_TOKEN_KEY, type TUserDetails } from "~/stores/chatapp.store";
+import { validateAndFetchUserConversations } from "~/services/chatapp.project.services";
 
 const FullStackChatApp = ({ setIndexSectionActive }: any) => {
   const provider = new GoogleAuthProvider();
-  const userDetails = useChatAppStore((state) => state.userDetails);
-  const setUserDetails = useChatAppStore((state) => state.setUserDetails);
+  const {
+    userDetails,
+    setUserDetails,
+    isValidationLoading,
+    isValidationSuccess,
+    setIsValidationLoading,
+    setIsValidationSuccess,
+    setAllUsers,
+    setConversations,
+    allUsers,
+    conversations,
+  } = useChatAppStore((state) => state);
+
   const [isLoggedIn, setIsLoggedIn] = useState(userDetails ? true : false);
 
   async function googleSignIn() {
@@ -35,6 +47,13 @@ const FullStackChatApp = ({ setIndexSectionActive }: any) => {
         value: JSON.stringify(userPayload),
       });
       setIsLoggedIn(true);
+      validateAndFetchUserConversations({
+        userDetails: userPayload,
+        setIsValidationLoading,
+        setIsValidationSuccess,
+        setAllUsers,
+        setConversations,
+      });
     } catch (error: any) {
       // Handle Errors here.
       const errorCode = error.code;
@@ -58,6 +77,13 @@ const FullStackChatApp = ({ setIndexSectionActive }: any) => {
       }
 
       setUserDetails(user);
+      validateAndFetchUserConversations({
+        userDetails: user,
+        setIsValidationLoading,
+        setIsValidationSuccess,
+        setAllUsers,
+        setConversations,
+      });
     }
   }, [userDetails]);
 
@@ -66,7 +92,18 @@ const FullStackChatApp = ({ setIndexSectionActive }: any) => {
       {!isLoggedIn ? (
         <SignInPage {...{ googleSignIn, setIndexSectionActive }} />
       ) : (
-        <ChatApp {...{ setIsLoggedIn, setIndexSectionActive }} />
+        <ChatApp
+          {...{
+            setIsLoggedIn,
+            setIndexSectionActive,
+            userDetails,
+            setUserDetails,
+            isValidationLoading,
+            isValidationSuccess,
+            allUsers,
+            conversations,
+          }}
+        />
       )}
     </div>
   );

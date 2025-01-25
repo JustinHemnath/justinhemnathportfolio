@@ -1,7 +1,7 @@
 import { chatsMSGS } from "./test";
 
 const AllChatsSidebar = ({ conversations, setActiveConversationIndex }: any) => {
-  console.log({ conversations });
+  // console.log({ conversations });
 
   function handleConversationSelection(index: number) {
     setActiveConversationIndex(index);
