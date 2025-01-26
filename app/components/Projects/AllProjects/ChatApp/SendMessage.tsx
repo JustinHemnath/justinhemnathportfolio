@@ -4,7 +4,7 @@ import { CHAT_APP_EVENTS } from "~/constants/main.constants";
 import { v4 as uuidv4 } from "uuid";
 import moment from "moment";
 
-const SendMessage = ({ socket, userDetails, conversations, activeConversationIndex }: any) => {
+const SendMessage = ({ socket, userDetails, conversations, currentConversation }: any) => {
   const [message, setMessage] = useState("");
 
   function handleMessageChange(e: any) {
@@ -16,9 +16,9 @@ const SendMessage = ({ socket, userDetails, conversations, activeConversationInd
     (message: string) => {
       const payload = {
         sender: userDetails.email,
-        receiver: conversations[activeConversationIndex].otherPersonEmail,
+        receiver: currentConversation.otherPersonEmail,
         sender_name: userDetails.userName,
-        receiver_name: conversations[activeConversationIndex].otherPersonName,
+        receiver_name: currentConversation.otherPersonName,
         message,
         id: uuidv4(),
         sent_at: moment().format(),
@@ -27,7 +27,7 @@ const SendMessage = ({ socket, userDetails, conversations, activeConversationInd
       setMessage("");
       console.log("Emitted message");
     },
-    [message, activeConversationIndex, conversations]
+    [message, currentConversation, conversations]
   );
 
   return (

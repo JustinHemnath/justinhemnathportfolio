@@ -1,11 +1,12 @@
 import { chatsMSGS } from "./test";
 
-const AllChatsSidebar = ({ conversations, setActiveConversationIndex }: any) => {
+const AllChatsSidebar = ({ conversations, setCurrentConversation }: any) => {
   // console.log({ conversations });
 
-  function handleConversationSelection(index: number) {
-    setActiveConversationIndex(index);
+  function handleConversationSelection(convo: any) {
+    setCurrentConversation(convo);
   }
+
   return (
     <div className="w-[25%] overflow-auto bg-neutral-900 text-white h-full">
       {conversations.map((convo: any, index: number) => {
@@ -15,7 +16,7 @@ const AllChatsSidebar = ({ conversations, setActiveConversationIndex }: any) => 
           <div
             className="flex flex-col border-b border-gray-500 px-2 py-3 hover:bg-slate-800"
             key={convo.otherPersonEmail}
-            onClick={() => handleConversationSelection(index)}
+            onClick={() => handleConversationSelection(convo)}
           >
             <div className="flex justify-between">
               <p className="text-xl font-bold">{convo.otherPersonName}</p>

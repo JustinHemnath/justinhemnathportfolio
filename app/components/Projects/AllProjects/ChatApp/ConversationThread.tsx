@@ -4,18 +4,18 @@ import { threadMSGS } from "./test";
 const ConversationThread = ({
   userDetails,
   conversations,
-  activeConversationIndex,
+  currentConversation,
 }: {
   userDetails: TUserDetails | null;
   conversations: any[];
-  activeConversationIndex: any;
+  currentConversation: any;
 }) => {
   // console.log({ conversations });
 
   return (
     <div className="flex h-full w-full flex-[85%] flex-col gap-2 overflow-auto p-2 pb-10 relative" id="conversationThread">
-      {userDetails && conversations.length !== 0 ? (
-        conversations[activeConversationIndex].messages.map((message: any) => {
+      {userDetails && currentConversation ? (
+        currentConversation.messages.map((message: any) => {
           const date = new Date(message.sent_at);
           return (
             <div

@@ -22,11 +22,11 @@ const ChatApp = ({
   allUsers,
   conversations,
   setConversations,
+  currentConversation,
+  setCurrentConversation,
 }: any) => {
   const socket = useSocketStore((state: any) => state.socket);
   const setSocket = useSocketStore((state) => state.setSocket);
-
-  const [activeConversationIndex, setActiveConversationIndex] = useState(0);
 
   function handleLogout() {
     if (typeof window !== "undefined") {
@@ -35,17 +35,6 @@ const ChatApp = ({
     setUserDetails(null);
     setIsLoggedIn(false);
   }
-
-  // useEffect(() => {
-  //   const bottomDiv = document.getElementById("conversationThreadBottomDiv")!;
-  //   if (bottomDiv) {
-  //     bottomDiv.scrollIntoView({
-  //       behavior: "smooth",
-  //     });
-  //   }
-  // }, []);
-
-  // console.log({ conversations });
 
   useEffect(() => {
     const socketInstance: any = io(import.meta.env.VITE_ENDPOINT, {
@@ -60,15 +49,6 @@ const ChatApp = ({
     });
 
     const scrollToBottomTimeout = chatBottomScroller();
-    // const scrollToBottomTimeout = setTimeout(function () {
-    //   const bottomDiv = document.getElementById("conversationThreadBottomDiv")!;
-    //   if (bottomDiv) {
-    //     bottomDiv.scrollIntoView({
-    //       behavior: "smooth",
-    //       block: "end",
-    //     });
-    //   }
-    // }, 200);
 
     return () => {
       clearTimeout(scrollToBottomTimeout);
@@ -92,7 +72,7 @@ const ChatApp = ({
     }
   }, [socket, conversations]);
 
-  console.log({ conversations, activeConversationIndex });
+  console.log({ conversations, currentConversation });
 
   return (
     <div className="flex h-full w-full flex-col overflow-hidden rounded-xl">
@@ -119,11 +99,11 @@ const ChatApp = ({
 
           {/* chat section */}
           <div className="flex h-full flex-[95%]">
-            <AllChatsSidebar {...{ conversations, setActiveConversationIndex }} />
+            <AllChatsSidebar {...{ conversations, setCurrentConversation }} />
 
             <div className="h-full w-full flex flex-col pb-6">
-              <ConversationThread {...{ userDetails, conversations, activeConversationIndex }} />
-              <SendMessage {...{ socket, userDetails, conversations, activeConversationIndex }} />
+              <ConversationThread {...{ userDetails, conversations, currentConversation }} />
+              <SendMessage {...{ socket, userDetails, conversations, currentConversation }} />
             </div>
           </div>
         </div>

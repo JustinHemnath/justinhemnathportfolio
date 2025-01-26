@@ -24,6 +24,7 @@ const FullStackChatApp = ({ setIndexSectionActive }: any) => {
   } = useChatAppStore((state) => state);
 
   const [isLoggedIn, setIsLoggedIn] = useState(userDetails ? true : false);
+  const [currentConversation, setCurrentConversation] = useState(null);
 
   async function googleSignIn() {
     const auth = getAuth();
@@ -53,6 +54,7 @@ const FullStackChatApp = ({ setIndexSectionActive }: any) => {
         setIsValidationSuccess,
         setAllUsers,
         setConversations,
+        setCurrentConversation,
       });
     } catch (error: any) {
       // Handle Errors here.
@@ -83,6 +85,7 @@ const FullStackChatApp = ({ setIndexSectionActive }: any) => {
         setIsValidationSuccess,
         setAllUsers,
         setConversations,
+        setCurrentConversation,
       });
     }
   }, [userDetails]);
@@ -103,6 +106,8 @@ const FullStackChatApp = ({ setIndexSectionActive }: any) => {
             allUsers,
             conversations,
             setConversations,
+            currentConversation,
+            setCurrentConversation,
           }}
         />
       )}

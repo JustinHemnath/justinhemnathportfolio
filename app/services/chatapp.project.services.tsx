@@ -7,12 +7,14 @@ export async function validateAndFetchUserConversations({
   setIsValidationSuccess,
   setAllUsers,
   setConversations,
+  setCurrentConversation,
 }: {
   userDetails: TUserDetails | null;
   setIsValidationLoading: (value: boolean) => void;
   setIsValidationSuccess: (value: boolean) => void;
   setAllUsers: (payload: TAllUsers) => void;
   setConversations: (payload: any[]) => void;
+  setCurrentConversation: (payload: any) => void;
 }) {
   setIsValidationLoading(true);
 
@@ -32,12 +34,13 @@ export async function validateAndFetchUserConversations({
         },
       });
 
-      // console.log({ response });
-
       if (response.data.action === "validated") {
-        setConversations(response.data.metaData.messages);
+        const conversationsResponse = response.data.metaData.conversations;
+        setConversations(conversationsResponse);
+        setCurrentConversation(conversationsResponse[0]);
       } else if (response.data.action === "registered") {
         setConversations([]);
+        setCurrentConversation(null);
       }
 
       setAllUsers(response.data.metaData.users);
