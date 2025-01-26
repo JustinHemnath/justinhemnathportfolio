@@ -43,7 +43,8 @@ export async function validateAndFetchUserConversations({
         setCurrentConversation(null);
       }
 
-      setAllUsers(response.data.metaData.users);
+      const allUsers = response.data.metaData.users.filter((user: any) => user.email !== userDetails.email);
+      setAllUsers(allUsers);
       setIsValidationSuccess(true);
     } catch (err: any) {
       console.log("Failed to get messages");
