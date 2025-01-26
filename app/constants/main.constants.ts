@@ -9,5 +9,6 @@ export enum PROJECTS {
 }
 
 export const CHAT_APP_EVENTS = {
-  MESSAGE_LISTENER: "messageListener",
+  TO_SERVER: "TO_SERVER",
+  TO_CLIENT: "TO_CLIENT",
 };

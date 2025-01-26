@@ -102,6 +102,7 @@ const FullStackChatApp = ({ setIndexSectionActive }: any) => {
             isValidationSuccess,
             allUsers,
             conversations,
+            setConversations,
           }}
         />
       )}

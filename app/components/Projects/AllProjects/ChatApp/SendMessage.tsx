@@ -1,6 +1,8 @@
 import { Button, Input } from "@heroui/react";
 import { useCallback, useState, type SyntheticEvent } from "react";
 import { CHAT_APP_EVENTS } from "~/constants/main.constants";
+import { v4 as uuidv4 } from "uuid";
+import moment from "moment";
 
 const SendMessage = ({ socket, userDetails, conversations, activeConversationIndex }: any) => {
   const [message, setMessage] = useState("");
@@ -18,8 +20,10 @@ const SendMessage = ({ socket, userDetails, conversations, activeConversationInd
         sender_name: userDetails.userName,
         receiver_name: conversations[activeConversationIndex].otherPersonName,
         message,
+        id: uuidv4(),
+        sent_at: moment().format(),
       };
-      socket.emit(CHAT_APP_EVENTS.MESSAGE_LISTENER, payload);
+      socket.emit(CHAT_APP_EVENTS.TO_SERVER, payload);
       setMessage("");
       console.log("Emitted message");
     },

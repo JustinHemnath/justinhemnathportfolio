@@ -8,6 +8,9 @@ import { FaLongArrowAltLeft } from "react-icons/fa";
 import NewUserSelect from "./NewUserSelect";
 import SendMessage from "./SendMessage";
 import { CHAT_APP_EVENTS } from "~/constants/main.constants";
+import { io } from "socket.io-client";
+import moment from "moment";
+import { chatBottomScroller, receivedMessageHandler } from "~/utils/chatApp.utils";
 
 const ChatApp = ({
   setIsLoggedIn,
@@ -18,8 +21,10 @@ const ChatApp = ({
   isValidationSuccess,
   allUsers,
   conversations,
+  setConversations,
 }: any) => {
   const socket = useSocketStore((state: any) => state.socket);
+  const setSocket = useSocketStore((state) => state.setSocket);
 
   const [activeConversationIndex, setActiveConversationIndex] = useState(0);
 
@@ -31,21 +36,61 @@ const ChatApp = ({
     setIsLoggedIn(false);
   }
 
+  // useEffect(() => {
+  //   const bottomDiv = document.getElementById("conversationThreadBottomDiv")!;
+  //   if (bottomDiv) {
+  //     bottomDiv.scrollIntoView({
+  //       behavior: "smooth",
+  //     });
+  //   }
+  // }, []);
+
   // console.log({ conversations });
 
   useEffect(() => {
-    socket.on("connect", () => {
-      console.log(`Socket connected: ${socket.connected}`);
+    const socketInstance: any = io(import.meta.env.VITE_ENDPOINT, {
+      query: {
+        email: userDetails.email,
+      },
+    });
+    setSocket(socketInstance);
 
-      socket.on(CHAT_APP_EVENTS.MESSAGE_LISTENER, (message: any) => {
-        console.log({ received: message });
-      });
+    socketInstance.on("connect", () => {
+      console.log(`Socket connected: ${socketInstance.connected}`);
     });
 
-    socket.on("disconnect", () => {
-      console.log(`Socket disconnected: ${socket.connected}`);
-    });
+    const scrollToBottomTimeout = chatBottomScroller();
+    // const scrollToBottomTimeout = setTimeout(function () {
+    //   const bottomDiv = document.getElementById("conversationThreadBottomDiv")!;
+    //   if (bottomDiv) {
+    //     bottomDiv.scrollIntoView({
+    //       behavior: "smooth",
+    //       block: "end",
+    //     });
+    //   }
+    // }, 200);
+
+    return () => {
+      clearTimeout(scrollToBottomTimeout);
+      if (socketInstance) {
+        socketInstance.disconnect();
+        setSocket(null);
+      }
+    };
   }, []);
+
+  useEffect(() => {
+    if (socket) {
+      socket.on(CHAT_APP_EVENTS.TO_CLIENT, (receivedMessage) =>
+        receivedMessageHandler({ receivedMessage, conversations, setConversations })
+      );
+
+      return () =>
+        socket.off(CHAT_APP_EVENTS.TO_CLIENT, (receivedMessage) =>
+          receivedMessageHandler({ receivedMessage, conversations, setConversations })
+        );
+    }
+  }, [socket, conversations]);
 
   console.log({ conversations, activeConversationIndex });
 

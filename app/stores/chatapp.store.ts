@@ -50,11 +50,7 @@ export const useChatAppStore = create<TChatApp>((set) => ({
   setConversations: (payload: any[]) => set({ conversations: payload }),
 }));
 
-export const useSocketStore = create((set) => ({
-  socket: io(import.meta.env.VITE_ENDPOINT),
-  // socket: io(`ws://${import.meta.env.VITE_ENDPOINT}`, {
-  //   extraHeaders: {
-  //     "Access-Control-Allow-Origin": "*",
-  //   },
-  // }),
+export const useSocketStore = create<any>((set) => ({
+  socket: null,
+  setSocket: (payload: any) => set({ socket: payload }),
 }));

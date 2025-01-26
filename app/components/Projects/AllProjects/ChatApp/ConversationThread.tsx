@@ -13,7 +13,7 @@ const ConversationThread = ({
   // console.log({ conversations });
 
   return (
-    <div className="flex h-full w-full flex-[85%] flex-col gap-2 overflow-auto p-2 pb-10">
+    <div className="flex h-full w-full flex-[85%] flex-col gap-2 overflow-auto p-2 pb-10 relative" id="conversationThread">
       {userDetails && conversations.length !== 0 ? (
         conversations[activeConversationIndex].messages.map((message: any) => {
           const date = new Date(message.sent_at);
@@ -38,6 +38,10 @@ const ConversationThread = ({
           <p className="text-justify">No conversations. Select a user from the dropdown and send a message to begin a conversation.</p>
         </div>
       )}
+
+      <div className="mt-auto text-white invisible" id="conversationThreadBottomDiv">
+        T
+      </div>
     </div>
   );
 };

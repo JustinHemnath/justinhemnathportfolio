@@ -37,7 +37,6 @@ const Sidebar = ({ sidebarWidth, pageInView, setPageInView }: any) => {
               onClick={() => onSidebarClick(sectionName)}
               animate={{
                 scale: pageInView === sectionName ? 1.3 : 1,
-                fontWeight: pageInView === sectionName ? 800 : "normal",
               }}
               whileHover={{
                 scale: 1.3,
