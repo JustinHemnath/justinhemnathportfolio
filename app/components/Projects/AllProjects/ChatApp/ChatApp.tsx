@@ -68,6 +68,7 @@ const ChatApp = ({
     onClose();
     setNewUserMessage("");
     setNewUserSelected(null);
+    setCurrentConversation(newConversationItem);
   }
 
   function handleLogout() {
@@ -142,7 +143,7 @@ const ChatApp = ({
 
           {/* chat section */}
           <div className="flex h-full flex-[95%]">
-            <AllChatsSidebar {...{ conversations, setCurrentConversation }} />
+            <AllChatsSidebar {...{ userDetails, conversations, setCurrentConversation }} />
 
             <div className="h-full w-full flex flex-col pb-6">
               <ConversationThread {...{ userDetails, conversations, currentConversation }} />
