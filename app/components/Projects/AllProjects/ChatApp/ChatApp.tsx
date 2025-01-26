@@ -10,6 +10,7 @@ import SendMessage from "./SendMessage";
 import { CHAT_APP_EVENTS } from "~/constants/main.constants";
 import { io } from "socket.io-client";
 import moment from "moment";
+import { v4 as uuidv4 } from "uuid";
 import { chatBottomScroller, receivedMessageHandler } from "~/utils/chatApp.utils";
 import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDisclosure, Input } from "@heroui/react";
 
@@ -32,27 +33,40 @@ const ChatApp = ({
   const [newUserMessage, setNewUserMessage] = useState("");
   const [newUserSelected, setNewUserSelected] = useState<any>(null);
 
-  function handleNewUserMessage(e: any, onClose: any) {
+  function handleNewUserMessage(e: any, onClose: any, newUserMessage: string, newUserSelected: any) {
     e.preventDefault();
-    console.log(e);
 
-    // const newConversations = [...conversations]
-    //   const newConversationItem = {
-    //     otherPersonEmail: newUserSelected.email,
-    //     otherPersonName: newUserSelected.name,
-    //     messages: [],
-    //     lastMessage: null,
-    //   };
-    //   newConversations.push(newConversationItem);
+    const newConversations = [...conversations];
+    const newMessage: TMessage = {
+      sender: userDetails.email,
+      receiver: newUserSelected.email,
+      sender_name: userDetails.userName,
+      receiver_name: newUserSelected.email,
+      message: newUserMessage,
+      id: uuidv4(),
+      sent_at: moment().format(),
+    };
+    // emit message to server
+    socket.emit(CHAT_APP_EVENTS.TO_SERVER, newMessage);
 
-    //   newConversations.sort((a, b) => {
-    //     const aDate: any = new Date(a.lastMessage.sent_at);
-    //     const bDate: any = new Date(b.lastMessage.sent_at);
-    //     return bDate - aDate;
-    //   });
+    const newConversationItem = {
+      otherPersonEmail: newUserSelected.email,
+      otherPersonName: newUserSelected.name,
+      messages: [newMessage],
+      lastMessage: newMessage,
+    };
+    newConversations.push(newConversationItem);
+    newConversations.sort((a, b) => {
+      const aDate: any = new Date(a.lastMessage.sent_at);
+      const bDate: any = new Date(b.lastMessage.sent_at);
+      return bDate - aDate;
+    });
+
+    setConversations(newConversations);
 
     // on close protocol
     onClose();
+    setNewUserMessage("");
     setNewUserSelected(null);
   }
 
@@ -142,7 +156,10 @@ const ChatApp = ({
                     <ModalHeader className="flex flex-col gap-1 text-center">Start a conversation with {newUserSelected.name}!</ModalHeader>
                     <ModalBody className="text-xl">
                       <p>This will start a new conversation with {newUserSelected.name}</p>
-                      <form onSubmit={(e: any) => handleNewUserMessage(e, onClose)} className="my-10 flex items-center gap-3">
+                      <form
+                        onSubmit={(e: any) => handleNewUserMessage(e, onClose, newUserMessage, newUserSelected)}
+                        className="my-10 flex items-center gap-3"
+                      >
                         <Input
                           label="Say a hi!"
                           type="text"

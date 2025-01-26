@@ -2,8 +2,8 @@ import { Select, SelectItem } from "@heroui/react";
 import type { TConversation } from "~/stores/chatapp.store";
 
 const NewUserSelect = ({ allUsers, conversations, setCurrentConversation, onOpen, setNewUserSelected }: any) => {
-  function handleUserSelected(e: any) {
-    const selectedUserEmail = e.target.value;
+  function handleUserSelected(args: any) {
+    const selectedUserEmail = args.anchorKey;
 
     const matchingConvo = conversations.find((convo: TConversation) => convo.otherPersonEmail === selectedUserEmail);
 
@@ -26,7 +26,7 @@ const NewUserSelect = ({ allUsers, conversations, setCurrentConversation, onOpen
         label="Select user..."
         placeholder="Select user..."
         size="sm"
-        onSelectionChange={(e) => handleUserSelected(e)}
+        onSelectionChange={(args) => handleUserSelected(args)}
       >
         {allUsers.map((user: any) => (
           <SelectItem key={user.email}>
