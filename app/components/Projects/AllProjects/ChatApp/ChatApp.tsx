@@ -103,7 +103,7 @@ const ChatApp = ({
 
             <div className="h-full w-full flex flex-col pb-6">
               <ConversationThread {...{ userDetails, conversations, currentConversation }} />
-              <SendMessage {...{ socket, userDetails, conversations, currentConversation }} />
+              <SendMessage {...{ socket, userDetails, conversations, setConversations, currentConversation }} />
             </div>
           </div>
         </div>

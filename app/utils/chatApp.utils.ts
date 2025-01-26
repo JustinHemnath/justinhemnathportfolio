@@ -1,6 +1,8 @@
+import type { TConversation } from "~/stores/chatapp.store";
+
 export function receivedMessageHandler({ receivedMessage, conversations, setConversations }: any) {
   const targetConvoIndex = conversations.findIndex((convo: any) => convo.otherPersonEmail === receivedMessage.sender);
-  let newConversations = [...conversations];
+  let newConversations: TConversation[] = [...conversations];
 
   if (targetConvoIndex === -1) {
     const newConversationItem = {

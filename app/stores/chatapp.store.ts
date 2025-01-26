@@ -17,6 +17,23 @@ export type TUser = {
 
 export type TAllUsers = TUser | [];
 
+export type TMessage = {
+  id: string;
+  sender: string;
+  sender_name: string;
+  receiver: string;
+  receiver_name: string;
+  message: string;
+  sent_at: string;
+};
+
+export type TConversation = {
+  lastMessage: TMessage;
+  otherPersonEmail: string;
+  otherPersonName: string;
+  messages: TMessage[];
+};
+
 type TChatApp = {
   userDetails: TUserDetails | null;
   setUserDetails: (payload: TUserDetails | null) => void;
@@ -26,8 +43,8 @@ type TChatApp = {
   setIsValidationLoading: (payload: boolean) => void;
   isValidationSuccess: boolean;
   setIsValidationSuccess: (payload: boolean) => void;
-  conversations: any[];
-  setConversations: (payload: any[]) => void;
+  conversations: TConversation[];
+  setConversations: (payload: TConversation[]) => void;
 };
 
 export const useChatAppStore = create<TChatApp>((set) => ({

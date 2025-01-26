@@ -3,8 +3,10 @@ import { useCallback, useState, type SyntheticEvent } from "react";
 import { CHAT_APP_EVENTS } from "~/constants/main.constants";
 import { v4 as uuidv4 } from "uuid";
 import moment from "moment";
+import type { TConversation, TMessage } from "~/stores/chatapp.store";
+import { chatBottomScroller } from "~/utils/chatApp.utils";
 
-const SendMessage = ({ socket, userDetails, conversations, currentConversation }: any) => {
+const SendMessage = ({ socket, userDetails, conversations, setConversations, currentConversation }: any) => {
   const [message, setMessage] = useState("");
 
   function handleMessageChange(e: any) {
@@ -14,7 +16,7 @@ const SendMessage = ({ socket, userDetails, conversations, currentConversation }
 
   const handleSend = useCallback(
     (message: string) => {
-      const payload = {
+      const messageToSend: TMessage = {
         sender: userDetails.email,
         receiver: currentConversation.otherPersonEmail,
         sender_name: userDetails.userName,
@@ -23,9 +25,30 @@ const SendMessage = ({ socket, userDetails, conversations, currentConversation }
         id: uuidv4(),
         sent_at: moment().format(),
       };
-      socket.emit(CHAT_APP_EVENTS.TO_SERVER, payload);
+
+      // send message to server using socket emit
+      socket.emit(CHAT_APP_EVENTS.TO_SERVER, messageToSend);
+
+      // insert newly sent message into local conversations store
+      const targetConvoIndex = conversations.findIndex((convo: TConversation) => convo.otherPersonEmail === messageToSend.receiver);
+      let newConversations: TConversation[] = [...conversations];
+
+      if (targetConvoIndex === -1) {
+      } else {
+        let targetConvo: TConversation = newConversations[targetConvoIndex];
+        targetConvo.messages.push(messageToSend);
+        targetConvo = {
+          ...targetConvo,
+          lastMessage: messageToSend,
+        };
+        newConversations.splice(targetConvoIndex, 1, targetConvo);
+      }
+
+      setConversations(newConversations);
       setMessage("");
+
       console.log("Emitted message");
+      chatBottomScroller();
     },
     [message, currentConversation, conversations]
   );
