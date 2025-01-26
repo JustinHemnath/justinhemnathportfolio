@@ -53,7 +53,7 @@ export function chatBottomScroller() {
         block: "end",
       });
     }
-  }, 200);
+  }, 500);
 
   return scrollToBottomTimeout;
 }
