@@ -14,8 +14,9 @@ const SendMessage = ({ socket, userDetails, conversations, setConversations, cur
     setMessage(value);
   }
 
-  const handleSend = useCallback(
-    (message: string) => {
+  const handleSendMessage = useCallback(
+    (e: any) => {
+      e.preventDefault();
       const messageToSend: TMessage = {
         sender: userDetails.email,
         receiver: currentConversation.otherPersonEmail,
@@ -54,7 +55,7 @@ const SendMessage = ({ socket, userDetails, conversations, setConversations, cur
   );
 
   return (
-    <div className="flex flex-[15%] items-center gap-2">
+    <form onSubmit={handleSendMessage} className="flex flex-[15%] items-center gap-2">
       <Input
         key={"inside"}
         description={"inside"}
@@ -64,10 +65,10 @@ const SendMessage = ({ socket, userDetails, conversations, setConversations, cur
         onChange={handleMessageChange}
         value={message}
       />
-      <Button className="bg-white text-[funkyText] mb-10" onPress={() => handleSend(message)}>
+      <Button className="bg-white text-[funkyText] mb-10" onPress={handleSendMessage}>
         Send
       </Button>
-    </div>
+    </form>
   );
 };
 
