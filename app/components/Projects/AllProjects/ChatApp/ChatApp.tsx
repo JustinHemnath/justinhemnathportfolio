@@ -104,7 +104,7 @@ const ChatApp = ({
 
   useEffect(() => {
     if (socket) {
-      console.log("TRIGGERED");
+      // console.log("TRIGGERED");
       socket.on(CHAT_APP_EVENTS.TO_CLIENT, (receivedMessage: TMessage) =>
         receivedMessageHandler({ receivedMessage, conversations, setConversations })
       );
@@ -115,8 +115,6 @@ const ChatApp = ({
         );
     }
   }, [socket, conversations]);
-
-  console.log({ conversations, currentConversation });
 
   return (
     <div className="flex h-full w-full flex-col overflow-hidden rounded-xl">

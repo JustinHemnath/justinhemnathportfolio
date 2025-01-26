@@ -4,7 +4,7 @@ import moment from "moment";
 import { Tooltip } from "@heroui/react";
 
 const AllChatsSidebar = ({ userDetails, conversations, setCurrentConversation }: any) => {
-  console.log({ conversations });
+  // console.log({ conversations });
 
   function handleConversationSelection(convo: any) {
     setCurrentConversation(convo);
