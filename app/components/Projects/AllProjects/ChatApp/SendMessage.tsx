@@ -17,39 +17,46 @@ const SendMessage = ({ socket, userDetails, conversations, setConversations, cur
   const handleSendMessage = useCallback(
     (e: any) => {
       e.preventDefault();
-      const messageToSend: TMessage = {
-        sender: userDetails.email,
-        receiver: currentConversation.otherPersonEmail,
-        sender_name: userDetails.userName,
-        receiver_name: currentConversation.otherPersonName,
-        message,
-        id: uuidv4(),
-        sent_at: moment().format(),
-      };
 
-      // send message to server using socket emit
-      socket.emit(CHAT_APP_EVENTS.TO_SERVER, messageToSend);
-
-      // insert newly sent message into local conversations store
-      const targetConvoIndex = conversations.findIndex((convo: TConversation) => convo.otherPersonEmail === messageToSend.receiver);
-      let newConversations: TConversation[] = [...conversations];
-
-      if (targetConvoIndex === -1) {
-      } else {
-        let targetConvo: TConversation = newConversations[targetConvoIndex];
-        targetConvo.messages.push(messageToSend);
-        targetConvo = {
-          ...targetConvo,
-          lastMessage: messageToSend,
+      if (message) {
+        const messageToSend: TMessage = {
+          sender: userDetails.email,
+          receiver: currentConversation.otherPersonEmail,
+          sender_name: userDetails.userName,
+          receiver_name: currentConversation.otherPersonName,
+          message,
+          id: uuidv4(),
+          sent_at: moment().format(),
         };
-        newConversations.splice(targetConvoIndex, 1, targetConvo);
+
+        // send message to server using socket emit
+        socket.emit(CHAT_APP_EVENTS.TO_SERVER, messageToSend);
+
+        // insert newly sent message into local conversations store
+        const targetConvoIndex = conversations.findIndex((convo: TConversation) => convo.otherPersonEmail === messageToSend.receiver);
+        let newConversations: TConversation[] = [...conversations];
+
+        if (targetConvoIndex === -1) {
+        } else {
+          let targetConvo: TConversation = newConversations[targetConvoIndex];
+          targetConvo.messages.push(messageToSend);
+          targetConvo = {
+            ...targetConvo,
+            lastMessage: messageToSend,
+          };
+          newConversations.splice(targetConvoIndex, 1, targetConvo);
+        }
+
+        setConversations(newConversations);
+        setMessage("");
+
+        console.log("Emitted message");
+        chatBottomScroller();
+
+        // focus button on button send
+        const sendbtn = document.getElementById("sendMessagebtn");
+        if (sendbtn) sendbtn.focus();
       }
-
-      setConversations(newConversations);
-      setMessage("");
-
-      console.log("Emitted message");
-      chatBottomScroller();
     },
     [message, currentConversation, conversations]
   );
@@ -65,7 +72,7 @@ const SendMessage = ({ socket, userDetails, conversations, setConversations, cur
         onChange={handleMessageChange}
         value={message}
       />
-      <Button className="bg-white text-[funkyText] mb-10" onPress={handleSendMessage}>
+      <Button className="bg-white text-[funkyText] mb-10" type="submit" id="sendMessagebtn">
         Send
       </Button>
     </form>

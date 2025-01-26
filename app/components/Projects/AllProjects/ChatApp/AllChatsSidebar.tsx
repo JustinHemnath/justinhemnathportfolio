@@ -1,10 +1,12 @@
+import { chatBottomScroller } from "~/utils/chatApp.utils";
 import { chatsMSGS } from "./test";
 
 const AllChatsSidebar = ({ conversations, setCurrentConversation }: any) => {
-  // console.log({ conversations });
+  console.log({ conversations });
 
   function handleConversationSelection(convo: any) {
     setCurrentConversation(convo);
+    chatBottomScroller();
   }
 
   return (

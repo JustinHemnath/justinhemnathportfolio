@@ -1,6 +1,14 @@
-import type { TConversation } from "~/stores/chatapp.store";
+import type { TConversation, TMessage } from "~/stores/chatapp.store";
 
-export function receivedMessageHandler({ receivedMessage, conversations, setConversations }: any) {
+export function receivedMessageHandler({
+  receivedMessage,
+  conversations,
+  setConversations,
+}: {
+  receivedMessage: TMessage;
+  conversations: TConversation[];
+  setConversations: any;
+}) {
   const targetConvoIndex = conversations.findIndex((convo: any) => convo.otherPersonEmail === receivedMessage.sender);
   let newConversations: TConversation[] = [...conversations];
 
@@ -13,13 +21,17 @@ export function receivedMessageHandler({ receivedMessage, conversations, setConv
     };
     newConversations.push(newConversationItem);
   } else {
-    let targetConvo = newConversations[targetConvoIndex];
-    targetConvo.messages.push(receivedMessage);
-    targetConvo = {
-      ...targetConvo,
-      lastMessage: receivedMessage,
-    };
-    newConversations.splice(targetConvoIndex, 1, targetConvo);
+    let targetConvo: TConversation = newConversations[targetConvoIndex];
+    const messageAlreadyInserted = targetConvo.messages.find((message: TMessage) => message.id === receivedMessage.id);
+
+    if (!messageAlreadyInserted) {
+      targetConvo.messages.push(receivedMessage);
+      targetConvo = {
+        ...targetConvo,
+        lastMessage: receivedMessage,
+      };
+      newConversations.splice(targetConvoIndex, 1, targetConvo);
+    }
   }
 
   newConversations.sort((a, b) => {

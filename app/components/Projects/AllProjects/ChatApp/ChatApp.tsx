@@ -1,4 +1,4 @@
-import { USER_ACCESS_TOKEN_KEY, useSocketStore } from "~/stores/chatapp.store";
+import { USER_ACCESS_TOKEN_KEY, useSocketStore, type TMessage } from "~/stores/chatapp.store";
 import AllChatsSidebar from "./AllChatsSidebar";
 import ConversationThread from "./ConversationThread";
 import { SlLogout } from "react-icons/sl";
@@ -61,12 +61,13 @@ const ChatApp = ({
 
   useEffect(() => {
     if (socket) {
-      socket.on(CHAT_APP_EVENTS.TO_CLIENT, (receivedMessage) =>
+      console.log("TRIGGERED");
+      socket.on(CHAT_APP_EVENTS.TO_CLIENT, (receivedMessage: TMessage) =>
         receivedMessageHandler({ receivedMessage, conversations, setConversations })
       );
 
       return () =>
-        socket.off(CHAT_APP_EVENTS.TO_CLIENT, (receivedMessage) =>
+        socket.off(CHAT_APP_EVENTS.TO_CLIENT, (receivedMessage: TMessage) =>
           receivedMessageHandler({ receivedMessage, conversations, setConversations })
         );
     }
