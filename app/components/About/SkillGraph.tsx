@@ -140,8 +140,6 @@ const SkillGraph = ({ skillGraphContainerRef, isInView }: any) => {
     });
   }, [data, isInView]);
 
-  console.log({ isInView });
-
   return (
     <div className="h-[50rem] w-[50rem]">
       <svg ref={skillGraphRef} className="h-full w-full" />

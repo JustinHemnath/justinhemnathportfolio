@@ -21,9 +21,19 @@ const About = ({ setPageInView }: { setPageInView: any }) => {
 
   return (
     <div className="flex h-full justify-between" ref={ref} id={sectionName}>
-      <div className="flex flex-[50%] flex-col items-center justify-center p-4">
-        <MainTitle text={mainTitle} shouldAnimate={true} {...{ isInView }} />
-        <MainTitle text={bottomTitle} shouldAnimate={false} {...{ isInView }} />
+      <div className="flex flex-[50%] flex-col items-center justify-between p-4">
+        <MainTitle
+          text={mainTitle}
+          shouldAnimate={true}
+          delayFactor={2}
+          {...{ isInView }}
+        />
+        <MainTitle
+          text={bottomTitle}
+          shouldAnimate={false}
+          delayFactor={5}
+          {...{ isInView }}
+        />
       </div>
 
       <div
