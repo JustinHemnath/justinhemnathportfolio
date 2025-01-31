@@ -49,17 +49,30 @@ const SkillGraph = () => {
 
   useEffect(() => {
     if (!skillGraphRef.current || !data) return;
-    const width = 300;
-    const height = 300;
-    // Create the SVG container.
+    const width = 928;
+    const height = 680;
+
+    const color = d3.scaleOrdinal(d3.schemeCategory10);
+
+    const links = data.links.map((d) => ({ ...d }));
+    const nodes = data.nodes.map((d) => ({ ...d }));
+
+    const simulation = d3
+      .forceSimulation(nodes)
+      .force(
+        "link",
+        d3.forceLink(links).id((d) => d.id),
+      )
+      .force("charge", d3.forceManyBody())
+      .force("x", d3.forceX())
+      .force("y", d3.forceY());
+
     const svg = d3
       .select(skillGraphRef.current)
-      .attr("width", width)
-      .attr("height", height)
       .attr("viewBox", [-width / 2, -height / 2, width, height])
-      .attr("style", "max-width: 100%; height: auto;");
+      .style("max-width", "100%")
+      .style("height", "auto");
 
-    // Add a line for each link, and a circle for each node.
     const link = svg
       .append("g")
       .attr("stroke", "#999")
@@ -77,18 +90,26 @@ const SkillGraph = () => {
       .data(nodes)
       .join("circle")
       .attr("r", 5)
-      .attr("fill", (d) => color(d.group));
+      .attr("fill", (d) => color(d.group))
+      .call(
+        d3
+          .drag()
+          .on("start", dragstarted)
+          .on("drag", dragged)
+          .on("end", dragended),
+      );
 
     node.append("title").text((d) => d.id);
 
-    // Add a drag behavior.
-    node.call(
-      d3
-        .drag()
-        .on("start", dragstarted)
-        .on("drag", dragged)
-        .on("end", dragended),
-    );
+    simulation.on("tick", () => {
+      link
+        .attr("x1", (d) => d.source.x)
+        .attr("y1", (d) => d.source.y)
+        .attr("x2", (d) => d.target.x)
+        .attr("y2", (d) => d.target.y);
+
+      node.attr("cx", (d) => d.x).attr("cy", (d) => d.y);
+    });
   }, [data]);
 
   return (
