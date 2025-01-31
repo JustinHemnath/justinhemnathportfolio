@@ -2924,13 +2924,32 @@
     ],
     "skills": [
         {
-            "name": "NodeJs"
+            "name": "TailwindCSS",
+            "multiplier": 1
         },
         {
-            "name": "ReactJs"
+            "name": "ReactJs",
+            "multiplier": 1
         },
         {
-            "name": "Python"
+            "name": "MySQL",
+            "multiplier": 1
+        },
+        {
+            "name": "MongoDB",
+            "multiplier": 1
+        },
+        {
+            "name": "Python",
+            "multiplier": 1
+        },
+        {
+            "name": "PostgreSQL",
+            "multiplier": 1
+        },
+        {
+            "name": "NodeJs",
+            "multiplier": 1
         }
     ]
 }

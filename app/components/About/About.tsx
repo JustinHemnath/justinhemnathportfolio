@@ -8,7 +8,7 @@ const About = ({ setPageInView }: { setPageInView: any }) => {
   const mainTitle =
     "I'm Hemnath Balasubramanian. A full stack developer from Chennai, Tamilnadu.";
   const bottomTitle =
-    "A full stack developer with 2.5 years of experience with ReactJs on the frontend and Python and NodeJs on the backend.";
+    "A full stack web developer with 2.5 years of experience with ReactJs on the frontend and Python and NodeJs on the backend.";
   const sectionName = SECTIONS.ABOUT;
   const skillGraphContainerRef = useRef(null);
 
@@ -30,7 +30,7 @@ const About = ({ setPageInView }: { setPageInView: any }) => {
         className="flex h-full w-full flex-[50%] items-center justify-center p-3 text-5xl text-white"
         ref={skillGraphContainerRef}
       >
-        <SkillGraph {...{ skillGraphContainerRef }} />
+        <SkillGraph {...{ skillGraphContainerRef, isInView }} />
       </div>
     </div>
   );

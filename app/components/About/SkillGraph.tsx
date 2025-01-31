@@ -2,7 +2,7 @@ import * as d3 from "d3";
 import data from "./data.json";
 import { useEffect, useRef } from "react";
 
-const SkillGraph = ({ skillGraphContainerRef }: any) => {
+const SkillGraph = ({ skillGraphContainerRef, isInView }: any) => {
   const skillGraphRef = useRef<SVGSVGElement>(null);
 
   // Specify the dimensions of the chart.
@@ -35,10 +35,11 @@ const SkillGraph = ({ skillGraphContainerRef }: any) => {
   // so that re-evaluating this cell produces the same result.
   const links: any = data.links.map((d) => ({ ...d }));
   const nodes: any = data.nodes.map((d) => ({ ...d }));
+  const skills: any = data.skills.map((d) => ({ ...d }));
 
   // Create a simulation with several forces.
   const simulation = d3
-    .forceSimulation(nodes)
+    .forceSimulation([...nodes, ...skills])
     .force(
       "link",
       d3.forceLink(links).id((d: any) => d.id),
@@ -49,8 +50,13 @@ const SkillGraph = ({ skillGraphContainerRef }: any) => {
 
   useEffect(() => {
     if (!skillGraphRef.current || !skillGraphContainerRef || !data) return;
-    const width = skillGraphContainerRef.current.clientWidth - 100;
+    const width = skillGraphContainerRef.current.clientWidth - 160;
     const height = width;
+    const rectWidth = 190;
+    const rectHeight = 50;
+
+    // Clear previous chart
+    d3.select(skillGraphRef.current).selectAll("*").remove();
 
     const svg: any = d3
       .select(skillGraphRef.current)
@@ -86,22 +92,41 @@ const SkillGraph = ({ skillGraphContainerRef }: any) => {
 
     node.append("title").text((d) => d.id);
 
-    const rectGroup = svg.append("g");
+    const rectGroup = svg
+      .append("g")
+      .selectAll("g")
+      .data(skills)
+      .join("g")
+      .call(
+        d3
+          .drag()
+          .on("start", dragstarted)
+          .on("drag", dragged)
+          .on("end", dragended),
+      );
 
     const rect = rectGroup
       .append("rect")
-      .attr("width", 100)
-      .attr("height", 50)
-      .attr("fill", "lightblue")
-      .attr("stroke", "black");
+      .attr("width", (d) => d.multiplier * rectWidth)
+      .attr("height", (d) => d.multiplier * rectHeight)
+      .attr("fill", "white")
+      .attr("stroke", "black")
+      .attr("rx", 8);
 
-    const text = rectGroup
+    rectGroup
       .append("text")
-      .attr("x", 50)
-      .attr("y", 25)
+      .attr("x", (d) => {
+        return 85;
+      })
+      .attr("y", (d) => {
+        return 25;
+      })
       .attr("text-anchor", "middle")
       .attr("alignment-baseline", "middle")
-      .text("Label");
+      .text((d) => d.name)
+      .style("font-size", 23)
+      .style("font-weight", 800)
+      .style("fill", "black");
 
     simulation.on("tick", () => {
       link
@@ -111,10 +136,11 @@ const SkillGraph = ({ skillGraphContainerRef }: any) => {
         .attr("y2", (d) => d.target.y);
 
       node.attr("cx", (d) => d.x).attr("cy", (d) => d.y);
-
-      rectGroup.attr("transform", `translate(${nodes[0].x}, ${nodes[0].y})`);
+      rectGroup.attr("transform", (d) => `translate(${d.x}, ${d.y})`);
     });
-  }, [data]);
+  }, [data, isInView]);
+
+  console.log({ isInView });
 
   return (
     <div className="h-[50rem] w-[50rem]">
