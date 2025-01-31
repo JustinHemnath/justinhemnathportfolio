@@ -10,6 +10,7 @@ const About = ({ setPageInView }: { setPageInView: any }) => {
   const bottomTitle =
     "A full stack developer with 2.5 years of experience with ReactJs on the frontend and Python and NodeJs on the backend.";
   const sectionName = SECTIONS.ABOUT;
+  const skillGraphContainerRef = useRef(null);
 
   const ref = useRef(null);
   const isInView = useInView(ref);
@@ -25,8 +26,11 @@ const About = ({ setPageInView }: { setPageInView: any }) => {
         <MainTitle text={bottomTitle} shouldAnimate={false} {...{ isInView }} />
       </div>
 
-      <div className="h-full w-full flex-[50%] p-3 text-5xl text-white">
-        <SkillGraph />
+      <div
+        className="flex h-full w-full flex-[50%] items-center justify-center p-3 text-5xl text-white"
+        ref={skillGraphContainerRef}
+      >
+        <SkillGraph {...{ skillGraphContainerRef }} />
       </div>
     </div>
   );

@@ -2921,5 +2921,16 @@
             "target": "073-531-962-083-670",
             "value": 2
         }
+    ],
+    "skills": [
+        {
+            "name": "NodeJs"
+        },
+        {
+            "name": "ReactJs"
+        },
+        {
+            "name": "Python"
+        }
     ]
 }

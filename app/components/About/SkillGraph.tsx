@@ -2,7 +2,7 @@ import * as d3 from "d3";
 import data from "./data.json";
 import { useEffect, useRef } from "react";
 
-const SkillGraph = () => {
+const SkillGraph = ({ skillGraphContainerRef }: any) => {
   const skillGraphRef = useRef<SVGSVGElement>(null);
 
   // Specify the dimensions of the chart.
@@ -33,41 +33,26 @@ const SkillGraph = () => {
 
   // The force simulation mutates links and nodes, so create a copy
   // so that re-evaluating this cell produces the same result.
-  const links = data.links.map((d) => ({ ...d }));
-  const nodes = data.nodes.map((d) => ({ ...d }));
+  const links: any = data.links.map((d) => ({ ...d }));
+  const nodes: any = data.nodes.map((d) => ({ ...d }));
 
   // Create a simulation with several forces.
   const simulation = d3
     .forceSimulation(nodes)
     .force(
       "link",
-      d3.forceLink(links).id((d) => d.id),
+      d3.forceLink(links).id((d: any) => d.id),
     )
     .force("charge", d3.forceManyBody())
     .force("x", d3.forceX())
     .force("y", d3.forceY());
 
   useEffect(() => {
-    if (!skillGraphRef.current || !data) return;
-    const width = 928;
-    const height = 680;
+    if (!skillGraphRef.current || !skillGraphContainerRef || !data) return;
+    const width = skillGraphContainerRef.current.clientWidth - 100;
+    const height = width;
 
-    const color = d3.scaleOrdinal(d3.schemeCategory10);
-
-    const links = data.links.map((d) => ({ ...d }));
-    const nodes = data.nodes.map((d) => ({ ...d }));
-
-    const simulation = d3
-      .forceSimulation(nodes)
-      .force(
-        "link",
-        d3.forceLink(links).id((d) => d.id),
-      )
-      .force("charge", d3.forceManyBody())
-      .force("x", d3.forceX())
-      .force("y", d3.forceY());
-
-    const svg = d3
+    const svg: any = d3
       .select(skillGraphRef.current)
       .attr("viewBox", [-width / 2, -height / 2, width, height])
       .style("max-width", "100%")
@@ -84,13 +69,13 @@ const SkillGraph = () => {
 
     const node = svg
       .append("g")
-      .attr("stroke", "#fff")
+      .attr("stroke", "#ffffff")
       .attr("stroke-width", 1.5)
       .selectAll("circle")
       .data(nodes)
       .join("circle")
       .attr("r", 5)
-      .attr("fill", (d) => color(d.group))
+      .attr("fill", (d) => "#5205eb")
       .call(
         d3
           .drag()
@@ -101,6 +86,23 @@ const SkillGraph = () => {
 
     node.append("title").text((d) => d.id);
 
+    const rectGroup = svg.append("g");
+
+    const rect = rectGroup
+      .append("rect")
+      .attr("width", 100)
+      .attr("height", 50)
+      .attr("fill", "lightblue")
+      .attr("stroke", "black");
+
+    const text = rectGroup
+      .append("text")
+      .attr("x", 50)
+      .attr("y", 25)
+      .attr("text-anchor", "middle")
+      .attr("alignment-baseline", "middle")
+      .text("Label");
+
     simulation.on("tick", () => {
       link
         .attr("x1", (d) => d.source.x)
@@ -109,6 +111,8 @@ const SkillGraph = () => {
         .attr("y2", (d) => d.target.y);
 
       node.attr("cx", (d) => d.x).attr("cy", (d) => d.y);
+
+      rectGroup.attr("transform", `translate(${nodes[0].x}, ${nodes[0].y})`);
     });
   }, [data]);
 
