@@ -21,14 +21,14 @@ const ConversationThread = ({
 
           return (
             <div
-              className="funkyBg min-w-[7rem] max-w-[50%] rounded-xl p-2 text-neutral-200"
+              className="funkyBg min-w-[7rem] max-w-[50%] rounded-xl p-2 text-black"
               style={{
                 alignSelf: userDetails.email === message.sender ? "flex-end" : "flex-start",
               }}
               key={message.id}
             >
-              <div className="flex justify-between gap-10 text-black">
-                <div className="text-xl font-bold text-black">{message.sender_name}</div>
+              <div className="flex justify-between gap-10">
+                <div className="text-xl font-bold ">{message.sender_name}</div>
                 <div className="">{date}</div>
               </div>
               <div className="text-xl">{message.message}</div>
