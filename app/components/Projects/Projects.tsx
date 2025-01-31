@@ -13,7 +13,9 @@ type TActiveProject = {
 
 const Projects = ({ setPageInView }: { setPageInView: any }) => {
   const sectionName = SECTIONS.PROJECTS;
-  const [activeProject, setActiveProject] = useState<TActiveProject | undefined>(undefined);
+  const [activeProject, setActiveProject] = useState<
+    TActiveProject | undefined
+  >(undefined);
   const ref = useRef(null);
   const isInView = useInView(ref);
   const [indexPageActive, setIndexSectionActive] = useState(true);
@@ -53,7 +55,7 @@ const Projects = ({ setPageInView }: { setPageInView: any }) => {
         {/* Projects index section */}
 
         {indexPageActive ? (
-          <div className="">
+          <div className="flex h-full flex-col items-center justify-start pt-[10rem]">
             <motion.p
               animate={{
                 opacity: isInView ? 1 : 0,
@@ -63,7 +65,7 @@ const Projects = ({ setPageInView }: { setPageInView: any }) => {
                 duration: 0.5,
                 bounce: 1,
               }}
-              className="funkyText p-2 text-3xl font-bold italic"
+              className="funkyText border-t-none border-x-none border-b border-b-indigo-400 text-4xl font-extrabold italic"
             >
               PROJECTS
             </motion.p>
@@ -86,7 +88,7 @@ const Projects = ({ setPageInView }: { setPageInView: any }) => {
                     });
                     setIndexSectionActive(false);
                   }}
-                  className="cursor-pointer text-2xl font-extrabold"
+                  className="cursor-pointer text-3xl font-extrabold"
                 >
                   {item.id}. {item.name}
                 </motion.li>
