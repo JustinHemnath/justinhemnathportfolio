@@ -18,6 +18,7 @@ import {
   chatBottomScroller,
   receivedMessageHandler,
 } from "~/utils/chatApp.utils";
+import { Tooltip, Avatar } from "@heroui/react";
 
 const ChatApp = ({
   setIsLoggedIn,
@@ -111,8 +112,24 @@ const ChatApp = ({
               <p className="text-xl font-bold">Back</p>
             </div>
 
-            <div className="flex items-center justify-center gap-2">
-              <p className="text-2xl font-extrabold">Chat App</p>
+            <div className="flex w-[30%] items-center gap-2">
+              <div className="ml-auto flex flex-col items-center justify-center text-2xl">
+                {!currentConversation ? (
+                  <p className="font-extrabold">Chat App</p>
+                ) : (
+                  <div className="flex items-center gap-3">
+                    <Avatar />
+                    <div className="flex flex-col">
+                      <p className="text-xl font-semibold">
+                        {currentConversation.otherPersonName}
+                      </p>
+                      <p className="text-lg">
+                        {currentConversation.otherPersonEmail}
+                      </p>
+                    </div>
+                  </div>
+                )}
+              </div>
               <NewUserSelect
                 {...{
                   allUsers,
@@ -125,16 +142,22 @@ const ChatApp = ({
               />
             </div>
 
-            <SlLogout
-              className="cursor-pointer text-xl"
-              onClick={handleLogout}
-            />
+            <Tooltip content={"Logout"} color="default" placement="bottom">
+              <SlLogout
+                className="cursor-pointer text-xl"
+                onClick={handleLogout}
+              />
+            </Tooltip>
           </div>
 
           {/* chat section */}
           <div className="flex h-full flex-[95%]">
             <AllChatsSidebar
-              {...{ userDetails, conversations, setCurrentConversation }}
+              {...{
+                userDetails,
+                conversations,
+                setCurrentConversation,
+              }}
             />
 
             <div className="flex h-full w-full flex-col pb-6">

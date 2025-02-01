@@ -49,8 +49,8 @@ const AllChatsSidebar = ({
         })
       ) : (
         <p className="p-4 text-center text-lg text-slate-300">
-          Start a new conversation with a user by clicking on the "Select
-          user..." dropdown and selecting a user
+          Start a new conversation with a user by clicking on the search user
+          icon or the add new user icon
         </p>
       )}
     </div>

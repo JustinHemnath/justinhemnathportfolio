@@ -21,6 +21,7 @@ import { v4 as uuidv4 } from "uuid";
 import moment from "moment";
 import { CHAT_APP_EVENTS } from "~/constants/main.constants";
 import { useState } from "react";
+import { Tooltip } from "@heroui/react";
 
 const NewUserSelect = ({
   allUsers,
@@ -31,8 +32,8 @@ const NewUserSelect = ({
   socket,
 }: any) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [newUserSelected, setNewUserSelected] = useState<any>(null);
   const [newUserMessage, setNewUserMessage] = useState("");
+  const [newUserSelected, setNewUserSelected] = useState<any>(null);
 
   function handleUserSelected(selectedUserEmail: string) {
     const matchingConvo = conversations.find(
@@ -97,75 +98,78 @@ const NewUserSelect = ({
   }
 
   return (
-    <div>
-      <Dropdown>
-        <DropdownTrigger>
-          <Button variant="flat" className="!p-1">
-            <FaMagnifyingGlass className="text-white" />
-          </Button>
-        </DropdownTrigger>
-        <DropdownMenu
-          disallowEmptySelection
-          selectionMode="single"
-          onSelectionChange={({ currentKey }: any) =>
-            handleUserSelected(currentKey)
-          }
-        >
-          {allUsers.map((user: any) => (
-            <DropdownItem key={user.email}>
-              <div className="flex flex-col gap-2">
-                <p className="text-lg font-bold">{user.name}</p>
-                <p className="text-base">{user.email}</p>
-              </div>
-            </DropdownItem>
-          ))}
-        </DropdownMenu>
-      </Dropdown>
+    <Tooltip content={"Search user"} color="default" placement="bottom">
+      <div className="ml-auto">
+        <Dropdown>
+          <DropdownTrigger>
+            <Button variant="flat" className="!w-fit !py-[1rem]">
+              <FaMagnifyingGlass className="cursor-pointer text-2xl text-indigo-700" />
+            </Button>
+          </DropdownTrigger>
+          <DropdownMenu
+            disallowEmptySelection
+            selectionMode="single"
+            onSelectionChange={({ currentKey }: any) =>
+              handleUserSelected(currentKey)
+            }
+          >
+            {allUsers.map((user: any) => (
+              <DropdownItem key={user.email}>
+                <div className="flex flex-col gap-2">
+                  <p className="text-lg font-bold">{user.name}</p>
+                  <p className="text-base">{user.email}</p>
+                </div>
+              </DropdownItem>
+            ))}
+          </DropdownMenu>
+        </Dropdown>
 
-      <Modal isOpen={isOpen} size={"md"} onClose={onClose}>
-        <ModalContent>
-          {(onClose) => (
-            <>
-              <ModalHeader className="flex flex-col gap-1 text-center">
-                Start a conversation with {newUserSelected.name}!
-              </ModalHeader>
-              <ModalBody className="text-xl">
-                <p>
-                  This will start a new conversation with {newUserSelected.name}
-                </p>
-                <form
-                  onSubmit={(e: any) =>
-                    handleNewUserMessage(
-                      e,
-                      onClose,
-                      newUserMessage,
-                      newUserSelected,
-                    )
-                  }
-                  className="my-10 flex items-center gap-3"
-                >
-                  <Input
-                    label="Say a hi!"
-                    type="text"
-                    onChange={(e: any) => setNewUserMessage(e.target.value)}
-                    value={newUserMessage}
-                    isRequired
-                  />
-                  <Button className="" type="submit">
-                    Send
-                  </Button>
-                </form>
-                <p>
-                  {newUserSelected.name} will receive your message when they log
-                  in.
-                </p>
-              </ModalBody>
-              <ModalFooter></ModalFooter>
-            </>
-          )}
-        </ModalContent>
-      </Modal>
-    </div>
+        <Modal isOpen={isOpen} size={"md"} onClose={onClose}>
+          <ModalContent>
+            {(onClose) => (
+              <>
+                <ModalHeader className="flex flex-col gap-1 text-center">
+                  Start a conversation with {newUserSelected.name}!
+                </ModalHeader>
+                <ModalBody className="text-xl">
+                  <p>
+                    This will start a new conversation with{" "}
+                    {newUserSelected.name}
+                  </p>
+                  <form
+                    onSubmit={(e: any) =>
+                      handleNewUserMessage(
+                        e,
+                        onClose,
+                        newUserMessage,
+                        newUserSelected,
+                      )
+                    }
+                    className="my-10 flex items-center gap-3"
+                  >
+                    <Input
+                      label="Say a hi!"
+                      type="text"
+                      onChange={(e: any) => setNewUserMessage(e.target.value)}
+                      value={newUserMessage}
+                      isRequired
+                    />
+                    <Button className="" type="submit">
+                      Send
+                    </Button>
+                  </form>
+                  <p>
+                    {newUserSelected.name} will receive your message when they
+                    log in.
+                  </p>
+                </ModalBody>
+                <ModalFooter></ModalFooter>
+              </>
+            )}
+          </ModalContent>
+        </Modal>
+      </div>
+    </Tooltip>
   );
 };
 export default NewUserSelect;
