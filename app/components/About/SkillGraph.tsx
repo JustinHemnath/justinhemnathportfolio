@@ -136,7 +136,7 @@ const SkillGraph = ({ skillGraphContainerRef, isInView }: any) => {
         .attr("y2", (d) => d.target.y);
 
       node.attr("cx", (d) => d.x).attr("cy", (d) => d.y);
-      rectGroup.attr("transform", (d) => `translate(${d.x}, ${d.y})`);
+      rectGroup.attr("transform", (d) => `translate(${d.x - 50}, ${d.y})`);
     });
   }, [data, isInView]);
 
