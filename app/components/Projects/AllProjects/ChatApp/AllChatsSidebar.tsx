@@ -25,10 +25,10 @@ const AllChatsSidebar = ({
               content={convo.otherPersonEmail}
               color="secondary"
               placement="right"
+              key={convo.otherPersonEmail}
             >
               <div
                 className="flex flex-col border-b border-gray-500 px-2 py-3 hover:bg-slate-800"
-                key={convo.otherPersonEmail}
                 onClick={() => handleConversationSelection(convo)}
               >
                 <div className="flex justify-between">
