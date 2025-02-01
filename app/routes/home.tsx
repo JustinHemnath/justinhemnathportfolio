@@ -4,7 +4,10 @@ import Welcome from "~/components/welcome/Welcome";
 import { HeroUIProvider } from "@heroui/react";
 
 export function meta({}: Route.MetaArgs) {
-  return [{ title: "New React Router App" }, { name: "description", content: "Welcome to React Router!" }];
+  return [
+    { title: "Hemnath Balasubramanian" },
+    { name: "Hemnath Balasubramanian", content: "Hemnath Balasubramanian" },
+  ];
 }
 
 export default function Home() {
