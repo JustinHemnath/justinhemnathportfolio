@@ -75,20 +75,16 @@ const SendMessage = ({
       onSubmit={handleSendMessage}
       className="flex flex-[15%] items-center gap-2"
     >
-      <Input
-        key={"inside"}
-        description={"inside"}
-        label="Message"
-        labelPlacement={"inside"}
+      <input
         type="text"
         onChange={handleMessageChange}
         value={message}
         id="sendMessageinput"
-        classNames={{
-          input: "text-md",
-        }}
+        placeholder="Enter message..."
+        className="w-full rounded-lg bg-white px-1 py-4 text-xl text-black"
       />
-      <Button className="mb-10 bg-white text-[funkyText]" type="submit">
+
+      <Button className="bg-white text-xl text-[funkyText]" type="submit">
         Send
       </Button>
     </form>
