@@ -20,7 +20,11 @@ import {
 } from "@heroui/react";
 import { v4 as uuidv4 } from "uuid";
 import moment from "moment";
-import { CHAT_APP_EVENTS, LEAD_DEV_EMAIL } from "~/constants/main.constants";
+import {
+  CHAT_APP_EVENTS,
+  ENVIRONMENT,
+  LEAD_DEV_EMAIL,
+} from "~/constants/main.constants";
 import { useState } from "react";
 import { Tooltip } from "@heroui/react";
 import image from "./image_1.jpg";
@@ -125,7 +129,9 @@ const NewUserSelect = ({
 
                   <div className="flex flex-col gap-2">
                     <p className="text-lg font-bold">{user.name}</p>
-                    <p className="text-base">{user.email}</p>
+                    {import.meta.env.VITE_ENVIRONMENT === ENVIRONMENT.DEV ? (
+                      <p className="text-base">{user.email}</p>
+                    ) : null}
                   </div>
                 </div>
               </DropdownItem>

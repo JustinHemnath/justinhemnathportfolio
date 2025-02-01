@@ -1,6 +1,7 @@
 import { chatBottomScroller } from "~/utils/chatApp.utils";
 import moment from "moment";
 import { Tooltip } from "@heroui/react";
+import { ENVIRONMENT } from "~/constants/main.constants";
 
 const AllChatsSidebar = ({
   userDetails,
@@ -14,6 +15,8 @@ const AllChatsSidebar = ({
     chatBottomScroller();
   }
 
+  const nameSpliceLength = 20;
+
   return (
     <div className="h-full w-[25%] overflow-auto bg-neutral-900 text-white">
       {conversations.length !== 0 ? (
@@ -26,14 +29,20 @@ const AllChatsSidebar = ({
               color="secondary"
               placement="right"
               key={convo.otherPersonEmail}
+              isDisabled={import.meta.env.VITE_ENVIRONMENT === ENVIRONMENT.DEV}
             >
               <div
                 className="flex flex-col border-b border-gray-500 px-2 py-3 hover:bg-slate-800"
                 onClick={() => handleConversationSelection(convo)}
               >
                 <div className="flex justify-between">
-                  <p className="text-2xl font-bold">{convo.otherPersonName}</p>
-                  <p className="self-end text-sm font-bold">{date}</p>
+                  <p className="text-xl font-bold">
+                    {convo.otherPersonName.substring(0, nameSpliceLength)}
+                    {convo.otherPersonName.length >= nameSpliceLength
+                      ? "..."
+                      : ""}
+                  </p>
+                  <p className="self-end text-sm">{date}</p>
                 </div>
                 <div className="ml-1 mt-3 flex items-center gap-1 text-lg">
                   <p className="font-bold">

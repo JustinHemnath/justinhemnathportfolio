@@ -11,7 +11,7 @@ import { useEffect, useState } from "react";
 import { FaLongArrowAltLeft } from "react-icons/fa";
 import NewUserSelect from "./NewUserSelect";
 import SendMessage from "./SendMessage";
-import { CHAT_APP_EVENTS } from "~/constants/main.constants";
+import { CHAT_APP_EVENTS, ENVIRONMENT } from "~/constants/main.constants";
 import { io } from "socket.io-client";
 import moment from "moment";
 import {
@@ -123,9 +123,11 @@ const ChatApp = ({
                       <p className="text-xl font-semibold">
                         {currentConversation.otherPersonName}
                       </p>
-                      <p className="text-lg">
-                        {currentConversation.otherPersonEmail}
-                      </p>
+                      {import.meta.env.VITE_ENVIRONMENT === ENVIRONMENT.DEV ? (
+                        <p className="text-lg">
+                          {currentConversation.otherPersonEmail}
+                        </p>
+                      ) : null}
                     </div>
                   </div>
                 )}
