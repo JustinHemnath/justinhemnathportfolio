@@ -4,7 +4,7 @@ import { PROJECTS, SECTIONS } from "~/constants/main.constants";
 import { motion } from "framer-motion";
 import ProjectsSection from "./ProjectsSection";
 import FullStackChatApp from "./AllProjects/ChatApp/index.chatapp.project";
-import { firebaseConfig } from "~/firebase.config";
+import { Spinner } from "@heroui/react";
 
 type TActiveProject = {
   name: PROJECTS;
@@ -105,6 +105,10 @@ const Projects = ({ setPageInView }: { setPageInView: any }) => {
                 </motion.li>
               ))}
             </motion.ol>
+
+            <div className="funkyText mt-20 flex items-center gap-4 text-lg">
+              <Spinner size="md" /> New projects under construction...
+            </div>
           </div>
         ) : (
           <ProjectsSection {...{ activeProject, setIndexSectionActive }} />
