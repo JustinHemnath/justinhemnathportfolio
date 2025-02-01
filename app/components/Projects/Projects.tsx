@@ -106,7 +106,7 @@ const Projects = ({ setPageInView }: { setPageInView: any }) => {
               ))}
             </motion.ol>
 
-            <div className="funkyText mt-20 flex items-center gap-4 text-lg">
+            <div className="funkyText mt-auto flex items-center gap-4 text-lg">
               <Spinner size="md" /> New projects under construction...
             </div>
           </div>

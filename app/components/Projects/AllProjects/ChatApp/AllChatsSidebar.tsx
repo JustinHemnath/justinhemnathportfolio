@@ -36,15 +36,15 @@ const AllChatsSidebar = ({
                 onClick={() => handleConversationSelection(convo)}
               >
                 <div className="flex justify-between">
-                  <p className="text-xl font-bold">
+                  <p className="text-base font-bold 2xl:text-xl">
                     {convo.otherPersonName.substring(0, nameSpliceLength)}
                     {convo.otherPersonName.length >= nameSpliceLength
                       ? "..."
                       : ""}
                   </p>
-                  <p className="self-end text-sm">{date}</p>
+                  <p className="self-end text-xs 2xl:text-sm">{date}</p>
                 </div>
-                <div className="ml-1 mt-3 flex items-center gap-1 text-lg">
+                <div className="ml-1 mt-3 flex items-center gap-1 text-sm 2xl:text-lg">
                   <p className="font-bold">
                     {convo.lastMessage.sender === userDetails.email
                       ? "You:"
@@ -57,7 +57,7 @@ const AllChatsSidebar = ({
           );
         })
       ) : (
-        <p className="p-4 text-center text-lg text-slate-300">
+        <p className="p-4 text-center text-sm text-slate-300 2xl:text-lg">
           Start a new conversation with a user by clicking on the search user
           icon or the add new user icon
         </p>

@@ -112,7 +112,7 @@ const ChatApp = ({
               <p className="text-xl font-bold">Back</p>
             </div>
 
-            <div className="flex w-[30%] items-center gap-2">
+            <div className="flex w-[60%] items-center gap-2 2xl:w-[30%]">
               <div className="ml-auto flex flex-col items-center justify-center text-2xl">
                 {!currentConversation ? (
                   <p className="font-extrabold">Chat App</p>
@@ -120,11 +120,11 @@ const ChatApp = ({
                   <div className="flex items-center gap-3">
                     <Avatar />
                     <div className="flex flex-col">
-                      <p className="text-xl font-semibold">
+                      <p className="text-lg font-semibold 2xl:text-xl">
                         {currentConversation.otherPersonName}
                       </p>
                       {import.meta.env.VITE_ENVIRONMENT === ENVIRONMENT.DEV ? (
-                        <p className="text-lg">
+                        <p className="text-sm 2xl:text-lg">
                           {currentConversation.otherPersonEmail}
                         </p>
                       ) : null}
