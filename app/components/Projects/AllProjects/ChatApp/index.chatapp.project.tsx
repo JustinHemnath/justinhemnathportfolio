@@ -5,7 +5,11 @@ import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import ChatApp from "./ChatApp";
 import { getLocalStorageItem, setLocalStorageItem } from "~/utils/signin.utils";
-import { useChatAppStore, USER_ACCESS_TOKEN_KEY, type TUserDetails } from "~/stores/chatapp.store";
+import {
+  useChatAppStore,
+  USER_ACCESS_TOKEN_KEY,
+  type TUserDetails,
+} from "~/stores/chatapp.store";
 import { validateAndFetchUserConversations } from "~/services/chatapp.project.services";
 
 const FullStackChatApp = ({ setIndexSectionActive }: any) => {
@@ -138,7 +142,10 @@ const SignInPage = ({ googleSignIn, setIndexSectionActive }: any) => {
             scale: 1.3,
           }}
         >
-          <GrGoogle className="cursor-pointer text-[5rem] text-white transition-all duration-300" onClick={googleSignIn} />
+          <GrGoogle
+            className="cursor-pointer text-[5rem] text-white transition-all duration-300"
+            onClick={googleSignIn}
+          />
         </motion.div>
       </div>
     </div>

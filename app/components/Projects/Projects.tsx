@@ -4,7 +4,7 @@ import { PROJECTS, SECTIONS } from "~/constants/main.constants";
 import { motion } from "framer-motion";
 import ProjectsSection from "./ProjectsSection";
 import FullStackChatApp from "./AllProjects/ChatApp/index.chatapp.project";
-import { firebaseConfig } from "~/firebase.config";
+import { Spinner } from "@heroui/react";
 
 type TActiveProject = {
   name: PROJECTS;
@@ -13,7 +13,9 @@ type TActiveProject = {
 
 const Projects = ({ setPageInView }: { setPageInView: any }) => {
   const sectionName = SECTIONS.PROJECTS;
-  const [activeProject, setActiveProject] = useState<TActiveProject | undefined>(undefined);
+  const [activeProject, setActiveProject] = useState<
+    TActiveProject | undefined
+  >(undefined);
   const ref = useRef(null);
   const isInView = useInView(ref);
   const [indexPageActive, setIndexSectionActive] = useState(true);
@@ -53,7 +55,7 @@ const Projects = ({ setPageInView }: { setPageInView: any }) => {
         {/* Projects index section */}
 
         {indexPageActive ? (
-          <div className="">
+          <div className="flex h-full flex-col items-center justify-start pt-[10rem]">
             <motion.p
               animate={{
                 opacity: isInView ? 1 : 0,
@@ -63,15 +65,26 @@ const Projects = ({ setPageInView }: { setPageInView: any }) => {
                 duration: 0.5,
                 bounce: 1,
               }}
-              className="funkyText p-2 text-3xl font-bold italic"
+              className="funkyText border-t-none border-x-none border-b border-b-indigo-400 text-4xl font-extrabold italic"
             >
               PROJECTS
             </motion.p>
 
             <motion.ol
               variants={listVariants}
-              initial="hidden"
-              animate="visible"
+              initial={{
+                opacity: 0,
+                y: -100,
+              }}
+              animate={{
+                opacity: 1,
+                y: 0,
+              }}
+              transition={{
+                delay: 0.5,
+                bounce: 0.3,
+                type: "spring",
+              }}
               key={`${sectionName}${isInView}`}
               className="funkyText mt-10"
             >
@@ -86,12 +99,16 @@ const Projects = ({ setPageInView }: { setPageInView: any }) => {
                     });
                     setIndexSectionActive(false);
                   }}
-                  className="cursor-pointer text-2xl font-extrabold"
+                  className="cursor-pointer text-3xl font-extrabold transition-all duration-100 ease-in-out hover:text-4xl"
                 >
                   {item.id}. {item.name}
                 </motion.li>
               ))}
             </motion.ol>
+
+            <div className="funkyText mt-auto flex items-center gap-4 text-lg">
+              <Spinner size="md" /> New projects under construction...
+            </div>
           </div>
         ) : (
           <ProjectsSection {...{ activeProject, setIndexSectionActive }} />

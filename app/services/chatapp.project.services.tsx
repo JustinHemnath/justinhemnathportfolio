@@ -43,7 +43,9 @@ export async function validateAndFetchUserConversations({
         setCurrentConversation(null);
       }
 
-      const allUsers = response.data.metaData.users.filter((user: any) => user.email !== userDetails.email);
+      const allUsers = response.data.metaData.users.filter(
+        (user: any) => user.email !== userDetails.email,
+      );
       setAllUsers(allUsers);
       setIsValidationSuccess(true);
     } catch (err: any) {

@@ -6,7 +6,13 @@ import moment from "moment";
 import type { TConversation, TMessage } from "~/stores/chatapp.store";
 import { chatBottomScroller } from "~/utils/chatApp.utils";
 
-const SendMessage = ({ socket, userDetails, conversations, setConversations, currentConversation }: any) => {
+const SendMessage = ({
+  socket,
+  userDetails,
+  conversations,
+  setConversations,
+  currentConversation,
+}: any) => {
   const [message, setMessage] = useState("");
 
   function handleMessageChange(e: any) {
@@ -33,7 +39,10 @@ const SendMessage = ({ socket, userDetails, conversations, setConversations, cur
         socket.emit(CHAT_APP_EVENTS.TO_SERVER, messageToSend);
 
         // insert newly sent message into local conversations store
-        const targetConvoIndex = conversations.findIndex((convo: TConversation) => convo.otherPersonEmail === messageToSend.receiver);
+        const targetConvoIndex = conversations.findIndex(
+          (convo: TConversation) =>
+            convo.otherPersonEmail === messageToSend.receiver,
+        );
         let newConversations: TConversation[] = [...conversations];
 
         if (targetConvoIndex === -1) {
@@ -54,25 +63,31 @@ const SendMessage = ({ socket, userDetails, conversations, setConversations, cur
         chatBottomScroller();
 
         // focus button on button send
-        const sendbtn = document.getElementById("sendMessagebtn");
+        const sendbtn = document.getElementById("sendMessageinput");
         if (sendbtn) sendbtn.focus();
       }
     },
-    [message, currentConversation, conversations]
+    [message, currentConversation, conversations],
   );
 
   return (
-    <form onSubmit={handleSendMessage} className="flex flex-[15%] items-center gap-2">
-      <Input
-        key={"inside"}
-        description={"inside"}
-        label="Message"
-        labelPlacement={"inside"}
+    <form
+      onSubmit={handleSendMessage}
+      className="flex flex-[20%] items-center gap-2 2xl:flex-[15%]"
+    >
+      <input
         type="text"
         onChange={handleMessageChange}
         value={message}
+        id="sendMessageinput"
+        placeholder="Enter message..."
+        className="w-full rounded-lg bg-white px-1 py-4 text-base text-black 2xl:text-xl"
       />
-      <Button className="bg-white text-[funkyText] mb-10" type="submit" id="sendMessagebtn">
+
+      <Button
+        className="bg-white text-base text-[funkyText] 2xl:text-xl"
+        type="submit"
+      >
         Send
       </Button>
     </form>

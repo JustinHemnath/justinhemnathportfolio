@@ -1,6 +1,17 @@
 import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
 
-const MainTitle = ({ text, shouldAnimate, isInView }: { text: string; shouldAnimate: boolean; isInView: boolean }) => {
+const MainTitle = ({
+  text,
+  shouldAnimate,
+  isInView,
+  delayFactor,
+}: {
+  text: string;
+  shouldAnimate: boolean;
+  isInView: boolean;
+  delayFactor: number;
+}) => {
   const [feederString, setFeederString] = useState(shouldAnimate ? "" : text);
 
   useEffect(() => {
@@ -31,9 +42,33 @@ const MainTitle = ({ text, shouldAnimate, isInView }: { text: string; shouldAnim
   }, [feederString, isInView]);
 
   return (
-    <div className="flex w-[50%] gap-1 py-10">
-      <p className={"funkyText text-wrap font-bold " + (shouldAnimate ? " text-[4rem]" : " text-[2.5rem]")}>{feederString}</p>
-    </div>
+    <motion.div
+      className="flex gap-1 py-10"
+      initial={{
+        // y: shouldAnimate ? 0 : 100,
+        y: 100,
+        opacity: 0,
+      }}
+      animate={{
+        y: 0,
+        opacity: 1,
+      }}
+      transition={{
+        duration: 0.8,
+        delay: 0.3 * delayFactor,
+      }}
+    >
+      <p
+        className={
+          "funkyText text-wrap font-bold " +
+          (shouldAnimate
+            ? " text-[3rem] 2xl:text-[4rem]"
+            : " text-justify text-[2rem] 2xl:text-[2.5rem]")
+        }
+      >
+        {feederString}
+      </p>
+    </motion.div>
   );
 };
 
