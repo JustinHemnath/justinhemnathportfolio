@@ -15,7 +15,7 @@ const ConversationThread = ({
 
   return (
     <div
-      className="relative flex h-full w-full flex-[85%] flex-col gap-2 overflow-auto p-2 pb-10"
+      className="relative flex h-full w-full flex-[80%] flex-col gap-2 overflow-auto p-2 pb-10 2xl:flex-[85%]"
       id="conversationThread"
     >
       {userDetails && currentConversation ? (
@@ -47,10 +47,12 @@ const ConversationThread = ({
               key={message.id}
             >
               <div className="flex justify-between gap-10">
-                <div className="text-xl font-bold">{message.sender_name}</div>
-                <div className="">{date}</div>
+                <div className="text-lg font-bold 2xl:text-xl">
+                  {message.sender_name}
+                </div>
+                <div className="text-sm 2xl:text-base">{date}</div>
               </div>
-              <div className="text-xl">{message.message}</div>
+              <div className="text-md 2xl:text-xl">{message.message}</div>
             </motion.div>
           );
         })

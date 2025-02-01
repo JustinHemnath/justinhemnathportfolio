@@ -73,7 +73,7 @@ const SendMessage = ({
   return (
     <form
       onSubmit={handleSendMessage}
-      className="flex flex-[15%] items-center gap-2"
+      className="flex flex-[20%] items-center gap-2 2xl:flex-[15%]"
     >
       <input
         type="text"
@@ -81,10 +81,13 @@ const SendMessage = ({
         value={message}
         id="sendMessageinput"
         placeholder="Enter message..."
-        className="w-full rounded-lg bg-white px-1 py-4 text-xl text-black"
+        className="w-full rounded-lg bg-white px-1 py-4 text-base text-black 2xl:text-xl"
       />
 
-      <Button className="bg-white text-xl text-[funkyText]" type="submit">
+      <Button
+        className="bg-white text-base text-[funkyText] 2xl:text-xl"
+        type="submit"
+      >
         Send
       </Button>
     </form>
