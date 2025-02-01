@@ -61,7 +61,9 @@ const MainTitle = ({
       <p
         className={
           "funkyText text-wrap font-bold " +
-          (shouldAnimate ? " text-[4rem]" : " text-justify text-[2.5rem]")
+          (shouldAnimate
+            ? " text-[3rem] 2xl:text-[4rem]"
+            : " text-justify text-[2rem] 2xl:text-[2.5rem]")
         }
       >
         {feederString}
