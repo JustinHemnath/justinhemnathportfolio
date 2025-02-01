@@ -72,8 +72,19 @@ const Projects = ({ setPageInView }: { setPageInView: any }) => {
 
             <motion.ol
               variants={listVariants}
-              initial="hidden"
-              animate="visible"
+              initial={{
+                opacity: 0,
+                y: -100,
+              }}
+              animate={{
+                opacity: 1,
+                y: 0,
+              }}
+              transition={{
+                delay: 0.5,
+                bounce: 0.3,
+                type: "spring",
+              }}
               key={`${sectionName}${isInView}`}
               className="funkyText mt-10"
             >
@@ -88,7 +99,7 @@ const Projects = ({ setPageInView }: { setPageInView: any }) => {
                     });
                     setIndexSectionActive(false);
                   }}
-                  className="cursor-pointer text-3xl font-extrabold"
+                  className="cursor-pointer text-3xl font-extrabold transition-all duration-100 ease-in-out hover:text-4xl"
                 >
                   {item.id}. {item.name}
                 </motion.li>

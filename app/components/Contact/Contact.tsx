@@ -19,7 +19,19 @@ const Contact = ({ setPageInView }: { setPageInView: any }) => {
     <div ref={ref} id={sectionName} className="h-full">
       <div className="flex h-full w-full items-center justify-center rounded-3xl bg-black p-10">
         <div className="flex flex-col items-center justify-start text-3xl font-bold">
-          <p className="funkyText mb-20 text-5xl">Contact me at:</p>
+          <motion.p
+            className="funkyText border-t-none border-x-none mb-20 border-b border-b-indigo-400 text-5xl"
+            animate={{
+              opacity: isInView ? 1 : 0,
+              y: isInView ? 0 : 100,
+            }}
+            transition={{
+              duration: 0.5,
+              bounce: 1,
+            }}
+          >
+            Contact me at:
+          </motion.p>
 
           <div className="flex flex-col items-start gap-10">
             <motion.a
@@ -30,8 +42,25 @@ const Contact = ({ setPageInView }: { setPageInView: any }) => {
                 scale: 1.2,
               }}
             >
-              <FaLinkedin className="funkyBg rounded-lg text-[4rem]" />
-              <p className="text-slate-500"> Hemnath Balasubramanian</p>
+              <motion.div
+                className="flex items-center gap-10"
+                initial={{
+                  opacity: 0,
+                  y: -100,
+                }}
+                animate={{
+                  opacity: 1,
+                  y: 0,
+                }}
+                transition={{
+                  delay: 0.5,
+                  bounce: 0.3,
+                  type: "spring",
+                }}
+              >
+                <FaLinkedin className="funkyBg rounded-lg text-[4rem]" />
+                <p className="text-slate-500"> Hemnath Balasubramanian</p>
+              </motion.div>
             </motion.a>
             <motion.a
               href="https://github.com/JustinHemnath"
@@ -41,8 +70,25 @@ const Contact = ({ setPageInView }: { setPageInView: any }) => {
                 scale: 1.2,
               }}
             >
-              <FaGithub className="funkyBg rounded-lg text-[4rem]" />
-              <p className="text-slate-500"> Justin Hemnath</p>
+              <motion.div
+                className="flex items-center gap-10"
+                initial={{
+                  opacity: 0,
+                  y: -100,
+                }}
+                animate={{
+                  opacity: 1,
+                  y: 0,
+                }}
+                transition={{
+                  delay: 0.5,
+                  bounce: 0.3,
+                  type: "spring",
+                }}
+              >
+                <FaGithub className="funkyBg rounded-lg text-[4rem]" />
+                <p className="text-slate-500"> Justin Hemnath</p>
+              </motion.div>
             </motion.a>
           </div>
         </div>
