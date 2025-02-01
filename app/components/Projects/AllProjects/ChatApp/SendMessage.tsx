@@ -6,7 +6,13 @@ import moment from "moment";
 import type { TConversation, TMessage } from "~/stores/chatapp.store";
 import { chatBottomScroller } from "~/utils/chatApp.utils";
 
-const SendMessage = ({ socket, userDetails, conversations, setConversations, currentConversation }: any) => {
+const SendMessage = ({
+  socket,
+  userDetails,
+  conversations,
+  setConversations,
+  currentConversation,
+}: any) => {
   const [message, setMessage] = useState("");
 
   function handleMessageChange(e: any) {
@@ -33,7 +39,10 @@ const SendMessage = ({ socket, userDetails, conversations, setConversations, cur
         socket.emit(CHAT_APP_EVENTS.TO_SERVER, messageToSend);
 
         // insert newly sent message into local conversations store
-        const targetConvoIndex = conversations.findIndex((convo: TConversation) => convo.otherPersonEmail === messageToSend.receiver);
+        const targetConvoIndex = conversations.findIndex(
+          (convo: TConversation) =>
+            convo.otherPersonEmail === messageToSend.receiver,
+        );
         let newConversations: TConversation[] = [...conversations];
 
         if (targetConvoIndex === -1) {
@@ -54,15 +63,18 @@ const SendMessage = ({ socket, userDetails, conversations, setConversations, cur
         chatBottomScroller();
 
         // focus button on button send
-        const sendbtn = document.getElementById("sendMessagebtn");
+        const sendbtn = document.getElementById("sendMessageinput");
         if (sendbtn) sendbtn.focus();
       }
     },
-    [message, currentConversation, conversations]
+    [message, currentConversation, conversations],
   );
 
   return (
-    <form onSubmit={handleSendMessage} className="flex flex-[15%] items-center gap-2">
+    <form
+      onSubmit={handleSendMessage}
+      className="flex flex-[15%] items-center gap-2"
+    >
       <Input
         key={"inside"}
         description={"inside"}
@@ -71,8 +83,12 @@ const SendMessage = ({ socket, userDetails, conversations, setConversations, cur
         type="text"
         onChange={handleMessageChange}
         value={message}
+        id="sendMessageinput"
+        classNames={{
+          input: "text-md",
+        }}
       />
-      <Button className="bg-white text-[funkyText] mb-10" type="submit" id="sendMessagebtn">
+      <Button className="mb-10 bg-white text-[funkyText]" type="submit">
         Send
       </Button>
     </form>
