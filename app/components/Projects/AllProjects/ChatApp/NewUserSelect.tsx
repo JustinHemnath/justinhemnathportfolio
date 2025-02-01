@@ -121,21 +121,30 @@ const NewUserSelect = ({
           >
             {allUsers.map((user: any) => (
               <DropdownItem key={user.email}>
-                <div className="flex items-center gap-4">
-                  <Avatar
-                    src={user.email === LEAD_DEV_EMAIL ? image : undefined}
-                    size="lg"
-                  />
+                <Tooltip
+                  content={
+                    "Hi, it's me Hemnath again. Click here to send private messages to me."
+                  }
+                  color="default"
+                  placement="right"
+                  isDisabled={user.email !== LEAD_DEV_EMAIL}
+                >
+                  <div className="flex items-center gap-4">
+                    <Avatar
+                      src={user.email === LEAD_DEV_EMAIL ? image : undefined}
+                      size="lg"
+                    />
 
-                  <div className="flex flex-col gap-2">
-                    <p className="text-base font-bold 2xl:text-lg">
-                      {user.name}
-                    </p>
-                    {import.meta.env.VITE_ENVIRONMENT === ENVIRONMENT.DEV ? (
-                      <p className="text-base">{user.email}</p>
-                    ) : null}
+                    <div className="flex flex-col gap-2">
+                      <p className="text-base font-bold 2xl:text-lg">
+                        {user.name}
+                      </p>
+                      {import.meta.env.VITE_ENVIRONMENT === ENVIRONMENT.DEV ? (
+                        <p className="text-base">{user.email}</p>
+                      ) : null}
+                    </div>
                   </div>
-                </div>
+                </Tooltip>
               </DropdownItem>
             ))}
           </DropdownMenu>
@@ -165,7 +174,7 @@ const NewUserSelect = ({
                     className="my-10 flex items-center gap-3"
                   >
                     <Input
-                      label="Say a hi!"
+                      label="Say hi!"
                       type="text"
                       onChange={(e: any) => setNewUserMessage(e.target.value)}
                       value={newUserMessage}
