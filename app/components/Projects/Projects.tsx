@@ -102,7 +102,7 @@ const Projects = ({ setPageInView }: { setPageInView: any }) => {
                   }}
                   className="cursor-pointer text-3xl font-extrabold transition-all duration-100 ease-in-out hover:text-4xl"
                 >
-                  <div className="flex flex-col items-center gap-3">
+                  <div className="flex flex-col gap-3">
                     <p>
                       {item.id}. {item.name}
                     </p>
