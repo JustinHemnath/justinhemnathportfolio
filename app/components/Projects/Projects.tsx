@@ -4,7 +4,7 @@ import { PROJECTS, SECTIONS } from "~/constants/main.constants";
 import { motion } from "framer-motion";
 import ProjectsSection from "./ProjectsSection";
 import FullStackChatApp from "./AllProjects/ChatApp/index.chatapp.project";
-import { Spinner } from "@heroui/react";
+import { Spinner, Divider } from "@heroui/react";
 
 type TActiveProject = {
   name: PROJECTS;
@@ -26,6 +26,7 @@ const Projects = ({ setPageInView }: { setPageInView: any }) => {
       name: PROJECTS.CHAT_APP,
       activeProjectName: PROJECTS.CHAT_APP,
       component: <FullStackChatApp {...{ setIndexSectionActive }} />,
+      techStack: ["ReactJs", "NodeJS", "Postgresql", "Prisma", "Socket.io"],
     },
   ];
 
@@ -101,7 +102,30 @@ const Projects = ({ setPageInView }: { setPageInView: any }) => {
                   }}
                   className="cursor-pointer text-3xl font-extrabold transition-all duration-100 ease-in-out hover:text-4xl"
                 >
-                  {item.id}. {item.name}
+                  <div className="flex flex-col gap-3">
+                    <p>
+                      {item.id}. {item.name}
+                    </p>
+                    <div className="mt-4 flex text-xl">
+                      <Divider
+                        className="funkyBg mx-4"
+                        orientation="vertical"
+                      />
+                      {item.techStack.map(
+                        (tech: string, index: number, arr: any[]) => (
+                          <div className="flex gap-2" key={tech}>
+                            <p>{tech}</p>
+                            {index !== arr.length - 1 ? (
+                              <Divider
+                                className="funkyBg mx-4"
+                                orientation="vertical"
+                              />
+                            ) : null}
+                          </div>
+                        ),
+                      )}
+                    </div>
+                  </div>
                 </motion.li>
               ))}
             </motion.ol>
