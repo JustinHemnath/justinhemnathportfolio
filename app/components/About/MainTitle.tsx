@@ -41,10 +41,6 @@ const ADDITIONAL_INFO = [
     title: "Year of graduation",
     description: "2018",
   },
-  {
-    title: "Year of graduation",
-    description: "2018",
-  },
 ];
 
 const MainTitle = ({
