@@ -4,11 +4,16 @@ import MainTitle from "./MainTitle";
 import { SECTIONS } from "~/constants/main.constants";
 import SkillGraph from "./SkillGraph";
 
-const About = ({ setPageInView }: { setPageInView: any }) => {
+const About = ({
+  setPageInView,
+  experienceYears,
+}: {
+  setPageInView: any;
+  experienceYears: string;
+}) => {
   const mainTitle =
     "I'm Hemnath Balasubramanian. A full stack developer from Chennai, Tamilnadu.";
-  const bottomTitle =
-    "A full stack web developer with 2.5 years of experience with ReactJs on the frontend and Python and NodeJs on the backend.";
+  const bottomTitle = `A full stack web developer with ${experienceYears} years of experience with ReactJs on the frontend and NodeJs and Python on the backend.`;
   const sectionName = SECTIONS.ABOUT;
   const skillGraphContainerRef = useRef(null);
 

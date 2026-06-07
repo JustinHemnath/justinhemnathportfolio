@@ -1,4 +1,4 @@
-import { useState, type ReactNode } from "react";
+import { useMemo, useState, type ReactNode } from "react";
 import { initializeApp } from "firebase/app";
 import { firebaseConfig } from "~/firebase.config";
 
@@ -10,12 +10,20 @@ import PageWrapper from "../PageWrapper";
 import Contact from "../Contact/Contact";
 import { Alert } from "@heroui/react";
 import { IoMdClose } from "react-icons/io";
+import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
+
+dayjs.extend(relativeTime);
 
 const Welcome = () => {
   const sidebarWidth = 40;
   const [pageInView, setPageInView] = useState(SECTIONS.ABOUT);
   const [initialAlertVisible, setInitialAlertVisible] = useState(true);
   const app = initializeApp(firebaseConfig);
+
+  const experienceYears = useMemo(() => {
+    return dayjs().diff("2022-09-01", "year", true).toPrecision(2);
+  }, []);
 
   return (
     <div>
@@ -44,7 +52,10 @@ const Welcome = () => {
 
       {/* main pages  */}
       {[
-        { name: SECTIONS.ABOUT, component: <About {...{ setPageInView }} /> },
+        {
+          name: SECTIONS.ABOUT,
+          component: <About {...{ setPageInView, experienceYears }} />,
+        },
         {
           name: SECTIONS.PROJECTS,
           component: <Projects {...{ setPageInView }} />,
