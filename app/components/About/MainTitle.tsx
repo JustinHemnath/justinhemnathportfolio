@@ -75,7 +75,7 @@ const MainTitle = ({
               return feederString + letterToAdd;
             }
           });
-        }, 100);
+        }, 40);
 
         return () => clearTimeout(letterAdderTimeout);
       }

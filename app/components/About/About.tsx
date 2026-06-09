@@ -3,6 +3,7 @@ import { useInView } from "motion/react";
 import MainTitle from "./MainTitle";
 import { SECTIONS } from "~/constants/main.constants";
 import SkillGraph from "./SkillGraph";
+import { Chip } from "@heroui/react";
 
 const About = ({
   setPageInView,
@@ -12,7 +13,7 @@ const About = ({
   experienceYears: string;
 }) => {
   const mainTitle =
-    "I'm Hemnath Balasubramanian. A full stack developer from Chennai, Tamilnadu.";
+    "Hello! I'm Hemnath Balasubramanian. A full stack web developer from Chennai, Tamilnadu, IN.";
   const bottomTitle = `A full stack web developer with ${experienceYears} years of experience with ReactJs on the frontend and NodeJs and Python on the backend.`;
   const sectionName = SECTIONS.ABOUT;
   const skillGraphContainerRef = useRef(null);
@@ -30,13 +31,13 @@ const About = ({
         <MainTitle
           text={mainTitle}
           shouldAnimate={true}
-          delayFactor={2}
+          delayFactor={1}
           {...{ isInView }}
         />
         <MainTitle
           text={bottomTitle}
           shouldAnimate={false}
-          delayFactor={5}
+          delayFactor={1}
           {...{ isInView }}
         />
       </div>

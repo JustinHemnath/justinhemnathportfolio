@@ -37,6 +37,9 @@ const NewUserSelect = ({
   userDetails,
   socket,
 }: any) => {
+  console.log({
+    allUsers,
+  });
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [newUserMessage, setNewUserMessage] = useState("");
   const [newUserSelected, setNewUserSelected] = useState<any>(null);
