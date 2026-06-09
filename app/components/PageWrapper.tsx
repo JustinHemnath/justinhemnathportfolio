@@ -9,7 +9,7 @@ const PageWrapper = ({
 }) => {
   return (
     <div
-      className="h-screen py-6 pl-4"
+      className="h-screen py-3 pl-2"
       style={{
         marginLeft: sidebarWidth,
         scrollSnapAlign: "center",

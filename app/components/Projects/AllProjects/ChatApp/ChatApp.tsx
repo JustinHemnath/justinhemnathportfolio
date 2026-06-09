@@ -103,7 +103,7 @@ const ChatApp = ({
       ) : isValidationSuccess ? (
         <div className="h-full">
           {/* header */}
-          <div className="funkyBg flex flex-[5%] items-center justify-between px-4 py-2">
+          <div className="funkyBg flex flex-[5%] items-center justify-between px-4 pt-1">
             <div
               className="flex cursor-pointer items-center gap-3"
               onClick={() => setIndexSectionActive(true)}
@@ -117,8 +117,8 @@ const ChatApp = ({
                 {!currentConversation ? (
                   <p className="font-extrabold">Chat App</p>
                 ) : (
-                  <div className="flex items-center gap-3">
-                    <Avatar />
+                  <div className="flex items-center gap-3 rounded-t-2xl bg-zinc-300 px-20 py-1">
+                    <Avatar className="bg-zinc-700 text-zinc-200" />
                     <div className="flex flex-col">
                       <p className="text-lg font-semibold 2xl:text-xl">
                         {currentConversation.otherPersonName}

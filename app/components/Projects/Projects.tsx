@@ -56,7 +56,7 @@ const Projects = ({ setPageInView }: { setPageInView: any }) => {
   }, [isInView]);
 
   return (
-    <div ref={ref} id={sectionName} className="h-full p-2">
+    <div ref={ref} id={sectionName} className="h-full">
       <div className="h-full rounded-3xl bg-black p-2">
         {/* Projects index section */}
 
@@ -71,7 +71,7 @@ const Projects = ({ setPageInView }: { setPageInView: any }) => {
                 duration: 0.5,
                 bounce: 1,
               }}
-              className="funkyText text-shadow-lg absolute top-0 text-4xl font-bold"
+              className="funkyText absolute top-0 text-4xl font-bold text-shadow-lg"
             >
               Projects
             </motion.p>
@@ -79,9 +79,7 @@ const Projects = ({ setPageInView }: { setPageInView: any }) => {
             <div className="my-3 flex flex-col items-center gap-2">
               {ProjectNames.map((project: any) => (
                 <motion.div
-                  // className="funkyBg flex w-[40vw] cursor-pointer flex-col items-center rounded-2xl p-3"
-                  // className="flex w-[40vw] cursor-pointer flex-col rounded-2xl bg-cyan-400 p-3"
-                  className="flex w-[40vw] cursor-pointer flex-col rounded-2xl bg-gradient-to-r from-cyan-800 via-cyan-500 to-cyan-800 p-3"
+                  className="relative flex w-[40vw] cursor-pointer flex-col rounded-lg bg-gradient-to-r from-cyan-600 via-cyan-300 to-cyan-600 px-16 py-10"
                   // key={project.id}
                   onClick={() => {
                     setActiveProject({
@@ -93,6 +91,7 @@ const Projects = ({ setPageInView }: { setPageInView: any }) => {
                   variants={listVariants}
                   whileHover={{
                     scale: 1.1,
+                    borderRadius: "40%",
                   }}
                   initial={{
                     opacity: 0,
@@ -113,28 +112,31 @@ const Projects = ({ setPageInView }: { setPageInView: any }) => {
                       bounce: 0.3,
                       type: "spring",
                     },
+                    borderRadius: {
+                      ease: "easeIn",
+                      type: "spring",
+                    },
                   }}
                   key={`${sectionName}${isInView}`}
                 >
-                  {/* <div className="flex items-center gap-2"> */}
-                  {/* <p className="text-2xl font-bold text-cyan-900"> */}
-                  <p className="funkyText text-4xl font-black">
+                  <p className="funkyText text-shadow-xl/20 text-center text-4xl font-black">
                     {project.name}
                   </p>
-                  {/* <span>-</span> */}
-                  <p className="mt-4 text-gray-700">{project.desc}</p>
-                  {/* </div> */}
+                  <p className="mt-4 text-center">{project.desc}</p>
 
-                  <div className="mt-6 flex flex-col flex-wrap gap-2">
+                  <div className="mt-6 flex flex-col flex-wrap items-center gap-2">
                     {Object.entries(project.techStack).map((stackMap: any) => {
                       return (
-                        <div className="flex gap-2">
-                          <p className="">{stackMap[0]}</p>
-                          {stackMap[1].map((stack: string) => (
-                            <Chip className="bg-gray-200 text-sm text-black shadow">
-                              <p className="font-medium">{stack}</p>
-                            </Chip>
-                          ))}
+                        <div className="flex w-[80%] justify-between gap-2">
+                          <p className="mr-auto font-semibold">{stackMap[0]}</p>
+
+                          <div className="flex w-full flex-wrap justify-center gap-2">
+                            {stackMap[1].map((stack: string) => (
+                              <Chip className="bg-gray-200 text-sm text-black shadow">
+                                <p className="font-medium">{stack}</p>
+                              </Chip>
+                            ))}
+                          </div>
                         </div>
                       );
                     })}
