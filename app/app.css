@@ -1,8 +1,7 @@
 @import url(https://fonts.googleapis.com/css?family=Google+Sans+Flex:100,200,300,regular,500,600,700,800,900);
+@import "tailwindcss";
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@config "../tailwind.config.ts";
 
 html {
   scroll-snap-type: y mandatory;

@@ -10,7 +10,7 @@ export default {
     extend: {
       fontFamily: {
         sans: [
-          '"Inter"',
+          '"Google Sans Flex"',
           "ui-sans-serif",
           "system-ui",
           "sans-serif",

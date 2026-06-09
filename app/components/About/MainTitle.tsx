@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 import {
   Modal,
   ModalContent,
@@ -104,7 +104,7 @@ const MainTitle = ({
       <motion.div className="flex gap-1 py-10">
         <p
           className={
-            "funkyText text-wrap font-bold " +
+            "funkyText font-bold text-wrap " +
             (shouldAnimate
               ? " text-[2.7rem] 2xl:text-[3.3rem]"
               : " text-justify text-[1.7rem] 2xl:text-[2.5rem]")
