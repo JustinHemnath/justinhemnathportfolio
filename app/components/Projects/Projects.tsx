@@ -5,6 +5,8 @@ import { motion } from "framer-motion";
 import ProjectsSection from "./ProjectsSection";
 import FullStackChatApp from "./AllProjects/ChatApp/index.chatapp.project";
 import { Spinner, Divider, Chip } from "@heroui/react";
+import { MdOutlineConstruction } from "react-icons/md";
+import { IoWarningSharp } from "react-icons/io5";
 
 type TActiveProject = {
   name: PROJECTS;
@@ -76,10 +78,10 @@ const Projects = ({ setPageInView }: { setPageInView: any }) => {
               Projects
             </motion.p>
 
-            <div className="my-3 flex flex-col items-center gap-2">
+            <div className="my-3 flex flex-col items-center gap-6">
               {ProjectNames.map((project: any) => (
                 <motion.div
-                  className="relative flex w-[40vw] cursor-pointer flex-col rounded-lg bg-gradient-to-r from-cyan-600 via-cyan-300 to-cyan-600 px-16 py-10"
+                  className="relative flex w-[40vw] cursor-pointer flex-col rounded-3xl bg-gradient-to-r from-cyan-600 via-cyan-300 to-cyan-600 px-16 py-10"
                   // key={project.id}
                   onClick={() => {
                     setActiveProject({
@@ -127,10 +129,12 @@ const Projects = ({ setPageInView }: { setPageInView: any }) => {
                   <div className="mt-6 flex flex-col flex-wrap items-center gap-2">
                     {Object.entries(project.techStack).map((stackMap: any) => {
                       return (
-                        <div className="flex w-[80%] justify-between gap-2">
-                          <p className="mr-auto font-semibold">{stackMap[0]}</p>
+                        <div className="flex w-[80%] gap-10">
+                          <p className="mr-auto flex-[15%] font-semibold">
+                            {stackMap[0]}
+                          </p>
 
-                          <div className="flex w-full flex-wrap justify-center gap-2">
+                          <div className="flex w-full flex-[85%] flex-wrap justify-start gap-2">
                             {stackMap[1].map((stack: string) => (
                               <Chip className="bg-gray-200 text-sm text-black shadow">
                                 <p className="font-medium">{stack}</p>
@@ -205,7 +209,10 @@ const Projects = ({ setPageInView }: { setPageInView: any }) => {
             </motion.ol> */}
 
             <div className="funkyText mt-auto flex items-center gap-4 text-lg">
-              <Spinner size="md" /> New projects under construction...
+              New projects under construction
+              <span>
+                <IoWarningSharp className="text-3xl text-zinc-400" />
+              </span>
             </div>
           </div>
         ) : (
