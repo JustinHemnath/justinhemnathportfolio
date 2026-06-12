@@ -24,7 +24,7 @@ const ConversationThread = ({
 
           return (
             <motion.div
-              className="funkyBg min-w-[7rem] max-w-[50%] rounded-xl p-2 text-black"
+              className="funkyBg max-w-[50%] min-w-[7rem] rounded-xl p-2 text-black"
               style={{
                 alignSelf:
                   userDetails.email === message.sender
@@ -46,13 +46,15 @@ const ConversationThread = ({
               }}
               key={message.id}
             >
-              <div className="flex justify-between gap-10">
-                <div className="text-lg font-bold 2xl:text-xl">
+              <div className="flex justify-between gap-10 text-white">
+                <div className="text-base font-semibold 2xl:text-lg">
                   {message.sender_name}
                 </div>
                 <div className="text-sm 2xl:text-base">{date}</div>
               </div>
-              <div className="text-md 2xl:text-xl">{message.message}</div>
+              <div className="text-lg text-white 2xl:text-lg">
+                {message.message}
+              </div>
             </motion.div>
           );
         })

@@ -3,7 +3,7 @@ import { GrGoogle } from "react-icons/gr";
 import { FaLongArrowAltLeft } from "react-icons/fa";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
-import ChatApp from "./ChatApp";
+import ChatApp_SpringBootBE from "./ChatApp_SpringBootBE";
 import { getLocalStorageItem, setLocalStorageItem } from "~/utils/signin.utils";
 import {
   useChatAppStore,
@@ -99,7 +99,7 @@ const FullStackChatApp = ({ setIndexSectionActive }: any) => {
       {!isLoggedIn ? (
         <SignInPage {...{ googleSignIn, setIndexSectionActive }} />
       ) : (
-        <ChatApp
+        <ChatApp_SpringBootBE
           {...{
             setIsLoggedIn,
             setIndexSectionActive,
@@ -126,7 +126,7 @@ const SignInPage = ({ googleSignIn, setIndexSectionActive }: any) => {
     <div className="">
       {/* back button */}
       <div
-        className="absolute left-0 top-0 flex cursor-pointer items-center gap-4 rounded-lg bg-white p-2 text-black"
+        className="absolute top-0 left-0 flex cursor-pointer items-center gap-4 rounded-lg bg-white p-2 text-black"
         onClick={() => setIndexSectionActive(true)}
       >
         <FaLongArrowAltLeft className="text-2xl" />

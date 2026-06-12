@@ -10,7 +10,7 @@ import { Spinner } from "@heroui/react";
 import { useEffect, useState } from "react";
 import { FaLongArrowAltLeft } from "react-icons/fa";
 import NewUserSelect from "./NewUserSelect";
-import SendMessage from "./SendMessage";
+import SendMessage from "./ChatAppNodeJs/SendMessage";
 import { CHAT_APP_EVENTS, ENVIRONMENT } from "~/constants/main.constants";
 import { io } from "socket.io-client";
 import moment from "moment";
@@ -20,7 +20,7 @@ import {
 } from "~/utils/chatApp.utils";
 import { Tooltip, Avatar } from "@heroui/react";
 
-const ChatApp = ({
+const ChatApp_NodeJsBE = ({
   setIsLoggedIn,
   setIndexSectionActive,
   userDetails,
@@ -187,4 +187,4 @@ const ChatApp = ({
   );
 };
 
-export default ChatApp;
+export default ChatApp_NodeJsBE;

@@ -4,12 +4,23 @@ export function receivedMessageHandler({
   receivedMessage,
   conversations,
   setConversations,
+  currentConversation,
+  setCurrentConversation,
 }: {
   receivedMessage: TMessage;
   conversations: TConversation[];
   setConversations: any;
+  currentConversation: any;
+  setCurrentConversation: any;
 }) {
-  const targetConvoIndex = conversations.findIndex((convo: any) => convo.otherPersonEmail === receivedMessage.sender);
+  console.log("TRIGGEREDSS");
+  console.log("*********");
+  console.log({ conversations, currentConversation });
+  console.log("*********");
+
+  const targetConvoIndex = conversations.findIndex(
+    (convo: any) => convo.otherPersonEmail === receivedMessage.sender,
+  );
   let newConversations: TConversation[] = [...conversations];
 
   if (targetConvoIndex === -1) {
@@ -22,7 +33,9 @@ export function receivedMessageHandler({
     newConversations.push(newConversationItem);
   } else {
     let targetConvo: TConversation = newConversations[targetConvoIndex];
-    const messageAlreadyInserted = targetConvo.messages.find((message: TMessage) => message.id === receivedMessage.id);
+    const messageAlreadyInserted = targetConvo.messages.find(
+      (message: TMessage) => message.id === receivedMessage.id,
+    );
 
     if (!messageAlreadyInserted) {
       targetConvo.messages.push(receivedMessage);
@@ -41,6 +54,17 @@ export function receivedMessageHandler({
   });
 
   setConversations(newConversations);
+
+  // if (
+  //   currentConversation &&
+  //   receivedMessage.sender == currentConversation.otherPersonEmail
+  // ) {
+  setCurrentConversation((prevCurrentConvo: TConversation) => {
+    prevCurrentConvo.messages.push(receivedMessage);
+    prevCurrentConvo.lastMessage = receivedMessage;
+    return prevCurrentConvo;
+  });
+  // }
   chatBottomScroller();
 }
 
@@ -53,7 +77,7 @@ export function chatBottomScroller() {
         block: "end",
       });
     }
-  }, 500);
+  }, 200);
 
   return scrollToBottomTimeout;
 }

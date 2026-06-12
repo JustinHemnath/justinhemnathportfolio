@@ -19,3 +19,8 @@ export enum ENVIRONMENT {
   DEV = "dev",
   PROD = "prod",
 }
+
+export const CHAT_APP_SPRING_BE_EVENTS = {
+  POST_MESSAGE: "/socket/postMessage",
+  LISTEN_MESSAGE: "/user/queue/listenMessage",
+};
