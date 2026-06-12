@@ -129,14 +129,17 @@ const Projects = ({ setPageInView }: { setPageInView: any }) => {
                   <div className="mt-6 flex flex-col flex-wrap items-center gap-2">
                     {Object.entries(project.techStack).map((stackMap: any) => {
                       return (
-                        <div className="flex w-[80%] gap-10">
+                        <div className="flex w-[80%] gap-10" key={stackMap[0]}>
                           <p className="mr-auto flex-[15%] font-semibold">
                             {stackMap[0]}
                           </p>
 
                           <div className="flex w-full flex-[85%] flex-wrap justify-start gap-2">
                             {stackMap[1].map((stack: string) => (
-                              <Chip className="bg-gray-200 text-sm text-black shadow">
+                              <Chip
+                                className="bg-gray-200 text-sm text-black shadow"
+                                key={stack}
+                              >
                                 <p className="font-medium">{stack}</p>
                               </Chip>
                             ))}
