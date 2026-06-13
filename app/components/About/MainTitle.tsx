@@ -42,7 +42,7 @@ const MainTitle = ({
               return feederString + letterToAdd;
             }
           });
-        }, 40);
+        }, 10);
 
         return () => clearTimeout(letterAdderTimeout);
       }

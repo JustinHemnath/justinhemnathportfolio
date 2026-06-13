@@ -3,7 +3,7 @@ import { useInView } from "motion/react";
 import MainTitle from "./MainTitle";
 import { SECTIONS } from "~/constants/main.constants";
 import SkillGraph from "./SkillGraph";
-import { Chip } from "@heroui/react";
+import { Avatar, Chip } from "@heroui/react";
 import {
   Modal,
   ModalContent,
@@ -13,10 +13,8 @@ import {
   useDisclosure,
   Button,
 } from "@heroui/react";
-import { FaLinkedin } from "react-icons/fa";
-import { motion } from "framer-motion";
-import { FaGithub } from "react-icons/fa";
 import Contact from "../Contact/Contact";
+import image from "~/components/Projects/AllProjects/ChatApp/image_1.jpg";
 
 const About = ({
   setPageInView,
@@ -79,14 +77,22 @@ const About = ({
   return (
     <div className="flex h-full flex-col" ref={ref} id={sectionName}>
       <div className="flex h-full flex-col justify-between lg:flex-row">
-        <div className="flex h-full w-full flex-col justify-between gap-3 p-4 lg:w-[50%]">
+        <div className="flex h-full w-full flex-col justify-between gap-3 px-24 py-4 lg:w-[50%]">
           <MainTitle
             text={mainTitle}
             shouldAnimate={true}
             delayFactor={1}
             {...{ isInView }}
           />
-          <Contact />
+
+          <div className="flex gap-4">
+            <Avatar
+              src={image}
+              size="lg"
+              className="mx-auto h-[15em] w-[15em]"
+            />
+            <Contact />
+          </div>
 
           <div className="flex items-center justify-center">
             <Button

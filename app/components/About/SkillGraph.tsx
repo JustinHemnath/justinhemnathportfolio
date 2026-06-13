@@ -125,7 +125,7 @@ const SkillGraph = ({ skillGraphContainerRef, isInView }: any) => {
       .attr("text-anchor", "right")
       .attr("alignment-baseline", "middle")
       .text((d) => d.name)
-      .style("font-size", 20)
+      .style("font-size", "1.2rem")
       .style("font-weight", "500")
       .style("fill", "white")
       .call(
