@@ -1,8 +1,7 @@
-@import url("https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap");
+@import url(https://fonts.googleapis.com/css?family=Google+Sans+Flex:100,200,300,regular,500,600,700,800,900);
+@import "tailwindcss";
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@config "../tailwind.config.ts";
 
 html {
   scroll-snap-type: y mandatory;
@@ -12,7 +11,8 @@ html,
 body {
   @apply bg-white dark:bg-gray-950;
 
-  font-family: "Rubik", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-family: "Google Sans Flex", "Segoe UI", Tahoma, Geneva, Verdana,
+    sans-serif;
 
   @media (prefers-color-scheme: dark) {
     color-scheme: dark;
@@ -43,7 +43,11 @@ body {
 }
 
 .funkyText {
-  background: linear-gradient(90deg, rgba(63, 94, 251, 1) 0%, rgba(252, 70, 107, 1) 100%);
+  background: linear-gradient(
+    90deg,
+    rgba(63, 94, 251, 1) 0%,
+    rgba(252, 70, 107, 1) 100%
+  );
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -51,5 +55,9 @@ body {
 }
 
 .funkyBg {
-  background: linear-gradient(90deg, rgba(63, 94, 251, 1) 0%, rgba(252, 70, 107, 1) 100%);
+  background: linear-gradient(
+    90deg,
+    rgba(63, 94, 251, 1) 0%,
+    rgba(252, 70, 107, 1) 100%
+  );
 }
