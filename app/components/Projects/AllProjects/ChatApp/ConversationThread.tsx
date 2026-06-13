@@ -12,8 +12,6 @@ const ConversationThread = ({
   conversations: any[];
   currentConversation: any;
 }) => {
-  // console.log({ conversations });
-
   return (
     <div
       className="relative flex h-[95%] w-full flex-col gap-2 overflow-auto px-2 py-4"
@@ -28,7 +26,7 @@ const ConversationThread = ({
 
           return (
             <motion.div
-              className="funkyBg max-w-[50%] min-w-[7rem] rounded-xl p-2 text-black"
+              className="funkyBg max-w-[50%] min-w-[3rem] rounded-xl p-2 text-black sm:min-w-[7rem]"
               style={{
                 alignSelf:
                   userDetails.email === message.sender
@@ -50,8 +48,8 @@ const ConversationThread = ({
               }}
               key={message.id}
             >
-              <div className="flex justify-between gap-10 text-white">
-                <div className="text-base font-semibold 2xl:text-lg">
+              <div className="flex flex-col justify-between gap-1 text-white sm:flex-row sm:gap-10">
+                <div className="text-base font-semibold text-wrap break-normal whitespace-break-spaces 2xl:text-lg">
                   {message.sender_name}
                 </div>
                 <div className="text-sm 2xl:text-base">{date}</div>

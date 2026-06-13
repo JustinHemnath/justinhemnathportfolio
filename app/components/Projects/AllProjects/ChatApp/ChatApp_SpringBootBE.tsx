@@ -106,25 +106,29 @@ const ChatApp_SpringBootBE = ({
               className="absolute left-4 flex cursor-pointer items-center gap-3"
               onClick={() => setIndexSectionActive(true)}
             >
-              <FaLongArrowAltLeft className="text-2xl" />
-              <p className="text-xl font-bold">Back</p>
+              <div className="flex flex-col items-center gap-x-3 rounded-full bg-white p-1 sm:flex-row sm:p-2">
+                <FaLongArrowAltLeft className="text-2xl" />
+                <p className="text-base font-bold sm:text-xl">Back</p>
+              </div>
             </div>
 
-            <div className="flex justify-center gap-2 py-2">
+            <div className="flex justify-center py-2">
               <div className="flex flex-col items-center justify-center text-2xl">
                 {!currentConversation ? (
                   <p className="font-extrabold">Chat App</p>
                 ) : (
-                  <div className="flex items-center justify-center gap-3 rounded-l-4xl! rounded-r-lg bg-white pr-6 pl-3">
+                  <div className="flex h-full items-center justify-center gap-3 rounded-l-4xl! bg-white pr-6 pl-3 sm:py-2">
                     <Avatar className="bg-zinc-700 text-zinc-200" />
                     <div className="flex flex-col">
-                      <p className="text-lg font-semibold 2xl:text-xl">
+                      <p className="w-[2em] text-base font-semibold sm:w-full sm:text-lg 2xl:text-xl">
                         {currentConversation.otherPersonName}
                       </p>
 
-                      <ChatAppEmail
-                        email={currentConversation.otherPersonEmail}
-                      />
+                      <div className="hidden sm:block">
+                        <ChatAppEmail
+                          email={currentConversation.otherPersonEmail}
+                        />
+                      </div>
                     </div>
                   </div>
                 )}
@@ -142,9 +146,24 @@ const ChatApp_SpringBootBE = ({
             </div>
 
             <div className="absolute right-0 flex items-center gap-3 rounded-l-full bg-white px-3 py-0.5">
-              <div className="flex items-center justify-center gap-3">
+              <Tooltip
+                content={
+                  <div className="flex flex-col">
+                    <p className="text-base font-semibold 2xl:text-lg">
+                      {userDetails.userName}
+                    </p>
+                    <ChatAppEmail email={userDetails?.email} />
+                  </div>
+                }
+                color="default"
+                placement="bottom"
+              >
+                <Avatar className="block bg-zinc-700 text-zinc-200 xl:hidden" />
+              </Tooltip>
+
+              <div className="hidden items-center justify-center gap-3 xl:flex">
                 <Avatar className="bg-zinc-700 text-zinc-200" />
-                <div className="flex flex-col">
+                <div className="hidden flex-col sm:flex">
                   <p className="text-base font-semibold 2xl:text-lg">
                     {userDetails.userName}
                   </p>
@@ -155,7 +174,7 @@ const ChatApp_SpringBootBE = ({
               <Tooltip content={"Logout"} color="default" placement="bottom">
                 <div className="h-full rounded-3xl bg-zinc-500 px-3 py-3 pr-4">
                   <SlLogout
-                    className="cursor-pointer text-2xl text-white"
+                    className="cursor-pointer text-base text-white sm:text-2xl"
                     onClick={handleLogout}
                   />
                 </div>

@@ -109,105 +109,109 @@ const NewUserSelect = ({
   }
 
   return (
-    <Tooltip content={"Search user"} color="default" placement="bottom">
-      <div className="ml-auto flex items-center justify-center">
-        <Dropdown className="m-0! h-full! p-0!">
-          <DropdownTrigger className="h-full!">
-            {/* <Button variant="flat" className="h-full! !w-fit rounded-lg!"> */}
-            <div className="flex h-full! cursor-pointer items-center gap-2 rounded-l-lg! rounded-r-4xl! bg-white/30 px-3 backdrop-blur-md">
-              <p className="opacity-100!">Find users</p>
-              <div>
-                <FaMagnifyingGlass className="cursor-pointer text-lg text-indigo-700" />
+    <>
+      <Tooltip content={"Search user"} color="default" placement="bottom">
+        <div className="ml-auto flex items-center justify-center">
+          <Dropdown className="m-0! h-full! p-0!">
+            <DropdownTrigger className="h-full!">
+              <div className="flex h-full! cursor-pointer items-center gap-2 rounded-r-4xl! bg-white/30 px-3 backdrop-blur-md">
+                <p className="hidden opacity-100! sm:block">Find users</p>
+                <div>
+                  <FaMagnifyingGlass className="cursor-pointer text-lg text-indigo-700" />
+                </div>
               </div>
-            </div>
-          </DropdownTrigger>
-          <DropdownMenu
-            className="max-h-[50vh] overflow-auto"
-            disallowEmptySelection
-            selectionMode="single"
-            onSelectionChange={({ currentKey }: any) =>
-              handleUserSelected(currentKey)
-            }
-          >
-            {allUsers.map((user: any) => (
-              <DropdownItem key={user.email} className="my-0! pb-1!">
-                <Tooltip
-                  content={
-                    "Hi, it's me Hemnath again. Click here to send private messages to me."
-                  }
-                  color="default"
-                  placement="right"
-                  isDisabled={user.email !== LEAD_DEV_EMAIL}
-                >
-                  <div className="flex items-center gap-4">
-                    <Avatar
-                      src={user.email === LEAD_DEV_EMAIL ? image : undefined}
-                      size="md"
-                      className="bg-zinc-700 text-zinc-200"
-                    />
-
-                    <div className="flex flex-col gap-0.5">
-                      <p className="text-base font-bold 2xl:text-base">
-                        {user.name}
-                      </p>
-                      <ChatAppEmail
-                        email={user.email}
-                        textStyle="text-sm sm:text-base"
-                      />
-                    </div>
-                  </div>
-                </Tooltip>
-              </DropdownItem>
-            ))}
-          </DropdownMenu>
-        </Dropdown>
-
-        <Modal isOpen={isOpen} size={"md"} onClose={onClose}>
-          <ModalContent>
-            {(onClose) => (
-              <>
-                <ModalHeader className="flex flex-col gap-1 text-center">
-                  Start a conversation with {newUserSelected.name}!
-                </ModalHeader>
-                <ModalBody className="text-xl">
-                  <p>
-                    This will start a new conversation with{" "}
-                    {newUserSelected.name}
-                  </p>
-                  <form
-                    onSubmit={(e: any) =>
-                      handleNewUserMessage(
-                        e,
-                        onClose,
-                        newUserMessage,
-                        newUserSelected,
-                      )
+            </DropdownTrigger>
+            <DropdownMenu
+              className="max-h-[50vh] overflow-auto"
+              disallowEmptySelection
+              selectionMode="single"
+              onSelectionChange={({ currentKey }: any) =>
+                handleUserSelected(currentKey)
+              }
+            >
+              {allUsers.map((user: any) => (
+                <DropdownItem key={user.email} className="my-0! pb-1!">
+                  <Tooltip
+                    content={
+                      "Hi, it's me Hemnath again. Click here to send private messages to me."
                     }
-                    className="my-10 flex items-center gap-3"
+                    color="default"
+                    placement="right"
+                    isDisabled={user.email !== LEAD_DEV_EMAIL}
                   >
-                    <Input
-                      label="Say hi!"
-                      type="text"
-                      onChange={(e: any) => setNewUserMessage(e.target.value)}
-                      value={newUserMessage}
-                      isRequired
-                    />
-                    <Button className="" type="submit">
-                      Send
-                    </Button>
-                  </form>
-                  <p>
-                    {newUserSelected.name} will receive your message when they
-                    log in.
-                  </p>
-                </ModalBody>
-                <ModalFooter></ModalFooter>
-              </>
-            )}
-          </ModalContent>
-        </Modal>
-      </div>
-    </Tooltip>
+                    <div className="flex items-center gap-4">
+                      <Avatar
+                        src={user.email === LEAD_DEV_EMAIL ? image : undefined}
+                        size="md"
+                        className="bg-zinc-700 text-zinc-200"
+                      />
+
+                      <div className="flex flex-col gap-0.5">
+                        <p className="text-base font-bold 2xl:text-base">
+                          {user.name}
+                        </p>
+                        <ChatAppEmail
+                          email={user.email}
+                          textStyle="text-sm sm:text-base"
+                        />
+                      </div>
+                    </div>
+                  </Tooltip>
+                </DropdownItem>
+              ))}
+            </DropdownMenu>
+          </Dropdown>
+        </div>
+      </Tooltip>
+
+      <Modal isOpen={isOpen} size={"sm"} onClose={onClose} placement={"center"}>
+        <ModalContent>
+          {(onClose) => (
+            <>
+              <ModalHeader className="gap-1 text-center">
+                <p>
+                  Start a conversation with{" "}
+                  <span className="capitalize">{newUserSelected.name}</span>!
+                </p>
+              </ModalHeader>
+              <ModalBody className="text-lg">
+                {/* <p className="text-center">
+                  This will start a new conversation with{" "}
+                  <span className="capitalize">{newUserSelected.name}</span>
+                </p> */}
+                <form
+                  onSubmit={(e: any) =>
+                    handleNewUserMessage(
+                      e,
+                      onClose,
+                      newUserMessage,
+                      newUserSelected,
+                    )
+                  }
+                  className="my-10 flex items-center gap-3"
+                >
+                  <Input
+                    label="Say hi!"
+                    type="text"
+                    onChange={(e: any) => setNewUserMessage(e.target.value)}
+                    value={newUserMessage}
+                    isRequired
+                  />
+                  <Button className="" type="submit">
+                    Send
+                  </Button>
+                </form>
+                <p>
+                  <span className="capitalize"> {newUserSelected.name}</span>{" "}
+                  will receive your message when they log in.
+                </p>
+              </ModalBody>
+              <ModalFooter></ModalFooter>
+            </>
+          )}
+        </ModalContent>
+      </Modal>
+    </>
   );
 };
 export default NewUserSelect;
