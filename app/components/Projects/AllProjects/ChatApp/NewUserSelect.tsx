@@ -39,9 +39,6 @@ const NewUserSelect = ({
   userDetails,
   clientRef,
 }: any) => {
-  console.log({
-    allUsers,
-  });
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [newUserMessage, setNewUserMessage] = useState("");
   const [newUserSelected, setNewUserSelected] = useState<any>(null);
@@ -78,7 +75,7 @@ const NewUserSelect = ({
       sender: userDetails.email,
       receiver: newUserSelected.email,
       sender_name: userDetails.userName,
-      receiver_name: newUserSelected.email,
+      receiver_name: newUserSelected.name,
       message: newUserMessage,
       id: uuidv4(),
       sent_at: moment().format(),
@@ -113,12 +110,16 @@ const NewUserSelect = ({
 
   return (
     <Tooltip content={"Search user"} color="default" placement="bottom">
-      <div className="ml-auto">
-        <Dropdown className="m-0! p-0!">
-          <DropdownTrigger>
-            <Button variant="flat" className="!w-fit">
-              <FaMagnifyingGlass className="cursor-pointer text-2xl text-indigo-700" />
-            </Button>
+      <div className="ml-auto flex items-center justify-center">
+        <Dropdown className="m-0! h-full! p-0!">
+          <DropdownTrigger className="h-full!">
+            {/* <Button variant="flat" className="h-full! !w-fit rounded-lg!"> */}
+            <div className="flex h-full! cursor-pointer items-center gap-2 rounded-l-lg! rounded-r-4xl! bg-white/30 px-3 backdrop-blur-md">
+              <p className="opacity-100!">Find users</p>
+              <div>
+                <FaMagnifyingGlass className="cursor-pointer text-lg text-indigo-700" />
+              </div>
+            </div>
           </DropdownTrigger>
           <DropdownMenu
             className="max-h-[50vh] overflow-auto"

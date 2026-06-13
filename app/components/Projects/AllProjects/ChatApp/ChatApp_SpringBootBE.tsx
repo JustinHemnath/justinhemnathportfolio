@@ -110,25 +110,21 @@ const ChatApp_SpringBootBE = ({
               <p className="text-xl font-bold">Back</p>
             </div>
 
-            <div className="my-2 flex w-[60%] items-center justify-center gap-2 2xl:w-[30%]">
+            <div className="flex justify-center gap-2 py-2">
               <div className="flex flex-col items-center justify-center text-2xl">
                 {!currentConversation ? (
                   <p className="font-extrabold">Chat App</p>
                 ) : (
-                  <div className="flex items-center justify-center gap-3 rounded-full bg-white pr-6 pl-3">
+                  <div className="flex items-center justify-center gap-3 rounded-l-4xl! rounded-r-lg bg-white pr-6 pl-3">
                     <Avatar className="bg-zinc-700 text-zinc-200" />
                     <div className="flex flex-col">
                       <p className="text-lg font-semibold 2xl:text-xl">
                         {currentConversation.otherPersonName}
                       </p>
-                      {import.meta.env.VITE_ENVIRONMENT === ENVIRONMENT.DEV ? (
-                        // <p className="text-sm text-zinc-500 2xl:text-lg">
-                        //   {currentConversation.otherPersonEmail}
-                        // </p>
-                        <ChatAppEmail
-                          email={currentConversation.otherPersonEmail}
-                        />
-                      ) : null}
+
+                      <ChatAppEmail
+                        email={currentConversation.otherPersonEmail}
+                      />
                     </div>
                   </div>
                 )}
