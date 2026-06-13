@@ -1,5 +1,6 @@
 import axios from "axios";
-import type { TAllUsers, TUserDetails } from "~/stores/chatapp.store";
+import { LEAD_DEV_EMAIL } from "~/constants/main.constants";
+import type { TAllUsers, TUser, TUserDetails } from "~/stores/chatapp.store";
 
 export async function validateAndFetchUserConversations({
   userDetails,
@@ -43,9 +44,20 @@ export async function validateAndFetchUserConversations({
         setCurrentConversation(null);
       }
 
-      const allUsers = response.data.metaData.users.filter(
+      let allUsers = response.data.metaData.users.filter(
         (user: any) => user.email !== userDetails.email,
       );
+
+      let devMailIndex = allUsers.findIndex(
+        (u: TUser) => u.email === LEAD_DEV_EMAIL,
+      );
+
+      if (devMailIndex !== -1) {
+        const devItem = allUsers[devMailIndex];
+        allUsers.splice(devMailIndex, 1);
+        allUsers = [devItem, ...allUsers];
+      }
+
       setAllUsers(allUsers);
       setIsValidationSuccess(true);
     } catch (err: any) {

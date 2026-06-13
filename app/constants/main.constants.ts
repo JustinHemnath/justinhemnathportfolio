@@ -1,7 +1,7 @@
 export enum SECTIONS {
   ABOUT = "about",
   PROJECTS = "projects",
-  CONTACT = "contact",
+  // CONTACT = "contact",
 }
 
 export enum PROJECTS {
@@ -19,3 +19,12 @@ export enum ENVIRONMENT {
   DEV = "dev",
   PROD = "prod",
 }
+
+export const CHAT_APP_SPRING_BE_EVENTS = {
+  POST_MESSAGE: "/socket/postMessage",
+  LISTEN_MESSAGE: "/user/queue/listenMessage",
+};
+
+export const STYLE = {
+  INPUT_HEIGHT: "2rem",
+};

@@ -10,7 +10,7 @@ import { Spinner } from "@heroui/react";
 import { useEffect, useState } from "react";
 import { FaLongArrowAltLeft } from "react-icons/fa";
 import NewUserSelect from "./NewUserSelect";
-import SendMessage from "./SendMessage";
+import SendMessage from "./ChatAppNodeJs/SendMessage";
 import { CHAT_APP_EVENTS, ENVIRONMENT } from "~/constants/main.constants";
 import { io } from "socket.io-client";
 import moment from "moment";
@@ -19,8 +19,9 @@ import {
   receivedMessageHandler,
 } from "~/utils/chatApp.utils";
 import { Tooltip, Avatar } from "@heroui/react";
+import ChatAppEmail from "./ChatAppEmail";
 
-const ChatApp = ({
+const ChatApp_NodeJsBE = ({
   setIsLoggedIn,
   setIndexSectionActive,
   userDetails,
@@ -124,9 +125,13 @@ const ChatApp = ({
                         {currentConversation.otherPersonName}
                       </p>
                       {import.meta.env.VITE_ENVIRONMENT === ENVIRONMENT.DEV ? (
-                        <p className="text-sm 2xl:text-lg">
-                          {currentConversation.otherPersonEmail}
-                        </p>
+                        // <p className="text-sm 2xl:text-lg">
+                        //   {currentConversation.otherPersonEmail}
+                        // </p>
+
+                        <ChatAppEmail
+                          email={currentConversation.otherPersonEmail}
+                        />
                       ) : null}
                     </div>
                   </div>
@@ -187,4 +192,4 @@ const ChatApp = ({
   );
 };
 
-export default ChatApp;
+export default ChatApp_NodeJsBE;

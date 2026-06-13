@@ -1,6 +1,7 @@
 import type { TUserDetails } from "~/stores/chatapp.store";
 import moment from "moment";
 import { motion } from "framer-motion";
+import { STYLE } from "~/constants/main.constants";
 
 const ConversationThread = ({
   userDetails,
@@ -11,12 +12,13 @@ const ConversationThread = ({
   conversations: any[];
   currentConversation: any;
 }) => {
-  // console.log({ conversations });
-
   return (
     <div
-      className="relative flex h-full w-full flex-[80%] flex-col gap-2 overflow-auto p-2 pb-10 2xl:flex-[85%]"
+      className="relative flex h-[95%] w-full flex-col gap-2 overflow-auto px-2 py-4"
       id="conversationThread"
+      style={{
+        paddingBottom: STYLE.INPUT_HEIGHT,
+      }}
     >
       {userDetails && currentConversation ? (
         currentConversation.messages.map((message: any) => {
@@ -24,7 +26,7 @@ const ConversationThread = ({
 
           return (
             <motion.div
-              className="funkyBg min-w-[7rem] max-w-[50%] rounded-xl p-2 text-black"
+              className="funkyBg max-w-[50%] min-w-[3rem] rounded-xl p-2 text-black sm:min-w-[7rem]"
               style={{
                 alignSelf:
                   userDetails.email === message.sender
@@ -46,31 +48,27 @@ const ConversationThread = ({
               }}
               key={message.id}
             >
-              <div className="flex justify-between gap-10">
-                <div className="text-lg font-bold 2xl:text-xl">
+              <div className="flex flex-col justify-between gap-1 text-white sm:flex-row sm:gap-10">
+                <div className="text-base font-semibold text-wrap break-normal whitespace-break-spaces 2xl:text-lg">
                   {message.sender_name}
                 </div>
                 <div className="text-sm 2xl:text-base">{date}</div>
               </div>
-              <div className="text-md 2xl:text-xl">{message.message}</div>
+              <div className="text-lg text-white 2xl:text-lg">
+                {message.message}
+              </div>
             </motion.div>
           );
         })
       ) : (
-        <div className="flex h-full items-center justify-center p-24 text-lg text-white 2xl:text-3xl">
+        <div className="flex h-full items-center justify-center p-24 text-lg text-white 2xl:text-xl">
           <p className="text-justify">
-            No conversations. Select a user from the dropdown and send a message
-            to begin a conversation.
+            {conversations.length === 0
+              ? `No conversations. Choose a user to begin a conversation with.`
+              : `Select a conversation to begin chatting`}
           </p>
         </div>
       )}
-
-      <div
-        className="invisible mt-auto text-white"
-        id="conversationThreadBottomDiv"
-      >
-        T
-      </div>
     </div>
   );
 };

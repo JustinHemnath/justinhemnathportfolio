@@ -4,12 +4,18 @@ export function receivedMessageHandler({
   receivedMessage,
   conversations,
   setConversations,
+  currentConversation,
+  setCurrentConversation,
 }: {
   receivedMessage: TMessage;
   conversations: TConversation[];
   setConversations: any;
+  currentConversation: any;
+  setCurrentConversation: any;
 }) {
-  const targetConvoIndex = conversations.findIndex((convo: any) => convo.otherPersonEmail === receivedMessage.sender);
+  const targetConvoIndex = conversations.findIndex(
+    (convo: any) => convo.otherPersonEmail === receivedMessage.sender,
+  );
   let newConversations: TConversation[] = [...conversations];
 
   if (targetConvoIndex === -1) {
@@ -22,7 +28,9 @@ export function receivedMessageHandler({
     newConversations.push(newConversationItem);
   } else {
     let targetConvo: TConversation = newConversations[targetConvoIndex];
-    const messageAlreadyInserted = targetConvo.messages.find((message: TMessage) => message.id === receivedMessage.id);
+    const messageAlreadyInserted = targetConvo.messages.find(
+      (message: TMessage) => message.id === receivedMessage.id,
+    );
 
     if (!messageAlreadyInserted) {
       targetConvo.messages.push(receivedMessage);
@@ -41,19 +49,30 @@ export function receivedMessageHandler({
   });
 
   setConversations(newConversations);
+
+  setCurrentConversation((prevCurrentConvo: TConversation) => {
+    prevCurrentConvo.messages.push(receivedMessage);
+    prevCurrentConvo.lastMessage = receivedMessage;
+    return prevCurrentConvo;
+  });
   chatBottomScroller();
 }
 
 export function chatBottomScroller() {
   const scrollToBottomTimeout = setTimeout(function () {
-    const bottomDiv = document.getElementById("conversationThreadBottomDiv")!;
-    if (bottomDiv) {
-      bottomDiv.scrollIntoView({
-        behavior: "smooth",
-        block: "end",
-      });
+    // const bottomDiv = document.getElementById("conversationThreadBottomDiv")!;
+    // if (bottomDiv) {
+    //   bottomDiv.scrollIntoView({
+    //     behavior: "smooth",
+    //     block: "end",
+    //   });
+    // }
+    const container = document.getElementById("conversationThread");
+
+    if (container) {
+      container.scrollTop = container.scrollHeight;
     }
-  }, 500);
+  }, 200);
 
   return scrollToBottomTimeout;
 }
