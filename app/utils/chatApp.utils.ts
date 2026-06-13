@@ -13,11 +13,6 @@ export function receivedMessageHandler({
   currentConversation: any;
   setCurrentConversation: any;
 }) {
-  console.log("TRIGGEREDSS");
-  console.log("*********");
-  console.log({ conversations, currentConversation });
-  console.log("*********");
-
   const targetConvoIndex = conversations.findIndex(
     (convo: any) => convo.otherPersonEmail === receivedMessage.sender,
   );

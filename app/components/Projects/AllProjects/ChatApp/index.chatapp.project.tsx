@@ -131,13 +131,15 @@ const SignInPage = ({ googleSignIn, setIndexSectionActive }: any) => {
         className="absolute top-5 left-5 flex cursor-pointer items-center gap-4 rounded-3xl bg-white p-2 px-4 text-black"
         onClick={() => setIndexSectionActive(true)}
       >
-        <FaLongArrowAltLeft className="text-2xl" />
-        <p className="text-xl font-bold">Back</p>
+        <FaLongArrowAltLeft className="text-base sm:text-2xl" />
+        <p className="text-base font-bold sm:text-xl">Back</p>
       </div>
 
       {/* sign in component */}
       <div className="flex flex-col rounded-xl px-24 py-20">
-        <p className="funkyText text-[2.5rem] font-bold">Login required</p>
+        <p className="funkyText text-center text-[1.5rem] font-bold sm:text-[2.5rem]">
+          Login required
+        </p>
         <motion.div
           className="mt-10 flex cursor-pointer flex-col items-center rounded-3xl bg-gradient-to-r from-blue-600 via-blue-300 to-blue-600 p-4"
           style={{
@@ -146,15 +148,13 @@ const SignInPage = ({ googleSignIn, setIndexSectionActive }: any) => {
           whileHover={{
             scale: 1.1,
           }}
+          onClick={() => googleSignIn()}
         >
           <div className="flex items-center justify-between gap-2">
-            <p className="text-lg">Login using google account</p>
+            <p className="sm:text-lg">Login using google account</p>
 
             <div className="rounded-full bg-zinc-300 p-3">
-              <GrGoogle
-                className="cursor-pointer text-4xl text-blue-700 transition-all duration-300"
-                onClick={googleSignIn}
-              />
+              <GrGoogle className="cursor-pointer text-lg text-blue-700 transition-all duration-300 sm:text-4xl" />
             </div>
           </div>
         </motion.div>

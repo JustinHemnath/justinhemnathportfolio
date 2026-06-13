@@ -41,12 +41,6 @@ const SendMessageSpringBE = ({
           sent_at: moment().format(),
         };
 
-        console.log({
-          messageToSend,
-          currentConversation,
-          userDetails,
-        });
-
         // send message to server using stompClient.publish
         clientRef?.current.publish({
           destination: CHAT_APP_SPRING_BE_EVENTS.POST_MESSAGE,

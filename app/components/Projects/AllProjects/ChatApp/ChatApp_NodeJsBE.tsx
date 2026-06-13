@@ -19,6 +19,7 @@ import {
   receivedMessageHandler,
 } from "~/utils/chatApp.utils";
 import { Tooltip, Avatar } from "@heroui/react";
+import ChatAppEmail from "./ChatAppEmail";
 
 const ChatApp_NodeJsBE = ({
   setIsLoggedIn,
@@ -124,9 +125,13 @@ const ChatApp_NodeJsBE = ({
                         {currentConversation.otherPersonName}
                       </p>
                       {import.meta.env.VITE_ENVIRONMENT === ENVIRONMENT.DEV ? (
-                        <p className="text-sm 2xl:text-lg">
-                          {currentConversation.otherPersonEmail}
-                        </p>
+                        // <p className="text-sm 2xl:text-lg">
+                        //   {currentConversation.otherPersonEmail}
+                        // </p>
+
+                        <ChatAppEmail
+                          email={currentConversation.otherPersonEmail}
+                        />
                       ) : null}
                     </div>
                   </div>

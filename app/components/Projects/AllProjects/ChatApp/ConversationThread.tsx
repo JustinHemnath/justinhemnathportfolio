@@ -63,10 +63,11 @@ const ConversationThread = ({
           );
         })
       ) : (
-        <div className="flex h-full items-center justify-center p-24 text-lg text-white 2xl:text-3xl">
+        <div className="flex h-full items-center justify-center p-24 text-lg text-white 2xl:text-xl">
           <p className="text-justify">
-            No conversations. Select a user from the dropdown and send a message
-            to begin a conversation.
+            {conversations.length === 0
+              ? `No conversations. Choose a user to begin a conversation with.`
+              : `Select a conversation to begin chatting`}
           </p>
         </div>
       )}

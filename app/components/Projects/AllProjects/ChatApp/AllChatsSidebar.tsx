@@ -1,7 +1,8 @@
 import { chatBottomScroller } from "~/utils/chatApp.utils";
 import moment from "moment";
 import { Tooltip } from "@heroui/react";
-import { ENVIRONMENT } from "~/constants/main.constants";
+import { ENVIRONMENT, LEAD_DEV_EMAIL } from "~/constants/main.constants";
+import ChatAppEmail from "./ChatAppEmail";
 
 const AllChatsSidebar = ({
   userDetails,
@@ -25,7 +26,7 @@ const AllChatsSidebar = ({
 
           return (
             <Tooltip
-              content={convo.otherPersonEmail}
+              content={<ChatAppEmail email={convo.otherPersonEmail} />}
               color="secondary"
               placement="right"
               key={convo.otherPersonEmail}
@@ -44,7 +45,7 @@ const AllChatsSidebar = ({
                   </p>
                   <p className="self-end text-xs 2xl:text-sm">{date}</p>
                 </div>
-                <div className="ml-1 mt-3 flex items-center gap-1 text-sm 2xl:text-lg">
+                <div className="mt-3 ml-1 flex items-center gap-1 text-sm 2xl:text-lg">
                   <p className="font-bold">
                     {convo.lastMessage.sender === userDetails.email
                       ? "You:"

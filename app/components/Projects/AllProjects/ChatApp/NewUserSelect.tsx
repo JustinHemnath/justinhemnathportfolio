@@ -22,12 +22,14 @@ import { v4 as uuidv4 } from "uuid";
 import moment from "moment";
 import {
   CHAT_APP_EVENTS,
+  CHAT_APP_SPRING_BE_EVENTS,
   ENVIRONMENT,
   LEAD_DEV_EMAIL,
 } from "~/constants/main.constants";
 import { useState } from "react";
 import { Tooltip } from "@heroui/react";
 import image from "./image_1.jpg";
+import ChatAppEmail from "./ChatAppEmail";
 
 const NewUserSelect = ({
   allUsers,
@@ -35,7 +37,7 @@ const NewUserSelect = ({
   setConversations,
   setCurrentConversation,
   userDetails,
-  socket,
+  clientRef,
 }: any) => {
   console.log({
     allUsers,
@@ -81,8 +83,11 @@ const NewUserSelect = ({
       id: uuidv4(),
       sent_at: moment().format(),
     };
-    // emit message to server
-    socket.emit(CHAT_APP_EVENTS.TO_SERVER, newMessage);
+    // send message to server using stompClient.publish
+    clientRef?.current.publish({
+      destination: CHAT_APP_SPRING_BE_EVENTS.POST_MESSAGE,
+      body: JSON.stringify(newMessage),
+    });
 
     const newConversationItem = {
       otherPersonEmail: newUserSelected.email,
@@ -109,9 +114,9 @@ const NewUserSelect = ({
   return (
     <Tooltip content={"Search user"} color="default" placement="bottom">
       <div className="ml-auto">
-        <Dropdown className="">
+        <Dropdown className="m-0! p-0!">
           <DropdownTrigger>
-            <Button variant="flat" className="!w-fit !py-[1rem]">
+            <Button variant="flat" className="!w-fit">
               <FaMagnifyingGlass className="cursor-pointer text-2xl text-indigo-700" />
             </Button>
           </DropdownTrigger>
@@ -124,7 +129,7 @@ const NewUserSelect = ({
             }
           >
             {allUsers.map((user: any) => (
-              <DropdownItem key={user.email} className="my-2! py-2!">
+              <DropdownItem key={user.email} className="my-0! pb-1!">
                 <Tooltip
                   content={
                     "Hi, it's me Hemnath again. Click here to send private messages to me."
@@ -140,13 +145,14 @@ const NewUserSelect = ({
                       className="bg-zinc-700 text-zinc-200"
                     />
 
-                    <div className="flex flex-col gap-1">
-                      <p className="text-base font-bold 2xl:text-lg">
+                    <div className="flex flex-col gap-0.5">
+                      <p className="text-base font-bold 2xl:text-base">
                         {user.name}
                       </p>
-                      {import.meta.env.VITE_ENVIRONMENT === ENVIRONMENT.DEV ? (
-                        <p className="text-base">{user.email}</p>
-                      ) : null}
+                      <ChatAppEmail
+                        email={user.email}
+                        textStyle="text-sm sm:text-base"
+                      />
                     </div>
                   </div>
                 </Tooltip>

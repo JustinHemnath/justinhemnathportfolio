@@ -30,8 +30,13 @@ const Projects = ({ setPageInView }: { setPageInView: any }) => {
       desc: `${PROJECTS.CHAT_APP} with firebase login and real time messaging using websockets`,
       component: <FullStackChatApp {...{ setIndexSectionActive }} />,
       techStack: {
-        Frontend: ["Javascript", "ReactJs", "TailwindCSS", "Socket.IO"],
-        Backend: ["Javascript", "NodeJS", "Prisma", "Websockets"],
+        Frontend: ["Javascript", "ReactJs", "Stompjs", "TailwindCSS"],
+        Backend: [
+          "Java",
+          "Springboot",
+          "Spring data JPA",
+          "Stomp over websockets",
+        ],
         Database: ["Postgresql", "Firebase"],
       },
     },
@@ -81,7 +86,7 @@ const Projects = ({ setPageInView }: { setPageInView: any }) => {
             <div className="my-3 flex flex-col items-center gap-6">
               {ProjectNames.map((project: any) => (
                 <motion.div
-                  className="relative flex w-[45em] cursor-pointer flex-col rounded-3xl bg-gradient-to-r from-cyan-600 via-cyan-300 to-cyan-600 px-4 py-4"
+                  className="relative flex w-[25em] cursor-pointer flex-col rounded-3xl bg-gradient-to-r from-cyan-600 via-cyan-300 to-cyan-600 px-4 py-4 sm:w-[55em] sm:px-2"
                   // key={project.id}
                   onClick={() => {
                     setActiveProject({
@@ -116,16 +121,19 @@ const Projects = ({ setPageInView }: { setPageInView: any }) => {
                   }}
                   key={`${sectionName}${isInView}`}
                 >
-                  <p className="funkyText text-shadow-xl/20 text-center text-4xl font-black">
+                  <p className="funkyText text-shadow-xl/20 text-center text-2xl font-black sm:text-4xl">
                     {project.name}
                   </p>
                   <p className="mt-4 text-center">{project.desc}</p>
 
-                  <div className="mt-6 flex flex-col flex-wrap items-center gap-2">
+                  <div className="mt-6 flex flex-col flex-wrap items-center gap-6 sm:gap-2">
                     {Object.entries(project.techStack).map((stackMap: any) => {
                       return (
-                        <div className="flex w-[80%] gap-10" key={stackMap[0]}>
-                          <p className="mr-auto flex-[15%] font-semibold">
+                        <div
+                          className="flex w-[80%] items-center gap-4"
+                          key={stackMap[0]}
+                        >
+                          <p className="mr-auto flex-[15%] font-medium sm:font-semibold">
                             {stackMap[0]}
                           </p>
 
@@ -147,70 +155,13 @@ const Projects = ({ setPageInView }: { setPageInView: any }) => {
               ))}
             </div>
 
-            {/* <motion.ol
-              variants={listVariants}
-              initial={{
-                opacity: 0,
-                y: -100,
-              }}
-              animate={{
-                opacity: 1,
-                y: 0,
-              }}
-              transition={{
-                delay: 0.5,
-                bounce: 0.3,
-                type: "spring",
-              }}
-              key={`${sectionName}${isInView}`}
-              className="funkyText mt-10"
-            >
-              {ProjectNames.map((item) => (
-                <motion.li
-                  key={item.id}
-                  variants={itemVariants}
-                  onClick={() => {
-                    setActiveProject({
-                      name: item.activeProjectName,
-                      component: item.component,
-                    });
-                    setIndexSectionActive(false);
-                  }}
-                  className="cursor-pointer text-3xl font-extrabold transition-all duration-100 ease-in-out hover:text-4xl"
-                >
-                  <div className="flex flex-col gap-3">
-                    <p>
-                      {item.id}. {item.name}
-                    </p>
-                    <div className="mt-4 flex text-xl">
-                      <Divider
-                        className="funkyBg mx-4"
-                        orientation="vertical"
-                      />
-                      {item.techStack.map(
-                        (tech: string, index: number, arr: any[]) => (
-                          <div className="flex gap-2" key={tech}>
-                            <p>{tech}</p>
-                            {index !== arr.length - 1 ? (
-                              <Divider
-                                className="funkyBg mx-4"
-                                orientation="vertical"
-                              />
-                            ) : null}
-                          </div>
-                        ),
-                      )}
-                    </div>
-                  </div>
-                </motion.li>
-              ))}
-            </motion.ol> */}
-
-            <div className="funkyText mt-auto flex items-center gap-4 text-lg">
-              New projects under construction
-              <span>
-                <IoWarningSharp className="text-3xl text-zinc-400" />
-              </span>
+            <div className="mt-4 flex flex-col items-center justify-center">
+              <div className="funkyText flex items-center gap-4 text-lg">
+                New projects under construction
+                <span>
+                  <IoWarningSharp className="text-3xl text-zinc-400" />
+                </span>
+              </div>
             </div>
           </div>
         ) : (

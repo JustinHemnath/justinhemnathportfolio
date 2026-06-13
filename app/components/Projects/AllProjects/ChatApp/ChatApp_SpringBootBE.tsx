@@ -24,6 +24,7 @@ import {
 } from "~/utils/chatApp.utils";
 import { Tooltip, Avatar } from "@heroui/react";
 import { Client } from "@stomp/stompjs";
+import ChatAppEmail from "./ChatAppEmail";
 
 const ChatApp_SpringBootBE = ({
   setIsLoggedIn,
@@ -77,9 +78,7 @@ const ChatApp_SpringBootBE = ({
       },
     });
 
-    // stompClient.activate();
     clientRef.current = stompClient;
-    // stompClient.activate();
     clientRef.current.activate();
     const scrollToBottomTimeout = chatBottomScroller();
 
@@ -87,51 +86,6 @@ const ChatApp_SpringBootBE = ({
       stompClient.deactivate();
     };
   }, [userDetails]);
-
-  //   useEffect(() => {
-  //     const socketInstance: any = io(import.meta.env.VITE_ENDPOINT, {
-  //       query: {
-  //         email: userDetails.email,
-  //       },
-  //     });
-  //     setSocket(socketInstance);
-
-  //     socketInstance.on("connect", () => {
-  //       console.log(`Socket connected: ${socketInstance.connected}`);
-  //     });
-
-  //     const scrollToBottomTimeout = chatBottomScroller();
-
-  //     return () => {
-  //       clearTimeout(scrollToBottomTimeout);
-  //       if (socketInstance) {
-  //         socketInstance.disconnect();
-  //         setSocket(null);
-  //       }
-  //     };
-  //   }, []);
-
-  //   useEffect(() => {
-  //     if (socket) {
-  //       // console.log("TRIGGERED");
-  //       socket.on(CHAT_APP_EVENTS.TO_CLIENT, (receivedMessage: TMessage) =>
-  //         receivedMessageHandler({
-  //           receivedMessage,
-  //           conversations,
-  //           setConversations,
-  //         }),
-  //       );
-
-  //       return () =>
-  //         socket.off(CHAT_APP_EVENTS.TO_CLIENT, (receivedMessage: TMessage) =>
-  //           receivedMessageHandler({
-  //             receivedMessage,
-  //             conversations,
-  //             setConversations,
-  //           }),
-  //         );
-  //     }
-  //   }, [socket, conversations]);
 
   return (
     <div className="flex h-full w-full flex-col overflow-hidden rounded-xl">
@@ -168,24 +122,27 @@ const ChatApp_SpringBootBE = ({
                         {currentConversation.otherPersonName}
                       </p>
                       {import.meta.env.VITE_ENVIRONMENT === ENVIRONMENT.DEV ? (
-                        <p className="text-sm text-zinc-500 2xl:text-lg">
-                          {currentConversation.otherPersonEmail}
-                        </p>
+                        // <p className="text-sm text-zinc-500 2xl:text-lg">
+                        //   {currentConversation.otherPersonEmail}
+                        // </p>
+                        <ChatAppEmail
+                          email={currentConversation.otherPersonEmail}
+                        />
                       ) : null}
                     </div>
                   </div>
                 )}
               </div>
-              {/* <NewUserSelect
+              <NewUserSelect
                 {...{
                   allUsers,
                   conversations,
                   setConversations,
                   setCurrentConversation,
                   userDetails,
-                  socket,
+                  clientRef,
                 }}
-              /> */}
+              />
             </div>
 
             <div className="absolute right-0 flex items-center gap-3 rounded-l-full bg-white px-3 py-0.5">
@@ -195,9 +152,7 @@ const ChatApp_SpringBootBE = ({
                   <p className="text-base font-semibold 2xl:text-lg">
                     {userDetails.userName}
                   </p>
-                  <p className="text-sm text-zinc-500 2xl:text-base">
-                    {userDetails.email}
-                  </p>
+                  <ChatAppEmail email={userDetails?.email} />
                 </div>
               </div>
 
