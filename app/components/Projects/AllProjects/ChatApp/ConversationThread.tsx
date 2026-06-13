@@ -1,6 +1,7 @@
 import type { TUserDetails } from "~/stores/chatapp.store";
 import moment from "moment";
 import { motion } from "framer-motion";
+import { STYLE } from "~/constants/main.constants";
 
 const ConversationThread = ({
   userDetails,
@@ -15,8 +16,11 @@ const ConversationThread = ({
 
   return (
     <div
-      className="relative flex h-full w-full flex-[80%] flex-col gap-2 overflow-auto p-2 pb-10 2xl:flex-[85%]"
+      className="relative flex h-[95%] w-full flex-col gap-2 overflow-auto px-2 py-4"
       id="conversationThread"
+      style={{
+        paddingBottom: STYLE.INPUT_HEIGHT,
+      }}
     >
       {userDetails && currentConversation ? (
         currentConversation.messages.map((message: any) => {
@@ -66,13 +70,6 @@ const ConversationThread = ({
           </p>
         </div>
       )}
-
-      <div
-        className="invisible mt-auto text-white"
-        id="conversationThreadBottomDiv"
-      >
-        T
-      </div>
     </div>
   );
 };

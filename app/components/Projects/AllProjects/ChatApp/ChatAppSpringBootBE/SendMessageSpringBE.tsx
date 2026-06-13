@@ -3,11 +3,13 @@ import { useCallback, useState, type SyntheticEvent } from "react";
 import {
   CHAT_APP_EVENTS,
   CHAT_APP_SPRING_BE_EVENTS,
+  STYLE,
 } from "~/constants/main.constants";
 import { v4 as uuidv4 } from "uuid";
 import moment from "moment";
 import type { TConversation, TMessage } from "~/stores/chatapp.store";
 import { chatBottomScroller } from "~/utils/chatApp.utils";
+import { twMerge } from "tailwind-merge";
 
 const SendMessageSpringBE = ({
   userDetails,
@@ -94,7 +96,8 @@ const SendMessageSpringBE = ({
   return (
     <form
       onSubmit={handleSendMessage}
-      className="flex flex-[20%] items-center gap-2 2xl:flex-[15%]"
+      // className="absolute bottom-5 flex w-full items-center gap-2"
+      className="flex h-[5%] w-full items-center gap-2 overflow-auto"
     >
       <input
         type="text"
@@ -102,11 +105,11 @@ const SendMessageSpringBE = ({
         value={message}
         id="sendMessageinput"
         placeholder="Enter message..."
-        className="w-full rounded-lg bg-white px-1 py-4 text-base text-black 2xl:text-xl"
+        className="w-full rounded-lg bg-white px-1 py-1 text-base text-black 2xl:text-xl"
       />
 
       <Button
-        className="bg-white text-base text-[funkyText] 2xl:text-xl"
+        className="bg-emerald-600 text-base font-semibold text-white 2xl:text-xl"
         type="submit"
       >
         Send

@@ -55,27 +55,27 @@ export function receivedMessageHandler({
 
   setConversations(newConversations);
 
-  // if (
-  //   currentConversation &&
-  //   receivedMessage.sender == currentConversation.otherPersonEmail
-  // ) {
   setCurrentConversation((prevCurrentConvo: TConversation) => {
     prevCurrentConvo.messages.push(receivedMessage);
     prevCurrentConvo.lastMessage = receivedMessage;
     return prevCurrentConvo;
   });
-  // }
   chatBottomScroller();
 }
 
 export function chatBottomScroller() {
   const scrollToBottomTimeout = setTimeout(function () {
-    const bottomDiv = document.getElementById("conversationThreadBottomDiv")!;
-    if (bottomDiv) {
-      bottomDiv.scrollIntoView({
-        behavior: "smooth",
-        block: "end",
-      });
+    // const bottomDiv = document.getElementById("conversationThreadBottomDiv")!;
+    // if (bottomDiv) {
+    //   bottomDiv.scrollIntoView({
+    //     behavior: "smooth",
+    //     block: "end",
+    //   });
+    // }
+    const container = document.getElementById("conversationThread");
+
+    if (container) {
+      container.scrollTop = container.scrollHeight;
     }
   }, 200);
 

@@ -1,6 +1,7 @@
 import { create } from "zustand";
 import { getLocalStorageItem } from "~/utils/signin.utils";
 import { io } from "socket.io-client";
+import { chatBottomScroller } from "~/utils/chatApp.utils";
 
 export const USER_ACCESS_TOKEN_KEY = "chatAppAccessToken";
 
@@ -46,7 +47,7 @@ type TChatApp = {
   conversations: TConversation[];
   setConversations: (payload: TConversation[]) => void;
 
-  receivedMessageHandler: (receivedMessage: TMessage) => void;
+  socketReceivedMessageHandler: (receivedMessage: TMessage) => void;
 };
 
 export const useChatAppStore = create<TChatApp>((set) => ({
@@ -70,7 +71,50 @@ export const useChatAppStore = create<TChatApp>((set) => ({
   conversations: [],
   setConversations: (payload: any[]) => set({ conversations: payload }),
 
-  receivedMessageHandler: (receivedMessage: TMessage) => {},
+  socketReceivedMessageHandler: (receivedMessage: TMessage) =>
+    set((state) => {
+      let conversations = state.conversations;
+
+      const targetConvoIndex = conversations.findIndex(
+        (convo: any) => convo.otherPersonEmail === receivedMessage.sender,
+      );
+      let newConversations: TConversation[] = [...conversations];
+
+      if (targetConvoIndex === -1) {
+        const newConversationItem = {
+          otherPersonEmail: receivedMessage.sender,
+          otherPersonName: receivedMessage.sender_name,
+          messages: [receivedMessage],
+          lastMessage: receivedMessage,
+        };
+        newConversations.push(newConversationItem);
+      } else {
+        let targetConvo: TConversation = newConversations[targetConvoIndex];
+        const messageAlreadyInserted = targetConvo.messages.find(
+          (message: TMessage) => message.id === receivedMessage.id,
+        );
+
+        if (!messageAlreadyInserted) {
+          targetConvo.messages.push(receivedMessage);
+          targetConvo = {
+            ...targetConvo,
+            lastMessage: receivedMessage,
+          };
+          newConversations.splice(targetConvoIndex, 1, targetConvo);
+        }
+      }
+
+      newConversations.sort((a, b) => {
+        const aDate: any = new Date(a.lastMessage.sent_at);
+        const bDate: any = new Date(b.lastMessage.sent_at);
+        return bDate - aDate;
+      });
+      // chatBottomScroller();
+
+      return {
+        conversations: newConversations,
+      };
+    }),
 }));
 
 export const useSocketStore = create<any>((set) => ({

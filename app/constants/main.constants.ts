@@ -24,3 +24,7 @@ export const CHAT_APP_SPRING_BE_EVENTS = {
   POST_MESSAGE: "/socket/postMessage",
   LISTEN_MESSAGE: "/user/queue/listenMessage",
 };
+
+export const STYLE = {
+  INPUT_HEIGHT: "2rem",
+};

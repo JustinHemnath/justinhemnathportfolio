@@ -37,6 +37,7 @@ const ChatApp_SpringBootBE = ({
   setConversations,
   currentConversation,
   setCurrentConversation,
+  socketReceivedMessageHandler,
 }: any) => {
   const clientRef = useRef<any>(null);
 
@@ -62,14 +63,8 @@ const ChatApp_SpringBootBE = ({
           (response: any) => {
             console.log(JSON.parse(response.body));
             const receivedMessage = JSON.parse(response.body);
-
-            // receivedMessageHandler({
-            //   receivedMessage,
-            //   conversations,
-            //   setConversations,
-            //   currentConversation,
-            //   setCurrentConversation,
-            // });
+            socketReceivedMessageHandler(receivedMessage);
+            chatBottomScroller();
           },
         );
       },
@@ -84,34 +79,14 @@ const ChatApp_SpringBootBE = ({
 
     // stompClient.activate();
     clientRef.current = stompClient;
-    stompClient.activate();
+    // stompClient.activate();
+    clientRef.current.activate();
     const scrollToBottomTimeout = chatBottomScroller();
 
     return () => {
       stompClient.deactivate();
     };
   }, [userDetails]);
-
-  console.log({ currentConversation, conversations });
-
-  // useEffect(() => {
-  //   if (clientRef?.current?.connected) {
-  //     clientRef?.current?.subscribe(
-  //       CHAT_APP_SPRING_BE_EVENTS.LISTEN_MESSAGE,
-  //       (response: any) => {
-  //         console.log(JSON.parse(response.body));
-  //         const receivedMessage = JSON.parse(response.body);
-
-  //         receivedMessageHandler({
-  //           receivedMessage,
-  //           conversations,
-  //           setConversations,
-  //           setCurrentConversation,
-  //         });
-  //       },
-  //     );
-  //   }
-  // }, [conversations, clientRef?.current?.connected]);
 
   //   useEffect(() => {
   //     const socketInstance: any = io(import.meta.env.VITE_ENDPOINT, {
@@ -170,9 +145,9 @@ const ChatApp_SpringBootBE = ({
           />
         </div>
       ) : isValidationSuccess ? (
-        <div className="h-full">
+        <div className="flex h-full flex-col">
           {/* header */}
-          <div className="funkyBg relative flex flex-[5%] items-center justify-center overflow-hidden">
+          <div className="funkyBg relative flex h-[8%] items-center justify-center overflow-hidden">
             <div
               className="absolute left-4 flex cursor-pointer items-center gap-3"
               onClick={() => setIndexSectionActive(true)}
@@ -181,7 +156,7 @@ const ChatApp_SpringBootBE = ({
               <p className="text-xl font-bold">Back</p>
             </div>
 
-            <div className="flex w-[60%] items-center justify-center gap-2 2xl:w-[30%]">
+            <div className="my-2 flex w-[60%] items-center justify-center gap-2 2xl:w-[30%]">
               <div className="flex flex-col items-center justify-center text-2xl">
                 {!currentConversation ? (
                   <p className="font-extrabold">Chat App</p>
@@ -238,7 +213,7 @@ const ChatApp_SpringBootBE = ({
           </div>
 
           {/* chat section */}
-          <div className="flex h-full flex-[95%]">
+          <div className="flex h-[92%]">
             <AllChatsSidebar
               {...{
                 userDetails,
@@ -247,7 +222,7 @@ const ChatApp_SpringBootBE = ({
               }}
             />
 
-            <div className="flex h-full w-full flex-col pb-6">
+            <div className="relative flex h-full w-full flex-col">
               <ConversationThread
                 {...{ userDetails, conversations, currentConversation }}
               />

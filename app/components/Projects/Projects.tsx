@@ -81,7 +81,7 @@ const Projects = ({ setPageInView }: { setPageInView: any }) => {
             <div className="my-3 flex flex-col items-center gap-6">
               {ProjectNames.map((project: any) => (
                 <motion.div
-                  className="relative flex w-[40vw] cursor-pointer flex-col rounded-3xl bg-gradient-to-r from-cyan-600 via-cyan-300 to-cyan-600 px-16 py-10"
+                  className="relative flex w-[45em] cursor-pointer flex-col rounded-3xl bg-gradient-to-r from-cyan-600 via-cyan-300 to-cyan-600 px-4 py-4"
                   // key={project.id}
                   onClick={() => {
                     setActiveProject({
@@ -93,7 +93,6 @@ const Projects = ({ setPageInView }: { setPageInView: any }) => {
                   variants={listVariants}
                   whileHover={{
                     scale: 1.1,
-                    borderRadius: "40%",
                   }}
                   initial={{
                     opacity: 0,
@@ -105,17 +104,13 @@ const Projects = ({ setPageInView }: { setPageInView: any }) => {
                   }}
                   transition={{
                     opacity: {
-                      delay: 0.5,
+                      delay: 0.2,
                       bounce: 0.3,
                       type: "spring",
                     },
                     y: {
-                      delay: 0.5,
+                      delay: 0.2,
                       bounce: 0.3,
-                      type: "spring",
-                    },
-                    borderRadius: {
-                      ease: "easeIn",
                       type: "spring",
                     },
                   }}

@@ -25,6 +25,7 @@ const FullStackChatApp = ({ setIndexSectionActive }: any) => {
     setConversations,
     allUsers,
     conversations,
+    socketReceivedMessageHandler,
   } = useChatAppStore((state) => state);
 
   const [isLoggedIn, setIsLoggedIn] = useState(userDetails ? true : false);
@@ -112,6 +113,7 @@ const FullStackChatApp = ({ setIndexSectionActive }: any) => {
             setConversations,
             currentConversation,
             setCurrentConversation,
+            socketReceivedMessageHandler,
           }}
         />
       )}
@@ -126,7 +128,7 @@ const SignInPage = ({ googleSignIn, setIndexSectionActive }: any) => {
     <div className="">
       {/* back button */}
       <div
-        className="absolute top-0 left-0 flex cursor-pointer items-center gap-4 rounded-lg bg-white p-2 text-black"
+        className="absolute top-5 left-5 flex cursor-pointer items-center gap-4 rounded-3xl bg-white p-2 px-4 text-black"
         onClick={() => setIndexSectionActive(true)}
       >
         <FaLongArrowAltLeft className="text-2xl" />
@@ -135,17 +137,26 @@ const SignInPage = ({ googleSignIn, setIndexSectionActive }: any) => {
 
       {/* sign in component */}
       <div className="flex flex-col rounded-xl px-24 py-20">
-        <p className="funkyText text-[2.5rem] font-bold">Login required:</p>
+        <p className="funkyText text-[2.5rem] font-bold">Login required</p>
         <motion.div
-          className="mt-24 flex flex-col items-center"
+          className="mt-10 flex cursor-pointer flex-col items-center rounded-3xl bg-gradient-to-r from-blue-600 via-blue-300 to-blue-600 p-4"
+          style={{
+            boxShadow: "0 0 13px 1px lightgray",
+          }}
           whileHover={{
-            scale: 1.3,
+            scale: 1.1,
           }}
         >
-          <GrGoogle
-            className="cursor-pointer text-[5rem] text-white transition-all duration-300"
-            onClick={googleSignIn}
-          />
+          <div className="flex items-center justify-between gap-2">
+            <p className="text-lg">Login using google account</p>
+
+            <div className="rounded-full bg-zinc-300 p-3">
+              <GrGoogle
+                className="cursor-pointer text-4xl text-blue-700 transition-all duration-300"
+                onClick={googleSignIn}
+              />
+            </div>
+          </div>
         </motion.div>
       </div>
     </div>
