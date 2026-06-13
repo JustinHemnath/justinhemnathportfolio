@@ -51,7 +51,7 @@ const SkillGraph = ({ skillGraphContainerRef, isInView }: any) => {
 
   useEffect(() => {
     if (!skillGraphRef.current || !skillGraphContainerRef || !data) return;
-    const width = skillGraphContainerRef.current.clientWidth - 160;
+    const width = skillGraphContainerRef.current.clientWidth - 120;
     const height = width;
     const rectWidth = 150;
     const rectHeight = 50;
@@ -148,7 +148,7 @@ const SkillGraph = ({ skillGraphContainerRef, isInView }: any) => {
 
   return (
     // <div className="h-[10em] w-[10em] sm:h-[50rem] sm:w-[50rem]">
-    // <div className="h-[50rem] w-[50rem]">
+    // <div className="h-[40rem] w-[50rem]">
     <div className="h-full w-full">
       <svg ref={skillGraphRef} className="h-full w-full" />
     </div>

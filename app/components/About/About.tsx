@@ -15,6 +15,7 @@ import {
 } from "@heroui/react";
 import Contact from "../Contact/Contact";
 import image from "~/components/Projects/AllProjects/ChatApp/image_1.jpg";
+import SkillProgress from "./SkillProgress";
 
 const About = ({
   setPageInView,
@@ -76,7 +77,7 @@ const About = ({
 
   return (
     <div className="flex h-full flex-col" ref={ref} id={sectionName}>
-      <div className="flex h-full flex-col justify-between lg:flex-row">
+      <div className="flex h-full flex-col lg:flex-row">
         <div className="flex h-full w-full flex-col justify-between gap-3 px-24 py-4 lg:w-[50%]">
           <MainTitle
             text={mainTitle}
@@ -85,12 +86,8 @@ const About = ({
             {...{ isInView }}
           />
 
-          <div className="flex gap-4">
-            <Avatar
-              src={image}
-              size="lg"
-              className="mx-auto h-[15em] w-[15em]"
-            />
+          <div className="flex justify-around gap-10">
+            <Avatar src={image} size="lg" className="h-[15em] w-[15em]" />
             <Contact />
           </div>
 
@@ -101,16 +98,18 @@ const About = ({
               className="bg-gradient-to-r from-indigo-700 via-indigo-500 to-indigo-700 text-lg font-medium text-white"
               onPress={onOpen}
             >
-              View resume
+              View technical experience and resume
             </Button>
           </div>
         </div>
 
-        <div
-          className="hidden h-full w-[50%] items-center justify-center p-3 text-5xl text-white lg:flex"
-          ref={skillGraphContainerRef}
-        >
-          <SkillGraph {...{ skillGraphContainerRef, isInView }} />
+        <div className="h-full w-[50%]">
+          <div
+            className="hidden flex-col justify-between p-1 text-5xl text-white lg:flex"
+            ref={skillGraphContainerRef}
+          >
+            <SkillGraph {...{ skillGraphContainerRef, isInView }} />
+          </div>
         </div>
       </div>
 
@@ -118,29 +117,35 @@ const About = ({
         isOpen={isOpen}
         onOpenChange={onOpenChange}
         size="5xl"
-        className=""
+        className="max-w-[90vw]"
       >
         <ModalContent>
           {(onClose) => (
             <>
               <ModalHeader className="text-3xl underline">Resume</ModalHeader>
-              <ModalBody className="overflow-auto">
-                <table>
-                  <tbody className="text-xl">
-                    {ADDITIONAL_INFO.map((info: any) => (
-                      <tr className="py-3">
-                        {/* <div className="flex text-2xl"> */}
-                        <td className="pr-4 pb-10 font-semibold">
-                          {info.title}:{" "}
-                        </td>
-                        <td className="pb-10 text-zinc-600">
-                          {info.description}
-                        </td>
-                        {/* </div> */}
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
+              <ModalBody className="">
+                <div className="flex justify-between gap-10 overflow-auto">
+                  <table className="flex-[50%]">
+                    <tbody className="text-xl">
+                      {ADDITIONAL_INFO.map((info: any) => (
+                        <tr className="py-3">
+                          {/* <div className="flex text-2xl"> */}
+                          <td className="pr-4 pb-10 font-semibold">
+                            {info.title}:{" "}
+                          </td>
+                          <td className="pb-10 text-zinc-600">
+                            {info.description}
+                          </td>
+                          {/* </div> */}
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+
+                  <div className="flex-[50%]">
+                    <SkillProgress {...{ experienceYears }} />
+                  </div>
+                </div>
               </ModalBody>
               <ModalFooter>
                 <Button color="danger" variant="light" onPress={onClose}>

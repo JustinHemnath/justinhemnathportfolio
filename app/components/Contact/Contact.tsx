@@ -40,7 +40,7 @@ const Contact = () => {
             target="_blank"
             className="flex items-center gap-4"
             whileHover={{
-              scale: 1.1,
+              scale: 1.05,
             }}
           >
             <motion.div
