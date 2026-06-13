@@ -2,17 +2,24 @@ import { useState } from "react";
 import { SECTIONS } from "~/constants/main.constants";
 import { motion } from "framer-motion";
 
-const Sidebar = ({ sidebarWidth, pageInView, setPageInView }: any) => {
+const Sidebar = ({
+  sidebarWidth,
+  pageInView,
+  setPageInView,
+  CURRENT_SECTIONS,
+}: any) => {
   const [sectionStringsArr] = useState(
-    Object.values(SECTIONS).map((section: string) =>
+    CURRENT_SECTIONS.map((section: any) =>
       // section.split("").reverse(),
-      section.split("")
-    )
+      section.name.split(""),
+    ),
   );
 
   function onSidebarClick(sectionName: SECTIONS) {
     setPageInView(sectionName);
-    document.getElementById(sectionName)?.scrollIntoView({ behavior: "smooth" });
+    document
+      .getElementById(sectionName)
+      ?.scrollIntoView({ behavior: "smooth" });
   }
 
   return (
@@ -27,7 +34,7 @@ const Sidebar = ({ sidebarWidth, pageInView, setPageInView }: any) => {
       }}
     >
       <div className="flex h-full w-full flex-col items-stretch justify-between py-24 text-white">
-        {sectionStringsArr.map((sectionArr: string[]) => {
+        {sectionStringsArr.map((sectionArr: any) => {
           const sectionName = sectionArr.join("") as SECTIONS;
 
           return (

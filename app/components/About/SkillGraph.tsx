@@ -1,6 +1,7 @@
 import * as d3 from "d3";
 import data from "./data.json";
 import { useEffect, useRef } from "react";
+import { d3skills } from "./d3skills";
 
 const SkillGraph = ({ skillGraphContainerRef, isInView }: any) => {
   const skillGraphRef = useRef<SVGSVGElement>(null);
@@ -35,7 +36,7 @@ const SkillGraph = ({ skillGraphContainerRef, isInView }: any) => {
   // so that re-evaluating this cell produces the same result.
   const links: any = data.links.map((d) => ({ ...d }));
   const nodes: any = data.nodes.map((d) => ({ ...d }));
-  const skills: any = data.skills.map((d) => ({ ...d }));
+  const skills: any = d3skills.map((d) => ({ ...d }));
 
   // Create a simulation with several forces.
   const simulation = d3
@@ -52,7 +53,7 @@ const SkillGraph = ({ skillGraphContainerRef, isInView }: any) => {
     if (!skillGraphRef.current || !skillGraphContainerRef || !data) return;
     const width = skillGraphContainerRef.current.clientWidth - 160;
     const height = width;
-    const rectWidth = 190;
+    const rectWidth = 150;
     const rectHeight = 50;
 
     // Clear previous chart
@@ -107,41 +108,48 @@ const SkillGraph = ({ skillGraphContainerRef, isInView }: any) => {
 
     const rect = rectGroup
       .append("rect")
-      .attr("width", (d) => d.multiplier * rectWidth)
-      .attr("height", (d) => d.multiplier * rectHeight)
-      .attr("fill", "white")
+      .attr("width", (d) => d.wMultiplier * rectWidth)
+      .attr("height", (d) => d.hMultiplier * rectHeight)
+      .attr("fill", (d) => d.fill)
       .attr("stroke", "black")
-      .attr("rx", 8);
+      .attr("rx", 38);
 
     rectGroup
       .append("text")
       .attr("x", (d) => {
-        return 85;
+        return 30;
       })
       .attr("y", (d) => {
         return 25;
       })
-      .attr("text-anchor", "middle")
+      .attr("text-anchor", "right")
       .attr("alignment-baseline", "middle")
       .text((d) => d.name)
-      .style("font-size", 23)
-      .style("font-weight", 800)
-      .style("fill", "black");
+      .style("font-size", 20)
+      .style("font-weight", "500")
+      .style("fill", "white")
+      .call(
+        d3
+          .drag()
+          .on("start", dragstarted)
+          .on("drag", dragged)
+          .on("end", dragended),
+      );
 
     simulation.on("tick", () => {
-      link
-        .attr("x1", (d) => d.source.x)
-        .attr("y1", (d) => d.source.y)
-        .attr("x2", (d) => d.target.x)
-        .attr("y2", (d) => d.target.y);
+      link.attr("x1", (d) => d.source.x).attr("y1", (d) => d.source.y);
+      // .attr("x2", (d) => d.target.x);
+      // .attr("y2", (d) => d.target.y);
 
       node.attr("cx", (d) => d.x).attr("cy", (d) => d.y);
-      rectGroup.attr("transform", (d) => `translate(${d.x - 50}, ${d.y})`);
+      rectGroup.attr("transform", (d) => `translate(${d.x}, ${d.y})`);
     });
-  }, [data, isInView]);
+  }, [data, isInView, d3skills]);
 
   return (
-    <div className="h-[50rem] w-[50rem]">
+    // <div className="h-[10em] w-[10em] sm:h-[50rem] sm:w-[50rem]">
+    // <div className="h-[50rem] w-[50rem]">
+    <div className="h-full w-full">
       <svg ref={skillGraphRef} className="h-full w-full" />
     </div>
   );

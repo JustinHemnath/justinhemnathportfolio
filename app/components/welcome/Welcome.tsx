@@ -24,25 +24,28 @@ const Welcome = () => {
     return dayjs().diff("2022-09-01", "year", true).toPrecision(2);
   }, []);
 
+  const CURRENT_SECTIONS = [
+    {
+      name: SECTIONS.ABOUT,
+      component: <About {...{ setPageInView, experienceYears }} />,
+    },
+    {
+      name: SECTIONS.PROJECTS,
+      component: <Projects {...{ setPageInView }} />,
+    },
+    // {
+    //   name: SECTIONS.CONTACT,
+    //   component: <Contact {...{ setPageInView }} />,
+    // },
+  ];
+
   return (
     <div>
-      <Sidebar {...{ sidebarWidth, pageInView, setPageInView }} />
+      <Sidebar
+        {...{ sidebarWidth, pageInView, setPageInView, CURRENT_SECTIONS }}
+      />
 
-      {/* main pages  */}
-      {[
-        {
-          name: SECTIONS.ABOUT,
-          component: <About {...{ setPageInView, experienceYears }} />,
-        },
-        {
-          name: SECTIONS.PROJECTS,
-          component: <Projects {...{ setPageInView }} />,
-        },
-        {
-          name: SECTIONS.CONTACT,
-          component: <Contact {...{ setPageInView }} />,
-        },
-      ].map((elementObj: any) => (
+      {CURRENT_SECTIONS.map((elementObj: any) => (
         <PageWrapper {...{ sidebarWidth }} key={elementObj.name}>
           {elementObj.component}
         </PageWrapper>
