@@ -52,7 +52,7 @@ const ChatApp_SpringBootBE = ({
 
   useEffect(() => {
     const stompClient = new Client({
-      brokerURL: `ws://${import.meta.env.VITE_SOCKET_ENDPOINT}/chatAppSocket`,
+      brokerURL: `${import.meta.env.VITE_SOCKET_ENDPOINT}/chatAppSocket`,
       connectHeaders: {
         email: userDetails?.email,
       },
