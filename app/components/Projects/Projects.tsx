@@ -86,7 +86,7 @@ const Projects = ({ setPageInView }: { setPageInView: any }) => {
             <div className="my-3 flex flex-col items-center gap-6">
               {ProjectNames.map((project: any) => (
                 <motion.div
-                  className="relative flex w-[25em] cursor-pointer flex-col rounded-3xl bg-gradient-to-r from-cyan-600 via-cyan-300 to-cyan-600 px-4 py-4 sm:w-[55em] sm:px-2"
+                  className="relative flex w-[25em] cursor-pointer flex-col rounded-3xl bg-gradient-to-r from-sky-600 via-sky-400 to-sky-600 px-4 py-4 sm:w-[55em] sm:px-2"
                   // key={project.id}
                   onClick={() => {
                     setActiveProject({
@@ -121,7 +121,8 @@ const Projects = ({ setPageInView }: { setPageInView: any }) => {
                   }}
                   key={`${sectionName}${isInView}`}
                 >
-                  <p className="funkyText text-shadow-xl/20 text-center text-2xl font-black sm:text-4xl">
+                  {/* <p className="funkyText text-shadow-xl/20 text-center text-2xl font-black sm:text-4xl"> */}
+                  <p className="text-shadow-xl/20 text-center text-2xl font-black sm:text-4xl">
                     {project.name}
                   </p>
                   <p className="mt-4 text-center">{project.desc}</p>

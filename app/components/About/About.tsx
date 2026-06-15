@@ -16,6 +16,9 @@ import {
 import Contact from "../Contact/Contact";
 import image from "~/components/Projects/AllProjects/ChatApp/image_1.jpg";
 import SkillProgress from "./SkillProgress";
+import { IoMdArrowDroprightCircle } from "react-icons/io";
+import { motion } from "motion/react";
+import TechnicalExperience from "./TechnicalExperience";
 
 const About = ({
   setPageInView,
@@ -34,43 +37,6 @@ const About = ({
   const ref = useRef(null);
   const isInView = useInView(ref);
 
-  const ADDITIONAL_INFO = [
-    {
-      title: "Email",
-      description: "justin.hemnath.96@gmail.com",
-    },
-    {
-      title: "Date of birth",
-      description: "30 - 11 - 1996",
-    },
-    {
-      title: "Skills",
-      description:
-        "Javascript, Java, ReactJS, NodeJS, Spring Boot, Python, MSSQL, Postgresql, MongoDB,  TailwindCSS,",
-    },
-    {
-      title: "Years of experience",
-      description: `${experienceYears} yrs`,
-    },
-    {
-      title: "Location",
-      description: "Mandaveli, Chennai",
-    },
-    {
-      title: "Languages known",
-      description: "English, tamil, telugu",
-    },
-    {
-      title: "Qualification",
-      description:
-        "B.E Electrical and Electronics Engineering, MNM Jain Engineering College, 2018",
-    },
-    {
-      title: "Year of graduation",
-      description: "2018",
-    },
-  ];
-
   useEffect(() => {
     if (isInView) setPageInView(sectionName);
   }, [isInView]);
@@ -78,84 +44,62 @@ const About = ({
   return (
     <div className="flex h-full flex-col" ref={ref} id={sectionName}>
       <div className="flex h-full flex-col lg:flex-row">
-        <div className="flex h-full w-full flex-col justify-between gap-3 px-24 py-4 lg:w-[50%]">
-          <MainTitle
-            text={mainTitle}
-            shouldAnimate={true}
-            delayFactor={1}
-            {...{ isInView }}
-          />
+        <div className="flex h-full w-full flex-col justify-evenly gap-3 px-4 py-4 lg:w-[50%] lg:justify-evenly xl:px-24">
+          <div className="lg:h-[30%]">
+            <MainTitle
+              text={mainTitle}
+              shouldAnimate={true}
+              delayFactor={1}
+              {...{ isInView }}
+            />
+          </div>
 
-          <div className="flex justify-around gap-10">
-            <Avatar src={image} size="lg" className="h-[15em] w-[15em]" />
+          <div className="flex flex-col items-center justify-around gap-10 lg:h-[40%] lg:flex-row">
+            <Avatar
+              src={image}
+              size="lg"
+              className="h-[10em] w-[10em] lg:h-[15em] lg:w-[15em]"
+            />
             <Contact />
           </div>
 
-          <div className="flex items-center justify-center">
-            <Button
-              color="secondary"
-              variant="solid"
-              className="bg-gradient-to-r from-indigo-700 via-indigo-500 to-indigo-700 text-lg font-medium text-white"
-              onPress={onOpen}
+          <div className="flex items-center justify-center lg:h-[10%]">
+            <motion.div
+              className="flex cursor-pointer items-center justify-between gap-2 rounded-full border border-indigo-700 bg-transparent bg-gradient-to-r from-indigo-700 via-indigo-500 to-indigo-700 px-4 py-6 text-lg font-bold text-white lg:gap-4 lg:rounded-4xl lg:px-10 lg:py-10 lg:text-2xl"
+              onClick={() => onOpen()}
+              whileHover={{
+                scale: 1.1,
+              }}
+              whileTap={{
+                scale: 0.9,
+              }}
+              transition={{
+                scale: {
+                  duration: 0.3,
+                },
+              }}
             >
-              View technical experience and resume
-            </Button>
+              <p>Reveal technical experience and resume</p>
+              <IoMdArrowDroprightCircle className="text-4xl" />
+            </motion.div>
           </div>
         </div>
 
-        <div className="h-full w-[50%]">
-          <div
-            className="hidden flex-col justify-between p-1 text-5xl text-white lg:flex"
-            ref={skillGraphContainerRef}
-          >
-            <SkillGraph {...{ skillGraphContainerRef, isInView }} />
-          </div>
+        <div
+          className="hidden h-full w-[50%] flex-col justify-between p-1 text-5xl text-white lg:flex"
+          ref={skillGraphContainerRef}
+        >
+          <SkillGraph {...{ skillGraphContainerRef, isInView }} />
         </div>
       </div>
 
-      <Modal
-        isOpen={isOpen}
-        onOpenChange={onOpenChange}
-        size="5xl"
-        className="max-w-[90vw]"
-      >
-        <ModalContent>
-          {(onClose) => (
-            <>
-              <ModalHeader className="text-3xl underline">Resume</ModalHeader>
-              <ModalBody className="">
-                <div className="flex justify-between gap-10 overflow-auto">
-                  <table className="flex-[50%]">
-                    <tbody className="text-xl">
-                      {ADDITIONAL_INFO.map((info: any) => (
-                        <tr className="py-3">
-                          {/* <div className="flex text-2xl"> */}
-                          <td className="pr-4 pb-10 font-semibold">
-                            {info.title}:{" "}
-                          </td>
-                          <td className="pb-10 text-zinc-600">
-                            {info.description}
-                          </td>
-                          {/* </div> */}
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-
-                  <div className="flex-[50%]">
-                    <SkillProgress {...{ experienceYears }} />
-                  </div>
-                </div>
-              </ModalBody>
-              <ModalFooter>
-                <Button color="danger" variant="light" onPress={onClose}>
-                  Close
-                </Button>
-              </ModalFooter>
-            </>
-          )}
-        </ModalContent>
-      </Modal>
+      <TechnicalExperience
+        {...{
+          isOpen,
+          onOpenChange,
+          experienceYears,
+        }}
+      />
     </div>
   );
 };

@@ -15,7 +15,7 @@ const Contact = () => {
       section: (
         <>
           <FaLinkedin className="funkyBg rounded-lg text-[3rem]" />
-          <p className="text-slate-500"> Hemnath Balasubramanian</p>
+          <p className="text-slate-300"> Hemnath Balasubramanian</p>
         </>
       ),
     },
@@ -24,7 +24,7 @@ const Contact = () => {
       section: (
         <>
           <FaGithub className="funkyBg rounded-lg text-[3rem]" />
-          <p className="text-slate-500"> Justin Hemnath</p>
+          <p className="text-slate-300"> Justin Hemnath</p>
         </>
       ),
     },
@@ -32,7 +32,7 @@ const Contact = () => {
 
   return (
     <div className="flex items-center justify-center" ref={ref}>
-      <div className="flex flex-col items-start gap-10 text-3xl font-medium">
+      <div className="flex flex-col items-start gap-10 text-2xl font-medium lg:text-3xl">
         {CONTACT_SECTIONS.map((section: any) => (
           <motion.a
             key={section.link}

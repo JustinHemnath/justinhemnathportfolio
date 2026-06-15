@@ -49,8 +49,8 @@ export const d3skills = [
     y: 10,
   },
   {
-    name: "Spring boot",
-    wMultiplier: 1.3,
+    name: "Spring 3 Framework",
+    wMultiplier: 1.5,
     hMultiplier: 1,
     fill: "#03a629",
     x: -70,

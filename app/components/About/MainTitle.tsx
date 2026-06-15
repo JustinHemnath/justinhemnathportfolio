@@ -69,7 +69,8 @@ const MainTitle = ({
       <motion.div className="flex gap-1 py-10">
         <p
           className={
-            "funkyText text-justify text-[2rem] font-bold text-wrap lg:text-[2.5rem]"
+            // "funkyText text-start text-[1.7rem] font-bold text-wrap lg:text-start xl:text-[2.5rem]"
+            "funkyText text-start text-[1.7rem] font-extrabold text-wrap lg:text-start xl:text-[2.5rem]"
           }
         >
           {feederString}
