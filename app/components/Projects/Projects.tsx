@@ -122,9 +122,9 @@ const Projects = ({ setPageInView }: { setPageInView: any }) => {
                   </p>
                   <p className="mt-4 text-center">{project.desc}</p>
 
-                  <div className="flex p-3">
-                    <div className="mt-2 ml-6 flex flex-[80%] flex-col flex-wrap items-start justify-center">
-                      <div className="w-[85%] rounded-l rounded-r-4xl bg-gray-300/40 py-2 shadow-lg">
+                  <div className="flex flex-col gap-0 p-3 sm:flex-row sm:gap-2">
+                    <div className="mt-2 flex flex-[80%] flex-col flex-wrap items-start justify-center sm:ml-6">
+                      <div className="w-full rounded-l rounded-r-4xl bg-gray-300/40 py-2 shadow-lg sm:w-[85%]">
                         {Object.entries(project.techStack).map(
                           (stackMap: any) => {
                             return (
