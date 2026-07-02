@@ -5,7 +5,7 @@ export enum SECTIONS {
 }
 
 export enum PROJECTS {
-  CHAT_APP = "Chat App",
+  CHAT_APP = "Chat app",
 }
 
 export const CHAT_APP_EVENTS = {

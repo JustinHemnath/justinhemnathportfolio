@@ -4,9 +4,10 @@ import { PROJECTS, SECTIONS } from "~/constants/main.constants";
 import { motion } from "framer-motion";
 import ProjectsSection from "./ProjectsSection";
 import FullStackChatApp from "./AllProjects/ChatApp/index.chatapp.project";
-import { Spinner, Divider, Chip } from "@heroui/react";
+import { Spinner, Divider, Chip, Button } from "@heroui/react";
 import { MdOutlineConstruction } from "react-icons/md";
 import { IoWarningSharp } from "react-icons/io5";
+import { FaGithub, FaLongArrowAltLeft } from "react-icons/fa";
 
 type TActiveProject = {
   name: PROJECTS;
@@ -30,14 +31,20 @@ const Projects = ({ setPageInView }: { setPageInView: any }) => {
       desc: `${PROJECTS.CHAT_APP} with firebase login and real time messaging using websockets`,
       component: <FullStackChatApp {...{ setIndexSectionActive }} />,
       techStack: {
-        Frontend: ["Javascript", "ReactJs", "Stompjs", "TailwindCSS"],
-        Backend: [
-          "Java",
-          "Springboot",
-          "Spring data JPA",
-          "Stomp over websockets",
-        ],
-        Database: ["Postgresql", "Firebase"],
+        Frontend: {
+          stack: ["Javascript", "ReactJs", "Stompjs", "TailwindCSS"],
+          link: "https://github.com/JustinHemnath/justinhemnathportfolio/blob/master/app/components/Projects/AllProjects/ChatApp/index.chatapp.project.tsx",
+        },
+        Backend: {
+          stack: [
+            "Java",
+            "Springboot",
+            "Spring data JPA",
+            "Stomp over websockets",
+          ],
+          link: "https://github.com/JustinHemnath/portfolio_spring_be",
+        },
+        Database: { stack: ["Postgresql", "Firebase"] },
       },
     },
   ];
@@ -86,19 +93,8 @@ const Projects = ({ setPageInView }: { setPageInView: any }) => {
             <div className="my-3 flex flex-col items-center gap-6">
               {ProjectNames.map((project: any) => (
                 <motion.div
-                  className="relative flex w-[25em] cursor-pointer flex-col rounded-3xl bg-gradient-to-r from-sky-600 via-sky-400 to-sky-600 px-4 py-4 sm:w-[55em] sm:px-2"
-                  // key={project.id}
-                  onClick={() => {
-                    setActiveProject({
-                      name: project.activeProjectName,
-                      component: project.component,
-                    });
-                    setIndexSectionActive(false);
-                  }}
+                  className="relative flex w-[25em] flex-col rounded-r-3xl bg-gradient-to-r from-green-500/40 via-gray-300 to-green-500/40 px-4 py-4 sm:w-[55em] sm:px-4"
                   variants={listVariants}
-                  whileHover={{
-                    scale: 1.1,
-                  }}
                   initial={{
                     opacity: 0,
                     y: -100,
@@ -121,37 +117,96 @@ const Projects = ({ setPageInView }: { setPageInView: any }) => {
                   }}
                   key={`${sectionName}${isInView}`}
                 >
-                  {/* <p className="funkyText text-shadow-xl/20 text-center text-2xl font-black sm:text-4xl"> */}
-                  <p className="text-shadow-xl/20 text-center text-2xl font-black sm:text-4xl">
+                  <p className="text-shadow-xl/20 text-center text-2xl font-bold text-green-900 sm:text-3xl">
                     {project.name}
                   </p>
                   <p className="mt-4 text-center">{project.desc}</p>
 
-                  <div className="mt-6 flex flex-col flex-wrap items-center gap-6 sm:gap-2">
-                    {Object.entries(project.techStack).map((stackMap: any) => {
-                      return (
-                        <div
-                          className="flex w-[80%] items-center gap-4"
-                          key={stackMap[0]}
-                        >
-                          <p className="mr-auto flex-[15%] font-medium sm:font-semibold">
-                            {stackMap[0]}
-                          </p>
-
-                          <div className="flex w-full flex-[85%] flex-wrap justify-start gap-2">
-                            {stackMap[1].map((stack: string) => (
-                              <Chip
-                                className="bg-gray-200 text-sm text-black shadow"
-                                key={stack}
+                  <div className="flex p-3">
+                    <div className="mt-2 ml-6 flex flex-[80%] flex-col flex-wrap items-start justify-center">
+                      <div className="w-[85%] rounded-l rounded-r-4xl bg-gray-300/40 py-2 shadow-lg">
+                        {Object.entries(project.techStack).map(
+                          (stackMap: any) => {
+                            return (
+                              <div
+                                className="flex gap-2 px-4 py-2"
+                                key={stackMap[0]}
                               >
-                                <p className="font-medium">{stack}</p>
-                              </Chip>
-                            ))}
-                          </div>
-                        </div>
-                      );
-                    })}
+                                <div className="flex flex-[90%] items-center gap-4">
+                                  <p className="mr-auto flex-[15%] font-medium sm:font-semibold">
+                                    {stackMap[0]}
+                                  </p>
+
+                                  <div className="flex w-full flex-[85%] flex-wrap justify-start gap-2">
+                                    {stackMap[1].stack.map((stack: string) => (
+                                      <Chip
+                                        size="sm"
+                                        className="bg-gray-200 px-0.5! text-sm text-wrap text-black shadow"
+                                        key={stack}
+                                      >
+                                        <p className="text-sm font-normal tracking-widest">
+                                          {stack}
+                                        </p>
+                                      </Chip>
+                                    ))}
+                                  </div>
+                                </div>
+
+                                {stackMap[1].link ? (
+                                  <>
+                                    <div className="flex flex-[5%]">
+                                      <Divider
+                                        orientation="vertical"
+                                        className="my-auto h-[75%] px-[1px]"
+                                      />
+                                    </div>
+
+                                    <div
+                                      className="flex flex-[5%] items-center"
+                                      id="code_link_container"
+                                    >
+                                      <motion.a
+                                        href={stackMap[1].link}
+                                        target="_blank"
+                                        whileHover={{
+                                          scale: 1.1,
+                                        }}
+                                        className="flex w-full cursor-pointer items-center justify-center rounded-lg bg-violet-800 p-1"
+                                      >
+                                        <FaGithub className="text-2xl text-white" />
+                                      </motion.a>
+                                    </div>
+                                  </>
+                                ) : null}
+                              </div>
+                            );
+                          },
+                        )}
+                      </div>
+                    </div>
+
+                    <div className="mx-1 flex flex-[10%] items-center">
+                      <Divider orientation="vertical" className="" />
+                    </div>
+
+                    <div className="flex flex-[20%] cursor-pointer items-center justify-center gap-4 rounded-l rounded-r-xl p-2 text-green-700">
+                      <div
+                        className="flex items-center gap-2 rounded-4xl bg-white p-4 shadow-2xl"
+                        onClick={() => {
+                          setActiveProject({
+                            name: project.activeProjectName,
+                            component: project.component,
+                          });
+                          setIndexSectionActive(false);
+                        }}
+                      >
+                        <p>Launch</p>
+                        <FaLongArrowAltLeft className="rotate-180 text-xl text-green-900" />
+                      </div>
+                    </div>
                   </div>
+
+                  <div className="absolute top-0 -left-1 h-full rounded-l-lg bg-green-600 px-0.5"></div>
                 </motion.div>
               ))}
             </div>
