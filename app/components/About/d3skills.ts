@@ -41,7 +41,7 @@ export const d3skills = [
   },
 
   {
-    name: "Java 17",
+    name: "Python",
     wMultiplier: 1,
     hMultiplier: 1,
     fill: "#03a629",
@@ -49,8 +49,8 @@ export const d3skills = [
     y: 10,
   },
   {
-    name: "Spring 3 Framework",
-    wMultiplier: 1.5,
+    name: "FastAPI",
+    wMultiplier: 1.1,
     hMultiplier: 1,
     fill: "#03a629",
     x: -70,
@@ -66,13 +66,21 @@ export const d3skills = [
     y: 10,
   },
   {
-    name: "Python",
+    name: "Java 17",
     wMultiplier: 1,
     hMultiplier: 1,
     fill: "#03a629",
     x: 27,
     y: 5,
   },
+  // {
+  //   name: "Springboot",
+  //   wMultiplier: 1,
+  //   hMultiplier: 1,
+  //   fill: "#03a629",
+  //   x: 27,
+  //   y: 6,
+  // },
   {
     name: "MSSQL",
     wMultiplier: 1,

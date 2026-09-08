@@ -43,7 +43,7 @@ const TechnicalExperience = ({
     {
       title: "Skills",
       description:
-        "Typescript, Java, ReactJS, NodeJS, Spring 3 framework, Python, MSSQL, Postgresql, MongoDB,  TailwindCSS,",
+        "Python, FastAPI, Typescript, ReactJS, NodeJS, Java, Spring 3 framework, MSSQL, Postgresql, MongoDB, TailwindCSS,",
     },
     {
       title: "Years of experience",

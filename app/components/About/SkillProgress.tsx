@@ -5,6 +5,14 @@ const SkillProgress = ({ experienceYears }: { experienceYears: string }) => {
     {
       skills: [
         {
+          name: "Python",
+          value: experienceYears,
+        },
+        {
+          name: "FastAPI",
+          value: "3",
+        },
+        {
           name: "Typescript",
           value: experienceYears,
         },
@@ -24,11 +32,6 @@ const SkillProgress = ({ experienceYears }: { experienceYears: string }) => {
           name: "HTML",
           value: experienceYears,
         },
-        {
-          name: "Python",
-          value: "2",
-        },
-
         {
           name: "MS SQL DB",
           value: experienceYears,
@@ -51,8 +54,11 @@ const SkillProgress = ({ experienceYears }: { experienceYears: string }) => {
         },
       ],
       achievements: [
-        "Single handedly developed the frontend and co-maintained the backend of a complex CRUD operation dashboard used by a team, using ReactJs, python serverless backend, Azure MSSQL server DB.",
-        "Developed and maintained various dashboards and static sites utilizing ReactJS, NodeJs and python.",
+        "One of the main frontend developers of www.dmk.in, a website for the DMK party – ReactJs , NextJS",
+        "Developed a voter counting dashboard for the 2024 lok sabha elections - ReactJs, FastAPI , Python Socketio, LeaftletJS",
+        "Developed the frontend and backend of a complex CRUD operation dashboard used by a 15+ member survey teamfor 3 years, which collected the sentimental analysis and performance of the DMK party - ReactJs, FastAPI, Azure serverless functions, Azure MSSQL DB",
+        "Co-developed and maintained a dashboard which was used by a survey team to collect census data of the people of Tamilnadu for cross verification and correction with regards to the existing available national census. Provided partial backend support – ReactJs, Zustand, ExpressJS , MongoDB.",
+        "Worked on various internal websites and dashboard, independently",
       ],
     },
     {
@@ -87,11 +93,11 @@ const SkillProgress = ({ experienceYears }: { experienceYears: string }) => {
         Technical experience:
       </p>
 
-      <div className="flex h-full flex-col gap-4 overflow-auto text-sm lg:text-base">
+      <div className="flex h-full flex-col gap-1 overflow-auto text-sm lg:text-base">
         {progressSections.map((progressSection: any) => (
-          <div className="rounded-xl bg-zinc-700/30 p-2 backdrop-blur-lg lg:px-4 lg:py-3">
+          <div className="rounded-xl bg-zinc-700/30 p-1 backdrop-blur-lg lg:px-2 lg:py-2">
             {progressSection.skills.map((skill: any) => (
-              <div className="m-1 flex items-center justify-between gap-5 lg:m-2 lg:gap-2">
+              <div className="m-1 flex items-center justify-between gap-3 lg:m-0.5 lg:gap-1">
                 <p className="flex-[20%] lg:flex-[15%]">{skill.name}</p>
                 <Progress
                   className="flex-[40%] lg:flex-[75%]"
@@ -108,7 +114,7 @@ const SkillProgress = ({ experienceYears }: { experienceYears: string }) => {
                 </p>
               </div>
             ))}
-            <div className="mt-4 flex flex-col gap-3 leading-5 lg:mt-10 lg:gap-1 lg:leading-5">
+            <div className="mt-1 flex flex-col gap-3 leading-5 lg:mt-7 lg:gap-1 lg:leading-5">
               {progressSection.achievements.map((achiev: any) => (
                 <div className="flex items-center gap-2">
                   <div className="h-1 w-1 rounded-lg bg-zinc-300 p-0.5"></div>
