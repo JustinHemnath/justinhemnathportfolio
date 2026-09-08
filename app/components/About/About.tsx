@@ -29,7 +29,7 @@ const About = ({
 }) => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
-  const mainTitle = `Hello! I'm Hemnath Balasubramanian. A full stack web developer from Chennai, Tamilnadu, IN, with ${experienceYears} years of experience in the web development field.`;
+  const mainTitle = `Hello! I'm Hemnath Balasubramanian. A Python and ReactJs based full stack web developer from Chennai, Tamilnadu, IN, with ${experienceYears} years of experience in the web development field.`;
   const bottomTitle = `A full stack web developer with ${experienceYears} years of experience with ReactJs on the frontend and NodeJs and Python on the backend.`;
   const sectionName = SECTIONS.ABOUT;
   const skillGraphContainerRef = useRef(null);

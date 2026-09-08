@@ -20,9 +20,10 @@ const Welcome = () => {
   const [pageInView, setPageInView] = useState(SECTIONS.ABOUT);
   const app = initializeApp(firebaseConfig);
 
-  const experienceYears = useMemo(() => {
-    return dayjs().diff("2022-09-01", "year", true).toPrecision(2);
-  }, []);
+  const experienceYears = useMemo(() => "3.8", []);
+  // const experienceYears = useMemo(() => {
+  //   return dayjs().diff("2022-09-01", "year", true).toPrecision(2);
+  // }, []);
 
   const CURRENT_SECTIONS = [
     {
